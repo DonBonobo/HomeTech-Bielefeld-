@@ -10,5 +10,13 @@ Run locally:
 
 ```bash
 cd /root/HomeTech-Bielefeld-next
-npm run dev
+npm run dev:local
+```
+
+Run local production:
+
+```bash
+cd /root/HomeTech-Bielefeld-next
+npm run build
+npm run start:local
 ```
