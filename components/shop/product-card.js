@@ -6,7 +6,8 @@ import { formatCurrency } from "@/lib/commerce";
 import { useCart } from "@/components/providers/cart-provider";
 
 export function ProductCard({ product }) {
-  const { addItem } = useCart();
+  const { addItem, progress } = useCart();
+  const nextStep = progress.unlocked ? "Set-Rabatt aktiv" : `${Math.max(1, progress.itemsNeeded)} von 4 zum Rabatt hinzufuegen`;
 
   return (
     <article className="product-card">
@@ -28,6 +29,7 @@ export function ProductCard({ product }) {
         <span>Set-Rabatt faehig</span>
         <span>Produkt ansehen</span>
       </div>
+      <div className="product-progress-hint">{nextStep}</div>
       <button type="button" className="primary-action" onClick={() => addItem(product.id)}>
         In den Warenkorb
       </button>
