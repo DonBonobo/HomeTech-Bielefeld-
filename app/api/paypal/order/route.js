@@ -8,9 +8,10 @@ export async function POST(request) {
     if (!user) {
       return NextResponse.json({ error: "auth-required" }, { status: 401 });
     }
-    const { totalCents } = await request.json();
-    const order = await createPayPalOrder(totalCents);
-    return NextResponse.json({ id: order.id });
+    const { totalCents, returnUrl, cancelUrl } = await request.json();
+    const order = await createPayPalOrder(totalCents, { returnUrl, cancelUrl });
+    const approveUrl = order.links?.find((entry) => entry.rel === "payer-action")?.href || null;
+    return NextResponse.json({ id: order.id, approveUrl });
   } catch (error) {
     return NextResponse.json({ error: error.message || "paypal-order-failed" }, { status: 500 });
   }

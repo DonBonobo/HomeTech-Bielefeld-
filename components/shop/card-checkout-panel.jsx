@@ -33,7 +33,7 @@ export function CardCheckoutPanel({ disabled }) {
   return (
     <div className="payment-card payment-card--card">
       <strong>Kredit- oder Debitkarte</strong>
-      <p>Separater Kartenbereich mit deutscher Eingabe und Autofill-Unterstützung.</p>
+      <p>Eigener Kartenbereich mit deutscher Eingabe und Autofill-Unterstützung.</p>
       <div className="card-fields">
         <input className="admin-input" type="text" inputMode="text" placeholder="Name auf der Karte" autoComplete="cc-name" disabled={!enabled || disabled} />
         <input className="admin-input" type="text" inputMode="numeric" placeholder="Kartennummer" autoComplete="cc-number" disabled={!enabled || disabled} />

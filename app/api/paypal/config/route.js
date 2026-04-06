@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { getPayPalEnvironment } from "@/lib/paypal";
 
 export async function GET() {
   const clientId = process.env.PAYPAL_CLIENT_ID || "";
@@ -7,7 +8,8 @@ export async function GET() {
   return NextResponse.json({
     enabled: Boolean(clientId),
     ordersEnabled: Boolean(clientId && secret),
-    clientId,
+    environment: getPayPalEnvironment(),
+    flow: "redirect",
     currency: "EUR",
     intent: "capture",
   });

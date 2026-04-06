@@ -237,67 +237,63 @@ export function AccountPageClient() {
   if (user && !isRecoveryMode) {
     return (
       <div className="page-stack">
-        <section className="section-block section-block--soft">
-          <div className="section-header">
+        <section className="section-block section-block--soft account-shell">
+          <div className="account-identity">
             <div>
               <p className="overline">Mein Konto</p>
               <h1>Letzte Bestellungen</h1>
               <p>{profile?.full_name || user.email}</p>
             </div>
-            <div className="account-top-actions">
-              {isAdmin ? <Link href="/admin" className="secondary-link">Admin</Link> : null}
-              <button type="button" className="secondary-link" onClick={() => signOut()}>
-                Abmelden
-              </button>
-            </div>
+            <div className="account-status-pill">{role === "admin" ? "Admin" : "Aktiv"}</div>
           </div>
-        </section>
 
-        <section className="section-block">
-          <div className="section-header">
-            <div>
-              <p className="overline">Bestellungen</p>
-              <h2>Aktueller Stand</h2>
-            </div>
-          </div>
           <div className="account-order-list">
             {!ordersReady ? (
-              <article className="promo-card account-order-card">
-                <strong>Bestellungen werden geladen</strong>
+              <article className="account-order-card account-order-card--muted">
+                <div>
+                  <strong>Bestellungen werden geladen</strong>
+                </div>
               </article>
             ) : orders.length ? (
               orders.map((order) => (
-                <article key={order.id} className="promo-card account-order-card">
-                  <strong>Bestellung {order.id.slice(0, 8).toUpperCase()}</strong>
-                  <span>{formatOrderStatus(order.status)}</span>
-                  <span>{formatCurrency(order.total_cents || 0)}</span>
+                <article key={order.id} className="account-order-card">
+                  <div className="account-order-copy">
+                    <strong>Bestellung {order.id.slice(0, 8).toUpperCase()}</strong>
+                    <span>{new Date(order.created_at).toLocaleDateString("de-DE")}</span>
+                  </div>
+                  <div className="account-order-meta">
+                    <span className="account-order-badge">{formatOrderStatus(order.status)}</span>
+                    <strong>{formatCurrency(order.total_cents || 0)}</strong>
+                  </div>
                 </article>
               ))
             ) : (
-              <article className="promo-card account-order-card">
-                <strong>Noch keine Bestellungen</strong>
-                <span>Deine Einkäufe erscheinen hier.</span>
+              <article className="account-order-card account-order-card--empty">
+                <div>
+                  <strong>Noch keine Bestellungen</strong>
+                  <span>Deine letzten Einkäufe erscheinen hier.</span>
+                </div>
               </article>
             )}
           </div>
         </section>
 
-        <section className="section-block">
-          <div className="section-header">
-            <div>
-              <p className="overline">Kontakt</p>
-              <h2>Dein Konto</h2>
-            </div>
+        <section className="section-block account-shell">
+          <div className="account-detail-grid">
+            <article className="account-detail-card">
+              <span>Kontakt</span>
+              <strong>{user.email}</strong>
+            </article>
+            <article className="account-detail-card">
+              <span>Adresse</span>
+              <strong>{profile?.address_line_1 || "Noch nicht hinterlegt"}</strong>
+            </article>
           </div>
-          <div className="account-overview-grid">
-            <article className="promo-card">
-              <strong>E-Mail</strong>
-              <p>{user.email}</p>
-            </article>
-            <article className="promo-card">
-              <strong>Status</strong>
-              <p>{role === "admin" ? "Administrator" : "Konto aktiv"}</p>
-            </article>
+          <div className="account-top-actions account-top-actions--stacked">
+            {isAdmin ? <Link href="/admin" className="secondary-link">Admin</Link> : null}
+            <button type="button" className="secondary-link" onClick={() => signOut()}>
+              Abmelden
+            </button>
           </div>
         </section>
       </div>
@@ -307,13 +303,13 @@ export function AccountPageClient() {
   return (
     <div className="page-stack">
       <section className="section-block section-block--soft">
-        <div className="section-header">
-          <div>
-            <p className="overline">Mein Konto</p>
-            <h1>{title}</h1>
-            <p>Danach landest du wieder genau dort, wo du vorher warst.</p>
+          <div className="section-header">
+            <div>
+              <p className="overline">Mein Konto</p>
+              <h1>{title}</h1>
+              <p>Du kehrst danach direkt an deinen letzten Schritt zurück.</p>
+            </div>
           </div>
-        </div>
 
         <div className="account-panel">
           {!isRecoveryMode ? (

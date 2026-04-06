@@ -143,7 +143,7 @@ describe("AccountPage", () => {
     expect(screen.getByRole("link", { name: "Admin" })).toBeInTheDocument();
   });
 
-  it("shows orders first for signed-in users", () => {
+  it("shows orders first for signed-in users", async () => {
     authState.user = { id: "user-1", email: "test@example.com" };
     params = "next=%2Fkonto";
     authState.supabase = {
@@ -163,6 +163,21 @@ describe("AccountPage", () => {
 
     render(<AccountPageClient />);
     expect(screen.getByText("Letzte Bestellungen")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText("Offen")).toBeInTheDocument();
+    });
+  });
+
+  it("shows an elegant empty orders state", async () => {
+    authState.user = { id: "user-1", email: "test@example.com" };
+    params = "next=%2Fkonto";
+
+    render(<AccountPageClient />);
+
+    await waitFor(() => {
+      expect(screen.getByText("Noch keine Bestellungen")).toBeInTheDocument();
+      expect(screen.getByText("Deine letzten Einkäufe erscheinen hier.")).toBeInTheDocument();
+    });
   });
 
   it("redirects signed-in users back to the interrupted path", () => {

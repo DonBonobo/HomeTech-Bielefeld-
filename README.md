@@ -38,8 +38,9 @@ STRIPE_SECRET_KEY=
 ```
 
 PayPal notes:
-- `PAYPAL_CLIENT_ID` is read server-side and exposed to the checkout only through `/api/paypal/config` so the PayPal SDK can load.
-- `PAYPAL_CLIENT_SECRET` stays server-side only and is now used only in the server routes that create and capture PayPal orders.
+- `PAYPAL_CLIENT_ID` and `PAYPAL_CLIENT_SECRET` stay server-side and are used for the server routes that create and capture PayPal orders.
+- `PAYPAL_ENV` controls whether the redirect checkout talks to `sandbox` or `live`.
+- Checkout uses a redirect-based PayPal approval flow and returns to `/checkout` for capture.
 - Payment method remains PayPal only.
 
 Supabase notes:
