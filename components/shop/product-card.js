@@ -27,7 +27,7 @@ export function ProductCard({ product }) {
       </div>
       <div className="chip-row">
         <span>Set-Rabatt faehig</span>
-        <span>Produkt ansehen</span>
+        <span>{product.compatibility[0]}</span>
       </div>
       <div className="product-progress-hint">{nextStep}</div>
       <button type="button" className="primary-action" onClick={() => addItem(product.id)}>

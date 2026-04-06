@@ -18,11 +18,28 @@ export default async function ProductPage({ params }) {
 
   return (
     <div className="page-stack">
-      <section className="pdp-layout">
-        <div className="media-card">
-          <Image src={product.gallery[0]} alt={product.title} width={720} height={720} />
+      <section className="pdp-hero">
+        <div className="pdp-breadcrumbs">
+          <Link href="/">Startseite</Link>
+          <span>/</span>
+          <Link href={`/kategorie/${product.categorySlug}`}>{product.category}</Link>
+          <span>/</span>
+          <span>{product.title}</span>
         </div>
-        <div className="buy-card">
+      </section>
+      <section className="pdp-layout pdp-layout--refined">
+        <div className="media-card media-card--stage">
+          <div className="media-stage-glow" />
+          <Image src={product.gallery[0]} alt={product.title} width={720} height={720} />
+          <div className="pdp-thumb-row">
+            {product.gallery.slice(0, 3).map((image) => (
+              <div key={image} className="pdp-thumb">
+                <Image src={image} alt="" width={120} height={120} />
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="buy-card buy-card--refined">
           <p className="overline">{product.category}</p>
           <h1>{product.title}</h1>
           <strong className="big-price">{formatCurrency(product.priceCents)}</strong>
@@ -31,6 +48,10 @@ export default async function ProductPage({ params }) {
             <span>{product.stockLabel}</span>
           </div>
           <p>{product.description}</p>
+          <div className="set-inline-card">
+            <span>Noch 3 Produkte bis zum Set-Rabatt</span>
+            <strong>34,99 €</strong>
+          </div>
           <div className="trust-list">
             <span>PayPal zum Launch</span>
             <span>Versand in ganz Europa</span>
@@ -43,25 +64,33 @@ export default async function ProductPage({ params }) {
         </div>
       </section>
       <SetProgress compact ctaHref="/checkout" ctaLabel="Set im Warenkorb pruefen" />
-      <section className="section-block">
+      <section className="section-block section-block--soft">
         <div className="section-header">
           <div>
-            <p className="overline">Kompatibilitaet</p>
+            <p className="overline">Produktdetails</p>
             <h2>Schnell scanbar statt versteckt</h2>
+            <p>Klare Kompatibilitaet, planbare Lieferung und ein ruhiger Weg zur passenden Kombination.</p>
           </div>
         </div>
-        <div className="chip-row">
-          {product.compatibility.map((item) => <span key={item}>{item}</span>)}
+        <div className="pdp-details-grid">
+          <ul className="detail-bullets">
+            <li>Fuer Hue Bridge, Matter und gaengige Smart-Home-Setups</li>
+            <li>Schnelle Einrichtung und klare Alltagstauglichkeit</li>
+            <li>Versand in ganz Europa</li>
+          </ul>
+          <div className="chip-row">
+            {product.compatibility.map((item) => <span key={item}>{item}</span>)}
+          </div>
         </div>
       </section>
-      <section className="section-block">
+      <section className="section-block section-block--tight">
         <div className="section-header">
           <div>
             <p className="overline">Passend dazu</p>
             <h2>Ein Produkt mehr bringt dich naeher zum Set</h2>
           </div>
         </div>
-        <div className="product-grid">
+        <div className="product-rail">
           {related.map((item) => <ProductCard key={item.id} product={item} />)}
         </div>
       </section>

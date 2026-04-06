@@ -32,15 +32,15 @@ export function Header() {
           </span>
           <span className="brand-wordmark">
             <Image
-              src="/assets/brand/logo-home-tech.png"
+              src="/assets/brand/logo-home-tech-horizontal-dark.png"
               alt="HomeTech Bielefeld"
-              width={320}
-              height={90}
+              width={520}
+              height={146}
               className="brand-wordmark-image"
             />
             <span className="brand-mobile-copy">
               <strong>HomeTech Bielefeld</strong>
-              <small>Smarter Homes? Das gibt&apos;s doch nicht!</small>
+              <small>Smarte Technik fuer dein Zuhause.</small>
             </span>
           </span>
         </Link>
@@ -52,6 +52,9 @@ export function Header() {
           ))}
         </nav>
         <div className="header-actions">
+          <Link href="/" className="search-chip">
+            Suchen
+          </Link>
           <Link href="/checkout" className="cart-button">
             <span>Warenkorb</span>
             {cartItems.length ? <span className="header-count">{cartItems.length}</span> : null}
