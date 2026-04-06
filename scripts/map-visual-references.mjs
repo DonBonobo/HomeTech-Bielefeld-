@@ -1,4 +1,4 @@
-import { readdirSync, writeFileSync } from "node:fs";
+import { copyFileSync, mkdirSync, readdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
 const projectRoot = process.cwd();
@@ -29,6 +29,15 @@ const payload = {
     "Nutze die Wireframes als Zielstruktur, nicht als Pixel-Match.",
   ],
 };
+
+const referenceDir = path.join(artifactsRoot, "reference", "current-state");
+mkdirSync(referenceDir, { recursive: true });
+for (const file of payload.currentState.files.slice(-3)) {
+  copyFileSync(
+    path.join(payload.currentState.root, file),
+    path.join(referenceDir, file)
+  );
+}
 
 writeFileSync(
   path.join(artifactsRoot, "comparison-manifest.json"),

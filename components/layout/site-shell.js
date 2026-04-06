@@ -7,7 +7,7 @@ export function SiteShell({ children }) {
   return (
     <>
       <Header />
-      <main className="page-shell">{children}</main>
+      <main className="page-shell" data-testid="page-shell">{children}</main>
       <SiteFooter />
     </>
   );

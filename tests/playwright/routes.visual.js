@@ -33,6 +33,7 @@ const mobileCases = [
   { name: "checkout-auth", route: "/checkout", selector: "[data-testid='paypal-panel']", cart: cartSeed, auth: previewUser },
   { name: "konto-guest", route: "/konto", selector: "text=Mit E-Mail anmelden" },
   { name: "konto-auth", route: "/konto", selector: "text=Letzte Bestellungen", auth: previewUser, orders: previewOrders },
+  { name: "konto-auth-sanitized", route: "/konto%E2%81%A0%EF%BF%BD", selector: "[data-testid='site-header']", expectPathname: "/konto" },
   { name: "impressum", route: "/impressum", selector: "text=HomeTech Bielefeld" },
   { name: "kontakt", route: "/kontakt", selector: "text=Bitte zuerst anmelden" },
   { name: "feedback", route: "/feedback", selector: "text=Rückmeldung senden" },
@@ -81,7 +82,15 @@ async function captureCase(page, bucket, viewport, entry) {
   await page.setViewportSize(viewport);
   await seedPreview(page, entry);
   await page.goto(entry.route, { waitUntil: "networkidle" });
+  if (entry.expectPathname) {
+    await expect(page).toHaveURL(new RegExp(`${entry.expectPathname.replace("/", "\\/")}(\\?|$)`));
+  }
   await expect(page.locator(entry.selector).first()).toBeVisible();
+  await expect(page.getByTestId("site-header")).toBeVisible();
+  await expect(page.getByTestId("page-shell")).toBeVisible();
+  await expect(page.getByTestId("site-footer")).toBeVisible();
+  await expect(page.locator("text=Startseite Leuchtmittel Schalter Hubs")).toHaveCount(0);
+  await expect(page.locator("text=#/")).toHaveCount(0);
   await page.waitForTimeout(250);
 
   const outputDir = path.join(SCREENSHOT_ROOT, bucket);

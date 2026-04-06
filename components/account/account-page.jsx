@@ -246,7 +246,7 @@ export function AccountPageClient() {
   if (user && !isRecoveryMode) {
     return (
       <div className="page-stack">
-        <section className="section-block section-block--soft account-shell">
+        <section className="section-block section-block--soft account-shell" data-testid="account-shell">
           <div className="account-identity">
             <div>
               <p className="overline">Mein Konto</p>

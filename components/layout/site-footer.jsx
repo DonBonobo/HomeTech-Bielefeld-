@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export function SiteFooter() {
   return (
-    <footer className="site-footer">
+    <footer className="site-footer" data-testid="site-footer">
       <div className="site-footer-inner">
         <div className="site-footer-links">
           <Link href="/impressum">Impressum</Link>

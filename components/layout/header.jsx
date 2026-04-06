@@ -15,7 +15,7 @@ export function Header() {
   const activeCategories = categories.filter((category) => category.enabled);
 
   return (
-    <header className="site-header">
+    <header className="site-header" data-testid="site-header">
       <div className="topline">
         <span>Smarter Homes? Das gibt&apos;s doch nicht!</span>
         <span>PayPal · Versand in ganz Europa</span>
@@ -61,7 +61,7 @@ export function Header() {
           </Link>
         </div>
       </div>
-      <div className="mobile-category-row">
+      <div className="mobile-category-row" data-testid="category-row">
         {activeCategories.map((category) => (
           <Link key={category.slug} href={`/kategorie/${category.slug}`} className={pathname === `/kategorie/${category.slug}` ? "is-active" : ""}>
             {category.label}
