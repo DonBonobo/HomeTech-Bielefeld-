@@ -3,6 +3,7 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { buildAuthRedirectUrl } from "@/lib/auth";
 import { getSupabaseBrowserClient } from "@/lib/supabase-browser";
+import { getVisualPreview } from "@/lib/visual-preview";
 
 const AuthContext = createContext(null);
 const AUTH_REDIRECT_KEY = "hometech.auth.next";
@@ -67,6 +68,17 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     let mounted = true;
+    const preview = getVisualPreview();
+
+    if (preview?.auth) {
+      setSession(preview.auth.session || { access_token: "visual-preview-token" });
+      setUser(preview.auth.user || null);
+      setProfile(preview.auth.profile || null);
+      setAuthEvent("VISUAL_PREVIEW");
+      setReady(true);
+      return undefined;
+    }
+
     if (!supabase) {
       setReady(true);
       return undefined;

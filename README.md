@@ -43,6 +43,13 @@ PayPal notes:
 - Checkout uses a redirect-based PayPal approval flow and returns to `/checkout` for capture.
 - Payment method remains PayPal only.
 
+Visual checks:
+- `npm run test:visual` builds the app, runs Playwright in production mode and writes screenshots plus report to `artifacts/playwright/`.
+- screenshots: `artifacts/playwright/screenshots/mobile/` and `artifacts/playwright/screenshots/desktop/`
+- screenshot manifest: `artifacts/playwright/screenshots/manifest.json`
+- comparison helper output: `artifacts/playwright/comparison-manifest.json`
+- Playwright HTML report: `artifacts/playwright/report/index.html`
+
 Supabase notes:
 - apply [supabase/schema.sql](/root/HomeTech-Bielefeld-next/supabase/schema.sql) before expecting categories, carts, orders, or profiles to persist in Supabase
 - enable Google in Supabase Auth and paste `GOOGLE_CLIENT_ID` plus `GOOGLE_CLIENT_SECRET` there

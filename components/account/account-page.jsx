@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { sanitizeNextPath, shouldRedirectAfterAuth } from "@/lib/auth";
 import { formatCurrency } from "@/lib/commerce";
 import { useAuth } from "@/components/providers/auth-provider";
+import { getVisualPreview } from "@/lib/visual-preview";
 
 function translateAuthError(error) {
   const message = error?.message || "";
@@ -110,7 +111,15 @@ export function AccountPageClient() {
     async function loadOrders() {
       if (!ready) return;
       if (!user || !supabase) {
-        setOrders([]);
+        const preview = getVisualPreview();
+        setOrders(preview?.orders || []);
+        setOrdersReady(true);
+        return;
+      }
+
+      const preview = getVisualPreview();
+      if (preview?.orders) {
+        setOrders(preview.orders);
         setOrdersReady(true);
         return;
       }

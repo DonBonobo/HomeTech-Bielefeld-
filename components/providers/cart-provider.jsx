@@ -4,6 +4,7 @@ import { createContext, useContext, useEffect, useMemo, useRef, useState } from 
 import { hydrateCart, mergeCartEntries } from "@/lib/commerce";
 import { useAuth } from "@/components/providers/auth-provider";
 import { useStorefront } from "@/components/providers/storefront-provider";
+import { getVisualPreview } from "@/lib/visual-preview";
 
 const CartContext = createContext(null);
 const GUEST_STORAGE_KEY = "hometech.next.cart.guest.v2";
@@ -110,6 +111,14 @@ export function CartProvider({ children }) {
 
     async function loadCartState() {
       if (!authReady) {
+        return;
+      }
+
+      const preview = getVisualPreview();
+      if (preview?.cart) {
+        previousUserId.current = user?.id || null;
+        setItems(preview.cart);
+        setBooted(true);
         return;
       }
 
