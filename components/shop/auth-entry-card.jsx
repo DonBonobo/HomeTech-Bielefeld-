@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/components/providers/auth-provider";
 
-export function AuthEntryCard({ compact = false }) {
+export function AuthEntryCard({ compact = false, title = "Anmelden", text = "Bestellungen, Adressen und dein Warenkorb bleiben mit Anmeldung an einem Ort." }) {
   const pathname = usePathname();
   const { user } = useAuth();
 
@@ -15,8 +15,8 @@ export function AuthEntryCard({ compact = false }) {
   return (
     <div className={compact ? "auth-entry auth-entry--compact" : "auth-entry"}>
       <div>
-        <strong>Mit Konto fortfahren</strong>
-        <p>Bestellungen, Adressen und dein Warenkorb bleiben mit Anmeldung an einem Ort.</p>
+        <strong>{title}</strong>
+        <p>{text}</p>
       </div>
       <Link href={`/konto?next=${encodeURIComponent(pathname)}`} className="secondary-link">
         Anmelden

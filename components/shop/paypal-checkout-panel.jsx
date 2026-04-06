@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useAuth } from "@/components/providers/auth-provider";
 
 function loadPayPalSdk({ clientId, currency, intent }) {
   if (!clientId) {
@@ -31,6 +32,7 @@ function loadPayPalSdk({ clientId, currency, intent }) {
 }
 
 export function PayPalCheckoutPanel({ totalCents, disabled }) {
+  const { session } = useAuth();
   const [config, setConfig] = useState(null);
   const [status, setStatus] = useState("loading");
   const [message, setMessage] = useState("");
@@ -80,7 +82,10 @@ export function PayPalCheckoutPanel({ totalCents, disabled }) {
           createOrder: async () => {
             const response = await fetch("/api/paypal/order", {
               method: "POST",
-              headers: { "Content-Type": "application/json" },
+              headers: {
+                "Content-Type": "application/json",
+                ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}),
+              },
               body: JSON.stringify({ totalCents }),
             });
             const payload = await response.json();
@@ -92,7 +97,10 @@ export function PayPalCheckoutPanel({ totalCents, disabled }) {
           onApprove: async (data) => {
             const response = await fetch("/api/paypal/capture", {
               method: "POST",
-              headers: { "Content-Type": "application/json" },
+              headers: {
+                "Content-Type": "application/json",
+                ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}),
+              },
               body: JSON.stringify({ orderId: data.orderID }),
             });
             const details = await response.json();
@@ -120,7 +128,7 @@ export function PayPalCheckoutPanel({ totalCents, disabled }) {
         buttonRef.current.innerHTML = "";
       }
     };
-  }, [config, disabled, totalCents]);
+  }, [config, disabled, session?.access_token, totalCents]);
 
   return (
     <div className="payment-card">

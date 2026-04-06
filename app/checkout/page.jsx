@@ -11,11 +11,12 @@ import { cartSubtotal, formatCurrency } from "@/lib/commerce";
 
 export default function CheckoutPage() {
   const { cartItems, updateQuantity } = useCart();
-  const { user } = useAuth();
+  const { user, ready } = useAuth();
   const pathname = usePathname();
   const subtotal = cartSubtotal(cartItems);
   const shipping = cartItems.length ? 395 : 0;
   const total = subtotal + shipping;
+  const canPay = Boolean(user && cartItems.length);
 
   return (
     <div className="page-stack">
@@ -42,15 +43,24 @@ export default function CheckoutPage() {
         </section>
       ) : null}
 
-      {!user ? (
+      {!ready ? (
         <section className="section-block section-block--soft">
           <div className="section-header">
             <div>
               <p className="overline">Konto</p>
-              <h2>Auf Wunsch mit Konto fortfahren</h2>
-              <p>Dein Warenkorb bleibt erhalten und du landest nach der Anmeldung direkt wieder im Checkout.</p>
+              <h2>Prüfe deine Anmeldung</h2>
             </div>
-            <Link href={`/konto?next=${encodeURIComponent(pathname)}`} className="secondary-link">Anmelden</Link>
+          </div>
+        </section>
+      ) : !user ? (
+        <section className="section-block section-block--soft">
+          <div className="section-header">
+            <div>
+              <p className="overline">Konto</p>
+              <h2>Bitte melde dich vor der Bezahlung an.</h2>
+              <p>Dein Warenkorb bleibt erhalten und du kehrst direkt hierher zurück.</p>
+            </div>
+            <Link href={`/konto?next=${encodeURIComponent(pathname)}`} className="secondary-link">Jetzt anmelden</Link>
           </div>
         </section>
       ) : null}
@@ -78,9 +88,14 @@ export default function CheckoutPage() {
           <div className="summary-line"><span>Zwischensumme</span><span>{formatCurrency(subtotal)}</span></div>
           <div className="summary-line"><span>Versand</span><span>{shipping ? formatCurrency(shipping) : "-"}</span></div>
           <div className="summary-line total"><span>Gesamt</span><span>{formatCurrency(total)}</span></div>
-          <PayPalCheckoutPanel totalCents={total} disabled={!cartItems.length} />
-          <CardCheckoutPanel disabled={!cartItems.length} />
-          <AuthEntryCard compact />
+          {user ? (
+            <>
+              <PayPalCheckoutPanel totalCents={total} disabled={!canPay} />
+              <CardCheckoutPanel disabled={!canPay} />
+            </>
+          ) : (
+            <AuthEntryCard compact title="Anmeldung erforderlich" text="Zum Bezahlen bitte zuerst anmelden." />
+          )}
         </aside>
       </section>
     </div>

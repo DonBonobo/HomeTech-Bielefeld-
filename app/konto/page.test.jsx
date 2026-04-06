@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { AccountPageClient } from "@/components/account/account-page";
 
 const replace = vi.fn();
+const orderEq = vi.fn(() => ({ order: vi.fn(() => ({ limit: vi.fn(async () => ({ data: [], error: { message: "missing-table" } })) })) }));
 
 const authState = {
   user: null,
@@ -11,6 +12,13 @@ const authState = {
   isAdmin: false,
   ready: true,
   authEvent: null,
+  supabase: {
+    from: vi.fn(() => ({
+      select: vi.fn(() => ({
+        eq: orderEq,
+      })),
+    })),
+  },
   signInWithGoogle: vi.fn(async () => ({ data: {}, error: null })),
   signInWithPassword: vi.fn(async () => ({ data: {}, error: null })),
   signUpWithEmail: vi.fn(async () => ({ data: {}, error: null })),
@@ -42,6 +50,18 @@ describe("AccountPage", () => {
     authState.role = "customer";
     authState.isAdmin = false;
     authState.authEvent = null;
+    authState.ready = true;
+    authState.supabase = {
+      from: vi.fn(() => ({
+        select: vi.fn(() => ({
+          eq: vi.fn(() => ({
+            order: vi.fn(() => ({
+              limit: vi.fn(async () => ({ data: [], error: { message: "missing-table" } })),
+            })),
+          })),
+        })),
+      })),
+    };
     authState.signInWithGoogle.mockClear();
     authState.signInWithPassword.mockClear();
     authState.signUpWithEmail.mockClear();
@@ -54,6 +74,13 @@ describe("AccountPage", () => {
 
     expect(screen.getByRole("button", { name: "Mit Google fortfahren" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Mit E-Mail anmelden" })).toBeInTheDocument();
+  });
+
+  it("shows a loading state before auth hydration finishes", () => {
+    authState.ready = false;
+    render(<AccountPageClient />);
+    expect(screen.getByText("Konto wird geladen")).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Mit E-Mail anmelden" })).not.toBeInTheDocument();
   });
 
   it("starts Google sign-in with the current redirect path", async () => {
@@ -114,6 +141,28 @@ describe("AccountPage", () => {
     render(<AccountPageClient />);
 
     expect(screen.getByRole("link", { name: "Admin" })).toBeInTheDocument();
+  });
+
+  it("shows orders first for signed-in users", () => {
+    authState.user = { id: "user-1", email: "test@example.com" };
+    params = "next=%2Fkonto";
+    authState.supabase = {
+      from: vi.fn(() => ({
+        select: vi.fn(() => ({
+          eq: vi.fn(() => ({
+            order: vi.fn(() => ({
+              limit: vi.fn(async () => ({
+                data: [{ id: "12345678-abcd", status: "pending", total_cents: 2499, created_at: "2026-04-06T00:00:00.000Z" }],
+                error: null,
+              })),
+            })),
+          })),
+        })),
+      })),
+    };
+
+    render(<AccountPageClient />);
+    expect(screen.getByText("Letzte Bestellungen")).toBeInTheDocument();
   });
 
   it("redirects signed-in users back to the interrupted path", () => {

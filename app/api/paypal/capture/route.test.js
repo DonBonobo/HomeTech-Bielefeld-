@@ -8,6 +8,14 @@ vi.mock("@/lib/paypal", () => ({
   })),
 }));
 
+const { getAuthenticatedUserFromRequest } = vi.hoisted(() => ({
+  getAuthenticatedUserFromRequest: vi.fn(async () => ({ id: "user-1" })),
+}));
+
+vi.mock("@/lib/supabase-server-auth", () => ({
+  getAuthenticatedUserFromRequest,
+}));
+
 import { POST } from "@/app/api/paypal/capture/route";
 
 describe("paypal capture route", () => {
@@ -22,5 +30,19 @@ describe("paypal capture route", () => {
 
     expect(payload.status).toBe("COMPLETED");
     expect(payload.payerName).toBe("Max");
+  });
+
+  it("rejects unauthenticated capture requests", async () => {
+    getAuthenticatedUserFromRequest.mockResolvedValueOnce(null);
+    const request = new Request("http://localhost/api/paypal/capture", {
+      method: "POST",
+      body: JSON.stringify({ orderId: "ORDER-123" }),
+    });
+
+    const response = await POST(request);
+    const payload = await response.json();
+
+    expect(response.status).toBe(401);
+    expect(payload.error).toBe("auth-required");
   });
 });

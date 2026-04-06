@@ -623,11 +623,68 @@ img {
   border-radius: 0.85rem;
   background: rgba(255, 255, 255, 0.66);
   border: 1px solid var(--line-soft);
+  padding: 0;
+  cursor: pointer;
 }
 
 .pdp-thumb img {
   width: auto;
   height: 3.5rem;
+  object-fit: contain;
+}
+
+.pdp-thumb.is-active {
+  border-color: rgba(36, 76, 121, 0.28);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.gallery-stage-button {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: zoom-in;
+}
+
+.gallery-zoom-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+}
+
+.gallery-zoom-backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(18, 22, 28, 0.66);
+}
+
+.gallery-zoom-card {
+  position: relative;
+  z-index: 1;
+  width: min(92vw, 56rem);
+  padding: 1rem;
+  border-radius: 1.2rem;
+  background: rgba(255, 252, 248, 0.98);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+
+.gallery-zoom-close {
+  justify-self: end;
+  min-height: 2.3rem;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 0.8rem;
+  background: rgba(255, 255, 255, 0.88);
+}
+
+.gallery-zoom-image {
+  width: 100%;
+  height: auto;
+  max-height: 76vh;
   object-fit: contain;
 }
 
@@ -656,6 +713,13 @@ img {
 .buy-actions {
   display: grid;
   gap: 0.7rem;
+}
+
+.buy-info-list {
+  display: grid;
+  gap: 0.34rem;
+  color: var(--muted);
+  font-size: 0.9rem;
 }
 
 .pdp-details-grid {
@@ -786,6 +850,78 @@ img {
   margin-top: 0.2rem;
 }
 
+.account-panel,
+.account-order-list {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 0.95rem;
+}
+
+.account-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.account-tabs button {
+  min-height: 2.35rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--muted);
+}
+
+.account-tabs button.is-active {
+  color: var(--brand-strong);
+  border-color: rgba(36, 76, 121, 0.18);
+  background: rgba(36, 76, 121, 0.08);
+}
+
+.account-top-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.account-overview-grid {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.account-order-card {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: center;
+}
+
+.site-footer {
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--line-soft);
+  background: rgba(247, 242, 236, 0.8);
+}
+
+.site-footer-inner {
+  width: min(1120px, calc(100vw - 24px));
+  margin: 0 auto;
+  padding: 1rem 0 1.6rem;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.site-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.site-footer-inner p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
 .admin-list {
   display: grid;
   gap: 0.85rem;
@@ -910,11 +1046,6 @@ img {
     top: 6rem;
   }
 
-  .service-note .section-header {
-    grid-template-columns: 1fr auto;
-    align-items: end;
-  }
-
   .auth-entry {
     grid-template-columns: 1fr auto;
     align-items: center;
@@ -923,5 +1054,10 @@ img {
   .account-email-form {
     grid-template-columns: 1fr auto;
     align-items: end;
+  }
+
+  .account-overview-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
   }
 }

@@ -26,7 +26,7 @@ export default function CategoryPage() {
             <h1>{category?.enabled ? `${category.label} für dein Zuhause` : `${category?.label || "Diese Kategorie"} folgt später`}</h1>
             <p>
               {category?.enabled
-                ? "Eine bewusst kleine Auswahl: klare Produkte, ruhige Karten und direkte Kaufwege."
+                ? "Klare Produkte, ruhige Karten und direkte Kaufwege."
                 : "Aktuell konzentriert sich der Shop auf Philips Hue Leuchtmittel. Schalter und Hubs werden danach sauber ergänzt."}
             </p>
           </div>

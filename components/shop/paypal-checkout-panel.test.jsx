@@ -2,6 +2,10 @@ import { render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { PayPalCheckoutPanel } from "@/components/shop/paypal-checkout-panel";
 
+vi.mock("@/components/providers/auth-provider", () => ({
+  useAuth: () => ({ session: { access_token: "token-1" } }),
+}));
+
 describe("PayPalCheckoutPanel", () => {
   beforeEach(() => {
     global.fetch = vi.fn(async (url) => {

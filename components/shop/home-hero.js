@@ -8,9 +8,7 @@ export function HomeHero() {
         <div className="hero-copy">
           <p className="overline">HomeTech Bielefeld</p>
           <h1>Lass dein Zuhause smarter leuchten.</h1>
-          <p>
-            Kuratiert für dein Zuhause, mit klarer Auswahl und ruhigem Einkaufserlebnis.
-          </p>
+          <p>Originale Hue Leuchtmittel, klar ausgewählt und direkt bestellbar.</p>
           <div className="hero-actions">
             <Link href="/kategorie/leuchtmittel" className="primary-link">Jetzt einkaufen</Link>
           </div>
