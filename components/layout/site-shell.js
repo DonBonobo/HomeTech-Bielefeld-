@@ -1,11 +1,13 @@
 "use client";
 
-import Link from "next/link";
 import { Header } from "@/components/layout/header";
+import { StickyCartCta } from "@/components/layout/sticky-cart-cta";
 import { useCart } from "@/components/providers/cart-provider";
 
 export function SiteShell({ children }) {
   const { progress, cartItems } = useCart();
+  const ctaHref = cartItems.length ? "/checkout" : "/sets";
+  const ctaLabel = cartItems.length ? "Zur Kasse" : "Set sammeln";
 
   return (
     <>
@@ -16,9 +18,7 @@ export function SiteShell({ children }) {
           <strong>{progress.unlocked ? "20% Rabatt aktiv" : `${progress.itemsNeeded} Produkt${progress.itemsNeeded === 1 ? "" : "e"} bis zum Set`}</strong>
           <span>{cartItems.length} Positionen im Warenkorb</span>
         </div>
-        <Link href={cartItems.length ? "/checkout" : "/sets"} className="primary-link">
-          {cartItems.length ? "Zur Kasse" : "Set sammeln"}
-        </Link>
+        <StickyCartCta href={ctaHref} label={ctaLabel} />
       </aside>
     </>
   );

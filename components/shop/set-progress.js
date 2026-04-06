@@ -12,7 +12,7 @@ export function SetProgress({ compact = false, ctaHref = "/sets", ctaLabel = "Se
       <div>
         <p className="overline">Set-Rabatt</p>
         <h2>{progress.unlocked ? "20% Set-Rabatt aktiv" : `Noch ${progress.itemsNeeded} Produkt${progress.itemsNeeded === 1 ? "" : "e"} bis zum 20% Rabatt`}</h2>
-        <p>{progress.unlocked ? `Du sparst aktuell ${formatCurrency(progress.discountCents)} und kannst direkt weiter kombinieren.` : "1 qualifizierender Warenkorb reicht nicht. Ab 4 passenden Artikeln wird der Rabatt automatisch abgezogen."}</p>
+        <p>{progress.unlocked ? `Du sparst aktuell ${formatCurrency(progress.discountCents)} und kannst direkt weiter kombinieren.` : "Ab 4 passenden Hue-Produkten wird der Rabatt automatisch abgezogen. Mix & Match bleibt durchgehend sichtbar."}</p>
       </div>
       <div className="progress-bar"><span style={{ width: `${progress.progressPercent}%` }} /></div>
       <div className="chip-row">

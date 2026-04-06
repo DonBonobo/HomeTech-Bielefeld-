@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCart } from "@/components/providers/cart-provider";
 import { cartSubtotal, formatCurrency } from "@/lib/commerce";
 
@@ -20,6 +21,19 @@ export default function CheckoutPage() {
           </div>
         </div>
       </section>
+
+      {!cartItems.length ? (
+        <section className="section-block section-block--soft">
+          <div className="section-header">
+            <div>
+              <p className="overline">Warenkorb leer</p>
+              <h2>Lege zuerst ein Launch-Produkt in den Warenkorb.</h2>
+              <p>Starte mit White, White Ambiance, White & Color oder Filament und baue dir danach dein 4er-Set.</p>
+            </div>
+            <Link href="/kategorie/leuchtmittel" className="primary-link">Zu den Leuchtmitteln</Link>
+          </div>
+        </section>
+      ) : null}
 
       <section className="checkout-layout">
         <div className="checkout-column">
@@ -48,6 +62,9 @@ export default function CheckoutPage() {
           <div className="payment-card">
             <strong>PayPal</strong>
             <p>{progress.unlocked ? "Rabatt beruecksichtigt" : "Live-Checkout spaeter mit PAYPAL_CLIENT_ID"}</p>
+            <button type="button" className="primary-action payment-action" disabled={!cartItems.length}>
+              Mit PayPal fortfahren
+            </button>
           </div>
         </aside>
       </section>

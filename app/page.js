@@ -20,8 +20,8 @@ export default function HomePage() {
         <div className="section-header">
           <div>
             <p className="overline">Top-Produkte</p>
-            <h2>Entdecke unsere Top-Produkte</h2>
-            <p>Klare Karten, leise Signale und ein sichtbarer Set-Fortschritt fuer den naechsten Kauf.</p>
+            <h2>Die aktuelle Launch-Auswahl</h2>
+            <p>Wenige gute Produkte, klare Preise und ein sichtbarer Set-Fortschritt fuer den naechsten Schritt.</p>
           </div>
         </div>
         <div className="product-rail">
@@ -35,8 +35,8 @@ export default function HomePage() {
         <div className="section-header">
           <div>
             <p className="overline">Service</p>
-            <h2>Bestpreise, klare Lieferung, ruhiger Einkauf</h2>
-            <p>Wenn du in Deutschland einen guenstigeren Haendler findest, versuchen wir den Preis fuer dich um 10% zu unterbieten.</p>
+            <h2>Klar kuratiert fuer den Launch</h2>
+            <p>Wir starten mit einer bewusst kleinen Hue-Auswahl. So bleibt der Shop ruhig, vergleichbar und fuer Sets leichter planbar.</p>
           </div>
           <a href="/sets" className="secondary-link">Sets & Sparoptionen</a>
         </div>

@@ -15,7 +15,7 @@ export function Header() {
   const nav = [
     { href: "/", label: "Startseite" },
     { href: "/kategorie/leuchtmittel", label: "Leuchtmittel" },
-    { href: "/kategorie/schalter-fernbedienungen", label: "Smarte Schalter" },
+    { href: "/kategorie/white-ambiance", label: "White Ambiance" },
     { href: "/sets", label: "Sets" },
   ];
 

@@ -49,8 +49,8 @@ export default async function ProductPage({ params }) {
           </div>
           <p>{product.description}</p>
           <div className="set-inline-card">
-            <span>Noch 3 Produkte bis zum Set-Rabatt</span>
-            <strong>34,99 €</strong>
+            <span>20% Set-Rabatt ab 4 passenden Produkten</span>
+            <strong>Mix & Match</strong>
           </div>
           <div className="trust-list">
             <span>PayPal zum Launch</span>
