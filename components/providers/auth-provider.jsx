@@ -8,6 +8,7 @@ import { getVisualPreview } from "@/lib/visual-preview";
 const AuthContext = createContext(null);
 const AUTH_REDIRECT_KEY = "hometech.auth.next";
 const ALLOWED_ADMIN_ROLE = "admin";
+const ADMIN_EMAIL_ALLOWLIST = new Set(["hometech.bielefeld@gmail.com"]);
 
 async function upsertAndReadProfile(supabase, user) {
   if (!supabase || !user) {
@@ -41,6 +42,16 @@ async function upsertAndReadProfile(supabase, user) {
   }
 
   return { profile: readResult.data || null, supported: true };
+}
+
+function previewProfileFromUser(user) {
+  if (!user) return null;
+  return {
+    id: user.id,
+    email: user.email || null,
+    full_name: user.user_metadata?.full_name || user.user_metadata?.name || null,
+    role: user.app_metadata?.role || user.user_metadata?.role || "customer",
+  };
 }
 
 export function AuthProvider({ children }) {
@@ -109,16 +120,18 @@ export function AuthProvider({ children }) {
       setSession(nextSession || null);
       setUser(nextSession?.user || null);
       setAuthEvent(event);
+      setReady(true);
       if (!nextSession?.user) {
         setProfile(null);
-        setReady(true);
         return;
       }
 
+      const previewProfile = previewProfileFromUser(nextSession.user);
+      setProfile((current) => current || previewProfile);
+
       const result = await upsertAndReadProfile(supabase, nextSession.user);
       if (!mounted) return;
-      setProfile(result.profile || null);
-      setReady(true);
+      setProfile(result.profile || previewProfile || null);
     }
 
     supabase.auth.getSession().then(({ data }) => {
@@ -137,7 +150,8 @@ export function AuthProvider({ children }) {
   }, [supabase]);
 
   const role = profile?.role || user?.app_metadata?.role || user?.user_metadata?.role || "customer";
-  const isAdmin = role === ALLOWED_ADMIN_ROLE;
+  const email = (profile?.email || user?.email || "").toLowerCase();
+  const isAdmin = role === ALLOWED_ADMIN_ROLE || ADMIN_EMAIL_ALLOWLIST.has(email);
 
   const value = useMemo(() => ({
     supabase,

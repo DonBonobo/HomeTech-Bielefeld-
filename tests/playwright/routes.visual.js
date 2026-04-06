@@ -5,6 +5,7 @@ const { test, expect } = require("@playwright/test");
 const ARTIFACT_ROOT = path.join(process.cwd(), "artifacts", "playwright");
 const SCREENSHOT_ROOT = path.join(ARTIFACT_ROOT, "screenshots");
 const manifestEntries = [];
+const expectedOrigin = new URL(process.env.PLAYWRIGHT_BASE_URL || "http://127.0.0.1:3100").origin;
 
 const cartSeed = [
   { id: "white-ambiance-e27-1100", quantity: 1 },
@@ -52,6 +53,16 @@ const mobileCases = [
   {
     name: "konto-auth-fragment-konto",
     route: "/konto?next=%2Fcheckout&authreturn=1#access_token=test&refresh_token=test&type=signup",
+    selector: "[data-testid='paypal-panel']",
+    auth: previewUser,
+    orders: previewOrders,
+    cart: cartSeed,
+    expectPathname: "/checkout",
+    expectNoHash: true,
+  },
+  {
+    name: "konto-auth-fragment-localhost-next",
+    route: "/konto?next=http%3A%2F%2Flocalhost%3A3000%2Fcheckout&authreturn=1#access_token=test&refresh_token=test&type=signup",
     selector: "[data-testid='paypal-panel']",
     auth: previewUser,
     orders: previewOrders,
@@ -120,6 +131,7 @@ async function captureCase(page, bucket, viewport, entry) {
   if (entry.expectNoHash) {
     await expect.poll(() => new URL(page.url()).hash).toBe("");
   }
+  await expect.poll(() => new URL(page.url()).origin).toBe(expectedOrigin);
   await expect(page.locator(entry.selector).first()).toBeVisible();
   await expect(page.getByTestId("site-header")).toBeVisible();
   await expect(page.getByTestId("page-shell")).toBeVisible();
@@ -128,6 +140,7 @@ async function captureCase(page, bucket, viewport, entry) {
   await expect(page.locator("text=#/")).toHaveCount(0);
   await expect.poll(() => page.url()).not.toContain("#access_token");
   await expect.poll(() => page.url()).not.toContain("/#");
+  await expect.poll(() => page.url()).not.toContain("localhost:3000");
   await page.waitForTimeout(250);
 
   const outputDir = path.join(SCREENSHOT_ROOT, bucket);

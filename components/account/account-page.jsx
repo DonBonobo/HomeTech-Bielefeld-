@@ -29,7 +29,11 @@ export function AccountPageClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const hasCode = searchParams.get("code");
-  const nextPath = sanitizeNextPath(searchParams.get("next"), "/konto");
+  const nextPath = sanitizeNextPath(
+    searchParams.get("next"),
+    "/konto",
+    typeof window !== "undefined" ? window.location.origin : "https://home-tech-bielefeld.vercel.app"
+  );
   const mode = searchParams.get("mode");
   const {
     user,
@@ -88,7 +92,11 @@ export function AccountPageClient() {
       if (mode === "bestaetigen") {
         setMessage("Deine E-Mail-Adresse wurde bestätigt.");
       }
-      const redirectTarget = sanitizeNextPath(searchParams.get("next") || getPendingRedirect(), "/konto");
+      const redirectTarget = sanitizeNextPath(
+        searchParams.get("next") || getPendingRedirect(),
+        "/konto",
+        window.location.origin
+      );
       clearPendingRedirect();
       router.replace(redirectTarget);
     });
@@ -218,7 +226,7 @@ export function AccountPageClient() {
       setMessage(translateAuthError(error));
       return;
     }
-    const redirectTarget = sanitizeNextPath(getPendingRedirect(), "/konto");
+    const redirectTarget = sanitizeNextPath(getPendingRedirect(), "/konto", window.location.origin);
     clearPendingRedirect();
     router.replace(redirectTarget);
   }
@@ -253,7 +261,7 @@ export function AccountPageClient() {
               <h1>Letzte Bestellungen</h1>
               <p>{profile?.full_name || user.email}</p>
             </div>
-            <div className="account-status-pill">{role === "admin" ? "Admin" : "Aktiv"}</div>
+            <div className="account-status-pill">{isAdmin ? "Admin" : "Aktiv"}</div>
           </div>
 
           <div className="account-order-list">

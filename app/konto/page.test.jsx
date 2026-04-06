@@ -83,6 +83,20 @@ describe("AccountPage", () => {
     expect(screen.queryByRole("button", { name: "Anmelden" })).not.toBeInTheDocument();
   });
 
+  it("treats the configured admin email as admin even without a profile role", async () => {
+    authState.user = { id: "user-1", email: "hometech.bielefeld@gmail.com" };
+    authState.profile = null;
+    authState.role = "customer";
+    authState.isAdmin = true;
+    params = "next=%2Fkonto";
+
+    render(<AccountPageClient />);
+
+    await waitFor(() => {
+      expect(screen.getByRole("link", { name: "Zum Admin" })).toBeInTheDocument();
+    });
+  });
+
   it("keeps the account page in a loading state while exchanging an auth code", () => {
     params = "next=%2Fkonto&code=abc123";
     render(<AccountPageClient />);

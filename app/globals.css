@@ -1077,17 +1077,18 @@ img {
 }
 
 .auth-loading-card {
-  gap: 0.9rem;
+  gap: 0.45rem;
+  padding: 0.7rem 0.82rem;
 }
 
 .auth-loading-indicator {
   display: flex;
-  gap: 0.4rem;
+  gap: 0.28rem;
 }
 
 .auth-loading-indicator span {
-  width: 0.55rem;
-  height: 0.55rem;
+  width: 0.38rem;
+  height: 0.38rem;
   border-radius: 999px;
   background: rgba(36, 76, 121, 0.18);
   animation: auth-bounce 1s infinite ease-in-out;
@@ -1719,6 +1720,15 @@ img {
     font-size: 0.64rem;
   }
 
+  .storefront-grid--catalog {
+    grid-template-columns: 1fr;
+  }
+
+  .product-card--catalog .product-card-link {
+    grid-template-columns: 4.9rem minmax(0, 1fr);
+    gap: 0.72rem;
+  }
+
   .checkout-item {
     padding: 0.72rem 0.78rem;
   }
@@ -1759,6 +1769,14 @@ img {
   .auth-entry {
     gap: 0.58rem;
     padding: 0.72rem 0.78rem;
+  }
+
+  .auth-loading-card h1 {
+    font-size: 1.12rem;
+  }
+
+  .auth-loading-card .overline {
+    font-size: 0.66rem;
   }
 
   .account-panel,
