@@ -47,7 +47,7 @@ export default function CategoryPage() {
           <article className="section-block section-block--soft empty-state-card">
             <div className="section-header">
               <div>
-                <p className="overline">Bald verfuegbar</p>
+                <p className="overline">Bald verfügbar</p>
                 <h2>Aktuell findest du hier noch keine Produkte.</h2>
                 <p>Schalter und Hubs bekommen eine eigene, genauso ruhige Auswahl, sobald diese Bereiche befüllt sind.</p>
               </div>

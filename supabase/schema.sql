@@ -4,8 +4,11 @@ create table if not exists public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   email text,
   full_name text,
+  role text not null default 'customer' check (role in ('customer', 'admin')),
   created_at timestamptz not null default now()
 );
+
+alter table public.profiles add column if not exists role text not null default 'customer';
 
 create table if not exists public.categories (
   id uuid primary key default gen_random_uuid(),
@@ -78,6 +81,16 @@ create policy if not exists "public read categories" on public.categories for se
 create policy if not exists "public read visible products" on public.products for select using (visible = true);
 
 create policy if not exists "user manage own profile" on public.profiles for all using (auth.uid() = id) with check (auth.uid() = id);
+create policy if not exists "admin manage categories" on public.categories for all using (
+  exists (select 1 from public.profiles where public.profiles.id = auth.uid() and public.profiles.role = 'admin')
+) with check (
+  exists (select 1 from public.profiles where public.profiles.id = auth.uid() and public.profiles.role = 'admin')
+);
+create policy if not exists "admin manage products" on public.products for all using (
+  exists (select 1 from public.profiles where public.profiles.id = auth.uid() and public.profiles.role = 'admin')
+) with check (
+  exists (select 1 from public.profiles where public.profiles.id = auth.uid() and public.profiles.role = 'admin')
+);
 create policy if not exists "user manage own cart" on public.carts for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
 create policy if not exists "user manage own cart items" on public.cart_items for all using (
   exists (select 1 from public.carts where public.carts.id = cart_items.cart_id and public.carts.user_id = auth.uid())

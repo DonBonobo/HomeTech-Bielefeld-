@@ -69,7 +69,7 @@ export default function ProductPage() {
         <div className="section-header">
           <div>
             <p className="overline">Produktdetails</p>
-            <h2>Klar aufgebaut statt ueberladen</h2>
+            <h2>Klar aufgebaut statt überladen</h2>
             <p>Kompatibilität, Lieferung und Rückgabe bleiben sichtbar, ohne die Kaufentscheidung unnötig aufzublasen.</p>
           </div>
         </div>

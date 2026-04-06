@@ -31,6 +31,10 @@ NEXT_PUBLIC_SUPABASE_PRODUCTS_BUCKET=product-images
 PAYPAL_ENV=sandbox
 PAYPAL_CLIENT_ID=
 PAYPAL_CLIENT_SECRET=
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+STRIPE_PUBLISHABLE_KEY=
+STRIPE_SECRET_KEY=
 ```
 
 PayPal notes:
@@ -40,4 +44,15 @@ PayPal notes:
 
 Supabase notes:
 - apply [supabase/schema.sql](/root/HomeTech-Bielefeld-next/supabase/schema.sql) before expecting categories, carts, orders, or profiles to persist in Supabase
-- Google OAuth still depends on the Google provider and redirect URLs being configured in the Supabase dashboard
+- enable Google in Supabase Auth and paste `GOOGLE_CLIENT_ID` plus `GOOGLE_CLIENT_SECRET` there
+- allowed app redirects should include `http://localhost:3000/konto` and your production `/konto` URL
+- Google Cloud must include the Supabase callback URL `https://kzpdsndpxqbqsyekfvsi.supabase.co/auth/v1/callback`
+
+Auth notes:
+- E-Mail auth now uses registration with password, confirmation by e-mail, password sign-in, and password reset by recovery link.
+- The Next.js app does not read `GOOGLE_CLIENT_ID` or `GOOGLE_CLIENT_SECRET` directly in browser code. Those values belong in the Supabase Auth provider settings.
+
+Card payments:
+- PayPal stays separate from card payments.
+- Card payments are prepared as a separate Stripe-backed section.
+- Add `STRIPE_PUBLISHABLE_KEY` and `STRIPE_SECRET_KEY` when you want to activate cards.

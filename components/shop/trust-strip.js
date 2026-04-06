@@ -1,9 +1,9 @@
 export function TrustStrip() {
   const items = [
     { label: "Schneller Versand", key: "versand" },
-    { label: "30 Tage Rueckgabe", key: "rueckgabe" },
+    { label: "30 Tage Rückgabe", key: "rueckgabe" },
     { label: "Bestpreis-Garantie", key: "bestpreis" },
-    { label: "Kombi-Versand immer moeglich", key: "kombi" },
+    { label: "Kombi-Versand immer möglich", key: "kombi" },
   ];
 
   return (

@@ -19,7 +19,7 @@ export default function HomePage() {
           <div>
             <p className="overline">Unsere Bestseller</p>
             <h2>Beliebte Leuchtmittel</h2>
-            <p>Originale Hue Produkte, ruhig praesentiert und direkt bestellbar.</p>
+            <p>Originale Hue Produkte, ruhig präsentiert und direkt bestellbar.</p>
           </div>
         </div>
         <div className="storefront-grid">

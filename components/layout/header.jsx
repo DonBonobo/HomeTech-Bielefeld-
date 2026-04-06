@@ -10,7 +10,7 @@ import { useStorefront } from "@/components/providers/storefront-provider";
 export function Header() {
   const pathname = usePathname();
   const { cartItems } = useCart();
-  const { user } = useAuth();
+  const { isAdmin } = useAuth();
   const { categories } = useStorefront();
   const activeCategories = categories.filter((category) => category.enabled);
 
@@ -35,7 +35,7 @@ export function Header() {
             />
             <span className="brand-mobile-copy">
               <strong>HomeTech Bielefeld</strong>
-              <small>Smarte Technik fuer dein Zuhause.</small>
+              <small>Smarte Technik für dein Zuhause.</small>
             </span>
           </span>
         </Link>
@@ -47,6 +47,11 @@ export function Header() {
           ))}
         </nav>
         <div className="header-actions">
+          {isAdmin ? (
+            <Link href="/admin" className="account-button account-button--admin" aria-label="Admin">
+              <span className="account-avatar account-avatar--admin">A</span>
+            </Link>
+          ) : null}
           <Link href="/checkout" className="cart-button">
             <span>Warenkorb</span>
             {cartItems.length ? <span className="header-count">{cartItems.length}</span> : null}

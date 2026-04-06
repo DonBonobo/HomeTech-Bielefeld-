@@ -6,7 +6,7 @@ import "@/app/globals.css";
 
 export const metadata = {
   title: "HomeTech Bielefeld",
-  description: "Mobiler Philips Hue Shop fuer HomeTech Bielefeld.",
+  description: "Mobiler Philips Hue Shop für HomeTech Bielefeld.",
 };
 
 export default function RootLayout({ children }) {

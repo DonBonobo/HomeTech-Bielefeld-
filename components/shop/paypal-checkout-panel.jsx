@@ -128,7 +128,7 @@ export function PayPalCheckoutPanel({ totalCents, disabled }) {
       <p>
         {disabled
           ? "Lege zuerst Produkte in den Warenkorb."
-          : "PayPal ist der verfuegbare Zahlungsweg in diesem Shop."}
+          : "Direkt mit deinem PayPal-Konto oder PayPal-Guthaben bezahlen."}
       </p>
       <div ref={buttonRef} className="paypal-button-host" />
       {status === "approved" || status === "error" || status === "disabled" ? (

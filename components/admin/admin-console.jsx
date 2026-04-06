@@ -5,7 +5,7 @@ import { useAuth } from "@/components/providers/auth-provider";
 import { useStorefront } from "@/components/providers/storefront-provider";
 
 export function AdminConsole() {
-  const { user } = useAuth();
+  const { user, isAdmin } = useAuth();
   const {
     categories,
     products,
@@ -25,6 +25,20 @@ export function AdminConsole() {
             <p className="overline">Admin</p>
             <h1>Bitte zuerst anmelden</h1>
             <p>Der Admin bleibt bewusst klein. Nach der Anmeldung kannst du Kategorien und Produkte direkt auf dem Handy pflegen.</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (!isAdmin) {
+    return (
+      <section className="section-block section-block--soft">
+        <div className="section-header">
+          <div>
+            <p className="overline">Admin</p>
+            <h1>Kein Zugriff</h1>
+            <p>Dieser Bereich ist nur für freigegebene Administrationskonten sichtbar.</p>
           </div>
         </div>
       </section>

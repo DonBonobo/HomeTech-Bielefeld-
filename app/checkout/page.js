@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useAuth } from "@/components/providers/auth-provider";
 import { useCart } from "@/components/providers/cart-provider";
 import { PayPalCheckoutPanel } from "@/components/shop/paypal-checkout-panel";
+import { CardCheckoutPanel } from "@/components/shop/card-checkout-panel";
 import { AuthEntryCard } from "@/components/shop/auth-entry-card";
 import { cartSubtotal, formatCurrency } from "@/lib/commerce";
 
@@ -73,11 +74,12 @@ export default function CheckoutPage() {
           ))}
         </div>
         <aside className="summary-card summary-card--checkout">
-          <strong>Bestelluebersicht</strong>
+          <strong>Bestellübersicht</strong>
           <div className="summary-line"><span>Zwischensumme</span><span>{formatCurrency(subtotal)}</span></div>
           <div className="summary-line"><span>Versand</span><span>{shipping ? formatCurrency(shipping) : "-"}</span></div>
           <div className="summary-line total"><span>Gesamt</span><span>{formatCurrency(total)}</span></div>
           <PayPalCheckoutPanel totalCents={total} disabled={!cartItems.length} />
+          <CardCheckoutPanel disabled={!cartItems.length} />
           <AuthEntryCard compact />
         </aside>
       </section>
