@@ -28,6 +28,7 @@ function formatOrderStatus(status) {
 export function AccountPageClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const hasCode = searchParams.get("code");
   const nextPath = sanitizeNextPath(searchParams.get("next"), "/konto");
   const mode = searchParams.get("mode");
   const {
@@ -72,7 +73,6 @@ export function AccountPageClient() {
 
   useEffect(() => {
     let active = true;
-    const hasCode = searchParams.get("code");
     if (!hasCode) {
       return undefined;
     }
@@ -223,14 +223,14 @@ export function AccountPageClient() {
     router.replace(redirectTarget);
   }
 
-  if (!ready) {
+  if (!ready || hasCode) {
     return (
       <div className="page-stack">
         <section className="section-block section-block--soft auth-loading-card">
           <div className="section-header">
             <div>
               <p className="overline">Mein Konto</p>
-              <h1>Sitzung wird geprüft</h1>
+              <h1>{hasCode ? "Anmeldung wird abgeschlossen" : "Sitzung wird geprüft"}</h1>
             </div>
           </div>
           <div className="auth-loading-indicator" aria-hidden="true">

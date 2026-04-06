@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { buildAuthRedirectUrl } from "@/lib/auth";
+import { buildAuthRedirectUrl, normalizeAuthReturnUrl } from "@/lib/auth";
 import { getSupabaseBrowserClient } from "@/lib/supabase-browser";
 import { getVisualPreview } from "@/lib/visual-preview";
 
@@ -68,6 +68,27 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     let mounted = true;
+    if (typeof window !== "undefined") {
+      const cleanedUrl = normalizeAuthReturnUrl(
+        window.location.href,
+        "/konto",
+        window.sessionStorage.getItem(AUTH_REDIRECT_KEY) || "/konto"
+      );
+
+      if (cleanedUrl) {
+        const nextUrl = new URL(cleanedUrl, window.location.origin);
+        const currentPath = `${window.location.pathname}${window.location.search}`;
+        const targetPath = `${nextUrl.pathname}${nextUrl.search}`;
+
+        if (currentPath !== targetPath) {
+          window.location.replace(cleanedUrl);
+          return undefined;
+        }
+
+        window.history.replaceState(window.history.state, "", cleanedUrl);
+      }
+    }
+
     const preview = getVisualPreview();
 
     if (preview?.auth) {

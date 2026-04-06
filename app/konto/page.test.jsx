@@ -83,6 +83,13 @@ describe("AccountPage", () => {
     expect(screen.queryByRole("button", { name: "Mit E-Mail anmelden" })).not.toBeInTheDocument();
   });
 
+  it("keeps the account page in a loading state while exchanging an auth code", () => {
+    params = "next=%2Fkonto&code=abc123";
+    render(<AccountPageClient />);
+    expect(screen.getByText("Anmeldung wird abgeschlossen")).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Mit E-Mail anmelden" })).not.toBeInTheDocument();
+  });
+
   it("starts Google sign-in with the current redirect path", async () => {
     render(<AccountPageClient />);
 

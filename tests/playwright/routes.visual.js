@@ -34,6 +34,25 @@ const mobileCases = [
   { name: "konto-guest", route: "/konto", selector: "text=Mit E-Mail anmelden" },
   { name: "konto-auth", route: "/konto", selector: "text=Letzte Bestellungen", auth: previewUser, orders: previewOrders },
   { name: "konto-auth-sanitized", route: "/konto%E2%81%A0%EF%BF%BD", selector: "[data-testid='site-header']", expectPathname: "/konto" },
+  {
+    name: "konto-auth-fragment-root",
+    route: "/?authreturn=1#access_token=test&refresh_token=test&type=signup",
+    selector: "[data-testid='account-shell']",
+    auth: previewUser,
+    orders: previewOrders,
+    expectPathname: "/konto",
+    expectNoHash: true,
+  },
+  {
+    name: "konto-auth-fragment-konto",
+    route: "/konto?next=%2Fcheckout&authreturn=1#access_token=test&refresh_token=test&type=signup",
+    selector: "[data-testid='paypal-panel']",
+    auth: previewUser,
+    orders: previewOrders,
+    cart: cartSeed,
+    expectPathname: "/checkout",
+    expectNoHash: true,
+  },
   { name: "impressum", route: "/impressum", selector: "text=HomeTech Bielefeld" },
   { name: "kontakt", route: "/kontakt", selector: "text=Bitte zuerst anmelden" },
   { name: "feedback", route: "/feedback", selector: "text=Rückmeldung senden" },
@@ -60,10 +79,16 @@ function writeManifest() {
 
 async function seedPreview(page, options = {}) {
   await page.addInitScript((payload) => {
+    window.sessionStorage.removeItem("hometech.auth.next");
+
     if (payload.cart) {
       window.localStorage.setItem("hometech.next.cart.guest.v2", JSON.stringify(payload.cart));
     } else {
       window.localStorage.removeItem("hometech.next.cart.guest.v2");
+    }
+
+    if (payload.nextPath) {
+      window.sessionStorage.setItem("hometech.auth.next", payload.nextPath);
     }
 
     if (payload.auth) {
@@ -85,12 +110,17 @@ async function captureCase(page, bucket, viewport, entry) {
   if (entry.expectPathname) {
     await expect(page).toHaveURL(new RegExp(`${entry.expectPathname.replace("/", "\\/")}(\\?|$)`));
   }
+  if (entry.expectNoHash) {
+    await expect.poll(() => new URL(page.url()).hash).toBe("");
+  }
   await expect(page.locator(entry.selector).first()).toBeVisible();
   await expect(page.getByTestId("site-header")).toBeVisible();
   await expect(page.getByTestId("page-shell")).toBeVisible();
   await expect(page.getByTestId("site-footer")).toBeVisible();
   await expect(page.locator("text=Startseite Leuchtmittel Schalter Hubs")).toHaveCount(0);
   await expect(page.locator("text=#/")).toHaveCount(0);
+  await expect.poll(() => page.url()).not.toContain("#access_token");
+  await expect.poll(() => page.url()).not.toContain("/#");
   await page.waitForTimeout(250);
 
   const outputDir = path.join(SCREENSHOT_ROOT, bucket);
