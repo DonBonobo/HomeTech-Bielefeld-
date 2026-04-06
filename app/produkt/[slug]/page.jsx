@@ -52,7 +52,7 @@ export default function ProductPage() {
             <AddToCartButton productId={product.id} />
             <Link href="/checkout" className="secondary-link">Warenkorb öffnen</Link>
           </div>
-          <AuthEntryCard compact />
+          <AuthEntryCard compact title="Anmelden" text="Zum Bezahlen bitte anmelden." />
         </div>
       </section>
     </div>

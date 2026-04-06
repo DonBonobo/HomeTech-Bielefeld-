@@ -2,9 +2,13 @@ export default function ImpressumPage() {
   return (
     <div className="page-stack">
       <section className="section-block section-block--soft support-page">
+        <div className="pdp-breadcrumbs support-breadcrumbs">
+          <span>Startseite</span>
+          <span>/</span>
+          <span>Impressum</span>
+        </div>
         <div className="section-header">
           <div>
-            <p className="overline">Startseite / Impressum</p>
             <h1>Impressum</h1>
             <p>HomeTech Bielefeld</p>
           </div>

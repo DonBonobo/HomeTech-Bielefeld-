@@ -6,9 +6,9 @@ export function HomeHero() {
     <section className="hero-shell">
       <div className="hero-card hero-card--quiet hero-card--storefront">
         <div className="hero-copy">
-          <p className="overline">Kuratiert für dein Zuhause</p>
+          <p className="overline">Philips Hue</p>
           <h1>Smart Home. Beste Qualität.</h1>
-          <p>Originale Hue Produkte für ruhige Lichtstimmungen, klare Routinen und einfache Steuerung.</p>
+          <p>Originale Hue Leuchtmittel und Zubehör für ein ruhiges, verlässliches Zuhause.</p>
         </div>
 
         <div className="hero-banner-frame">

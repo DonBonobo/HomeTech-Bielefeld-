@@ -119,7 +119,7 @@ describe("AccountPage", () => {
     fireEvent.change(screen.getByPlaceholderText("E-Mail-Adresse"), { target: { value: "neu@example.com" } });
     fireEvent.change(screen.getByPlaceholderText("Passwort festlegen"), { target: { value: "passwort-123" } });
     fireEvent.change(screen.getByPlaceholderText("Passwort wiederholen"), { target: { value: "passwort-123" } });
-    fireEvent.click(screen.getByRole("button", { name: "Registrieren" }));
+    fireEvent.click(screen.getAllByRole("button", { name: "Registrieren" })[1]);
 
     await waitFor(() => {
       expect(authState.signUpWithEmail).toHaveBeenCalledWith("neu@example.com", "passwort-123", "/produkt/philips-hue-white-e14-kerze-470");
@@ -183,7 +183,7 @@ describe("AccountPage", () => {
 
     await waitFor(() => {
       expect(screen.getByText("Noch keine Bestellungen")).toBeInTheDocument();
-      expect(screen.getByText("Neue Bestellungen erscheinen hier automatisch.")).toBeInTheDocument();
+      expect(screen.getByText("Ihre letzten Bestellungen erscheinen hier.")).toBeInTheDocument();
     });
   });
 

@@ -251,7 +251,7 @@ export function AccountPageClient() {
             <div>
               <p className="overline">Mein Konto</p>
               <h1>Letzte Bestellungen</h1>
-              <p>{profile?.full_name || "Kontoübersicht"}</p>
+              <p>{profile?.full_name || user.email}</p>
             </div>
             <div className="account-status-pill">{role === "admin" ? "Admin" : "Aktiv"}</div>
           </div>
@@ -280,7 +280,7 @@ export function AccountPageClient() {
               <article className="account-order-card account-order-card--empty">
                 <div>
                   <strong>Noch keine Bestellungen</strong>
-                  <span>Neue Bestellungen erscheinen hier automatisch.</span>
+                  <span>Ihre letzten Bestellungen erscheinen hier.</span>
                 </div>
               </article>
             )}
@@ -316,7 +316,7 @@ export function AccountPageClient() {
             <div>
               <p className="overline">Mein Konto</p>
               <h1>{title}</h1>
-              <p>Nach dem Login geht es direkt zurück zu deinem letzten Schritt.</p>
+              <p>Nach der Anmeldung geht es direkt weiter.</p>
             </div>
           </div>
 
@@ -325,8 +325,8 @@ export function AccountPageClient() {
             <>
               <div className="account-tabs" role="tablist" aria-label="Kontozugang">
                 <button type="button" className={view === "anmelden" ? "is-active" : ""} onClick={() => setView("anmelden")}>Anmelden</button>
-                <button type="button" className={view === "registrieren" ? "is-active" : ""} onClick={() => setView("registrieren")}>Konto erstellen</button>
-                <button type="button" className={view === "zuruecksetzen" ? "is-active" : ""} onClick={() => setView("zuruecksetzen")}>Passwort vergessen?</button>
+                <button type="button" className={view === "registrieren" ? "is-active" : ""} onClick={() => setView("registrieren")}>Registrieren</button>
+                <button type="button" className={view === "zuruecksetzen" ? "is-active" : ""} onClick={() => setView("zuruecksetzen")}>Passwort vergessen</button>
               </div>
 
               <button type="button" className="primary-link" disabled={busy} onClick={handleGoogle}>

@@ -19,9 +19,13 @@ export default function KontaktPage() {
     return (
       <div className="page-stack">
         <section className="section-block section-block--soft support-page">
+          <div className="pdp-breadcrumbs support-breadcrumbs">
+            <span>Startseite</span>
+            <span>/</span>
+            <span>Kontakt</span>
+          </div>
           <div className="section-header">
             <div>
-              <p className="overline">Startseite / Kontakt</p>
               <h1>Nachrichten werden geladen</h1>
             </div>
           </div>
@@ -34,11 +38,15 @@ export default function KontaktPage() {
     return (
       <div className="page-stack">
         <section className="section-block section-block--soft support-page">
+          <div className="pdp-breadcrumbs support-breadcrumbs">
+            <span>Startseite</span>
+            <span>/</span>
+            <span>Kontakt</span>
+          </div>
           <div className="section-header">
             <div>
-              <p className="overline">Startseite / Kontakt</p>
               <h1>Bitte zuerst anmelden</h1>
-              <p>So bleiben deine Nachricht und die Antwort an einem Ort.</p>
+              <p>Nachrichten und Antworten bleiben in deinem Konto.</p>
             </div>
             <Link href={`/konto?next=${encodeURIComponent(pathname)}`} className="secondary-link">Anmelden</Link>
           </div>
@@ -66,9 +74,13 @@ export default function KontaktPage() {
   return (
     <div className="page-stack">
       <section className="section-block section-block--soft support-page">
+        <div className="pdp-breadcrumbs support-breadcrumbs">
+          <span>Startseite</span>
+          <span>/</span>
+          <span>Kontakt</span>
+        </div>
         <div className="section-header">
           <div>
-            <p className="overline">Startseite / Kontakt</p>
             <h1>Support</h1>
             <p>Schreibe uns direkt aus deinem Konto.</p>
           </div>
@@ -84,7 +96,7 @@ export default function KontaktPage() {
         <div className="section-header">
           <div>
             <p className="overline">Verlauf</p>
-            <h2>Deine Nachrichten</h2>
+            <h2>Nachrichten</h2>
           </div>
         </div>
         <div className="account-order-list">

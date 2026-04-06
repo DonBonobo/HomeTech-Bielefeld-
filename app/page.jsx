@@ -16,12 +16,12 @@ export default function HomePage() {
           <div>
             <p className="overline">Unsere Bestseller</p>
             <h2>Beliebte Leuchtmittel</h2>
-            <p>Originale Hue Produkte. Klar ausgewählt.</p>
+            <p>Direkt auswahlen und in den Warenkorb legen.</p>
           </div>
         </div>
-        <div className="storefront-rail">
+        <div className="storefront-list">
           {visibleProducts.slice(0, 4).map((product) => (
-            <ProductCard key={product.id} product={product} variant="rail" />
+            <ProductCard key={product.id} product={product} variant="compact" />
           ))}
         </div>
       </section>

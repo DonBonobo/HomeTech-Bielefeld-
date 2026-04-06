@@ -27,8 +27,8 @@ export default function CategoryPage() {
             <h1>{category?.enabled ? category.label : `${category?.label || "Diese Kategorie"} folgt später`}</h1>
             <p>
               {category?.enabled
-                ? "Klare Produkte, ruhige Karten und direkte Kaufwege."
-                : "Hier erscheint die Kategorie, sobald Produkte aktiv freigegeben sind."}
+                ? "Originale Produkte, ruhig sortiert."
+                : "Diese Kategorie wird mit Produkten gefüllt."}
             </p>
           </div>
         </div>
@@ -55,7 +55,7 @@ export default function CategoryPage() {
         {items.length ? (
           <div className="storefront-grid storefront-grid--catalog">
             {items.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product.id} product={product} variant="catalog" />
             ))}
           </div>
         ) : (

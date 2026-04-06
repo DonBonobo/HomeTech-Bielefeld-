@@ -44,7 +44,7 @@ export default function CheckoutPage() {
           <div className="section-header">
             <div>
               <p className="overline">Konto</p>
-              <h2>Prüfe deine Anmeldung</h2>
+              <h2>Anmeldung wird geprüft</h2>
             </div>
           </div>
         </section>
@@ -54,9 +54,8 @@ export default function CheckoutPage() {
             <div>
               <p className="overline">Konto</p>
               <h2>Bitte melde dich vor der Bezahlung an.</h2>
-              <p>Dein Warenkorb bleibt erhalten.</p>
             </div>
-            <Link href={`/konto?next=${encodeURIComponent(pathname)}`} className="secondary-link">Jetzt anmelden</Link>
+            <Link href={`/konto?next=${encodeURIComponent(pathname)}`} className="secondary-link">Anmelden</Link>
           </div>
         </section>
       ) : null}
