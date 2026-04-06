@@ -704,6 +704,13 @@ img { display: block; max-width: 100%; }
   margin: 0.3rem 0 0;
   color: var(--muted);
 }
+.paypal-button-host {
+  margin-top: 0.85rem;
+}
+.payment-feedback {
+  margin-top: 0.75rem;
+  font-size: 0.88rem;
+}
 .payment-action {
   width: 100%;
   margin-top: 0.8rem;

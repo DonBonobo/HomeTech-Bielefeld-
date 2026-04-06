@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCart } from "@/components/providers/cart-provider";
+import { PayPalCheckoutPanel } from "@/components/shop/paypal-checkout-panel";
 import { cartSubtotal, formatCurrency } from "@/lib/commerce";
 
 export default function CheckoutPage() {
@@ -59,13 +60,7 @@ export default function CheckoutPage() {
           <div className="summary-line"><span>Set-Rabatt</span><span>{progress.discountCents ? `-${formatCurrency(progress.discountCents)}` : "-"}</span></div>
           <div className="summary-line"><span>Versand</span><span>{shipping ? formatCurrency(shipping) : "-"}</span></div>
           <div className="summary-line total"><span>Gesamt</span><span>{formatCurrency(total)}</span></div>
-          <div className="payment-card">
-            <strong>PayPal</strong>
-            <p>{progress.unlocked ? "Rabatt beruecksichtigt" : "Live-Checkout spaeter mit PAYPAL_CLIENT_ID"}</p>
-            <button type="button" className="primary-action payment-action" disabled={!cartItems.length}>
-              Mit PayPal fortfahren
-            </button>
-          </div>
+          <PayPalCheckoutPanel totalCents={total} disabled={!cartItems.length} />
         </aside>
       </section>
     </div>
