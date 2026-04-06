@@ -45,7 +45,7 @@ export function CardCheckoutPanel({ disabled }) {
           <input className="admin-input" type="text" placeholder="Rechnungsadresse" autoComplete="street-address" disabled={disabled} />
         </div>
       ) : null}
-      {message ? <p className="payment-feedback">{message}</p> : null}
+      {message ? <p className="payment-feedback payment-feedback--subtle">{message}</p> : null}
     </div>
   );
 }

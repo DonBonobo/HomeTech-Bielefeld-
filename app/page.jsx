@@ -11,21 +11,21 @@ export default function HomePage() {
   return (
     <div className="page-stack">
       <HomeHero />
-      <TrustStrip />
       <section className="section-block section-block--tight">
         <div className="section-header">
           <div>
             <p className="overline">Unsere Bestseller</p>
             <h2>Beliebte Leuchtmittel</h2>
-            <p>Originale Hue Produkte. Direkt bestellbar.</p>
+            <p>Originale Hue Produkte. Klar ausgewählt.</p>
           </div>
         </div>
-        <div className="storefront-grid">
+        <div className="storefront-rail">
           {visibleProducts.slice(0, 4).map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product.id} product={product} variant="rail" />
           ))}
         </div>
       </section>
+      <TrustStrip />
     </div>
   );
 }

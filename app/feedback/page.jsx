@@ -24,10 +24,10 @@ export default function FeedbackPage() {
 
   return (
     <div className="page-stack">
-      <section className="section-block section-block--soft">
+      <section className="section-block section-block--soft support-page">
         <div className="section-header">
           <div>
-            <p className="overline">Feedback</p>
+            <p className="overline">Startseite / Feedback</p>
             <h1>Rückmeldung senden</h1>
             <p>Anonym oder mit E-Mail-Adresse.</p>
           </div>

@@ -19,12 +19,12 @@ export function AdminConsole() {
 
   if (!user) {
     return (
-      <section className="section-block section-block--soft">
+      <section className="section-block section-block--soft admin-shell">
         <div className="section-header">
           <div>
             <p className="overline">Admin</p>
             <h1>Bitte zuerst anmelden</h1>
-            <p>Der Admin bleibt bewusst klein. Nach der Anmeldung kannst du Kategorien und Produkte direkt auf dem Handy pflegen.</p>
+            <p>Nach der Anmeldung verwaltest du Kategorien und Produkte direkt hier.</p>
           </div>
         </div>
       </section>
@@ -33,7 +33,7 @@ export function AdminConsole() {
 
   if (!isAdmin) {
     return (
-      <section className="section-block section-block--soft">
+      <section className="section-block section-block--soft admin-shell">
         <div className="section-header">
           <div>
             <p className="overline">Admin</p>
@@ -47,12 +47,12 @@ export function AdminConsole() {
 
   return (
     <div className="page-stack">
-      <section className="section-block">
+      <section className="section-block admin-shell">
         <div className="section-header">
           <div>
             <p className="overline">Admin</p>
-            <h1>Kategorien und Produkte verwalten</h1>
-            <p>Datenquelle: {source === "supabase" ? "Supabase" : "lokaler Zustand"}</p>
+            <h1>Verwaltung</h1>
+            <p>Datenquelle: {source === "supabase" ? "Supabase" : "Lokaler Zustand"}</p>
           </div>
           <button
             type="button"
@@ -62,9 +62,15 @@ export function AdminConsole() {
             Kategorie hinzufügen
           </button>
         </div>
+        <div className="admin-nav">
+          <span className="admin-nav-pill is-active">Kategorien</span>
+          <span className="admin-nav-pill">Produkte</span>
+          <span className="admin-nav-pill">Bestellungen</span>
+          <span className="admin-nav-pill">Support</span>
+        </div>
       </section>
 
-      <section className="section-block section-block--soft">
+      <section className="section-block section-block--soft admin-shell">
         <div className="section-header">
           <div>
             <p className="overline">Kategorien</p>
@@ -95,11 +101,11 @@ export function AdminConsole() {
         </div>
       </section>
 
-      <section className="section-block section-block--soft">
+      <section className="section-block section-block--soft admin-shell">
         <div className="section-header">
           <div>
             <p className="overline">Produkte</p>
-            <h2>Kategorie, Preis, Bestand und Sichtbarkeit</h2>
+            <h2>Produkte</h2>
           </div>
         </div>
         <div className="admin-list">

@@ -1,13 +1,14 @@
 import Image from "next/image";
+import { CategoryShortcuts } from "@/components/shop/category-shortcuts";
 
 export function HomeHero() {
   return (
     <section className="hero-shell">
-      <div className="hero-card hero-card--quiet">
+      <div className="hero-card hero-card--quiet hero-card--storefront">
         <div className="hero-copy">
-          <p className="overline">HomeTech Bielefeld</p>
-          <h1>Lass dein Zuhause smarter leuchten.</h1>
-          <p>Originale Hue Leuchtmittel, klar ausgewählt und direkt bestellbar.</p>
+          <p className="overline">Kuratiert für dein Zuhause</p>
+          <h1>Smart Home. Beste Qualität.</h1>
+          <p>Originale Hue Produkte für ruhige Lichtstimmungen, klare Routinen und einfache Steuerung.</p>
         </div>
 
         <div className="hero-banner-frame">
@@ -20,6 +21,8 @@ export function HomeHero() {
             priority
           />
         </div>
+
+        <CategoryShortcuts />
       </div>
     </section>
   );

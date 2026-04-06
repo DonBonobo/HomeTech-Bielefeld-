@@ -17,6 +17,12 @@ const previewUser = {
   profile: { id: "visual-user-1", email: "kunde@hometech-bielefeld.de", full_name: "Max Muster", role: "customer" },
 };
 
+const previewAdmin = {
+  session: { access_token: "visual-preview-token" },
+  user: { id: "visual-admin-1", email: "admin@hometech-bielefeld.de" },
+  profile: { id: "visual-admin-1", email: "admin@hometech-bielefeld.de", full_name: "Admin", role: "admin" },
+};
+
 const previewOrders = [
   { id: "ORDER-2026-0001", status: "captured", total_cents: 8092, created_at: "2026-04-06T10:00:00.000Z" },
   { id: "ORDER-2026-0002", status: "pending", total_cents: 2499, created_at: "2026-04-04T10:00:00.000Z" },
@@ -26,12 +32,12 @@ const mobileViewport = { width: 390, height: 844 };
 const desktopViewport = { width: 1440, height: 1280 };
 
 const mobileCases = [
-  { name: "home", route: "/", selector: "text=Beliebte Leuchtmittel" },
-  { name: "category-leuchtmittel", route: "/kategorie/leuchtmittel", selector: "text=Leuchtmittel für dein Zuhause" },
+  { name: "home", route: "/", selector: "role=heading[name=\"Beliebte Leuchtmittel\"]" },
+  { name: "category-leuchtmittel", route: "/kategorie/leuchtmittel", selector: "text=Beliebte Auswahl" },
   { name: "product-white-ambiance-e27-1100", route: "/produkt/philips-hue-white-ambiance-e27-1100", selector: "h1" },
-  { name: "checkout-guest", route: "/checkout", selector: "text=Bitte melde dich vor der Bezahlung an.", cart: cartSeed },
+  { name: "checkout-guest", route: "/checkout", selector: "role=heading[name=\"Bitte melde dich vor der Bezahlung an.\"]", cart: cartSeed },
   { name: "checkout-auth", route: "/checkout", selector: "[data-testid='paypal-panel']", cart: cartSeed, auth: previewUser },
-  { name: "konto-guest", route: "/konto", selector: "text=Mit E-Mail anmelden" },
+  { name: "konto-guest", route: "/konto", selector: "text=Mit Google fortfahren" },
   { name: "konto-auth", route: "/konto", selector: "text=Letzte Bestellungen", auth: previewUser, orders: previewOrders },
   { name: "konto-auth-sanitized", route: "/konto%E2%81%A0%EF%BF%BD", selector: "[data-testid='site-header']", expectPathname: "/konto" },
   {
@@ -53,13 +59,14 @@ const mobileCases = [
     expectPathname: "/checkout",
     expectNoHash: true,
   },
-  { name: "impressum", route: "/impressum", selector: "text=HomeTech Bielefeld" },
+  { name: "impressum", route: "/impressum", selector: "role=heading[name=\"Impressum\"]" },
   { name: "kontakt", route: "/kontakt", selector: "text=Bitte zuerst anmelden" },
   { name: "feedback", route: "/feedback", selector: "text=Rückmeldung senden" },
+  { name: "admin-auth", route: "/admin", selector: "role=heading[name=\"Verwaltung\"]", auth: previewAdmin },
 ];
 
 const desktopCases = [
-  { name: "home", route: "/", selector: "text=Beliebte Leuchtmittel" },
+  { name: "home", route: "/", selector: "role=heading[name=\"Beliebte Leuchtmittel\"]" },
   { name: "product-white-ambiance-e27-1100", route: "/produkt/philips-hue-white-ambiance-e27-1100", selector: "h1" },
   { name: "checkout-auth", route: "/checkout", selector: "[data-testid='paypal-panel']", cart: cartSeed, auth: previewUser },
   { name: "konto-auth", route: "/konto", selector: "text=Letzte Bestellungen", auth: previewUser, orders: previewOrders },

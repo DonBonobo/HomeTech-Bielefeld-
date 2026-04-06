@@ -28,25 +28,29 @@ export default function ProductPage() {
       <section className="pdp-layout pdp-layout--refined">
         <ProductGallery title={product.title} gallery={product.gallery} />
         <div className="buy-card buy-card--refined">
+          <p className="overline">{product.line}</p>
           <h1>{product.title}</h1>
           <strong className="big-price">{formatCurrency(product.priceCents)}</strong>
-          <div className="chip-row">
+          <div className="pdp-status-row">
+            <span className="pdp-status-pill">{product.stockLabel}</span>
             <span>{product.spec}</span>
-            <span>{product.stockLabel}</span>
           </div>
           <p>{product.short}</p>
-          <div className="buy-info-list">
-            <span>Kompatibel mit {product.compatibility.join(", ")}</span>
-            <span>Versand in ganz Europa</span>
-            <span>30 Tage Rückgabe</span>
+          <div className="buy-info-list buy-info-list--compact">
+            <span>Kompatibel mit</span>
+            <div className="chip-row">
+              {product.compatibility.map((entry) => (
+                <span key={entry}>{entry}</span>
+              ))}
+            </div>
           </div>
-          <div className="trust-list">
-            <span>PayPal</span>
-            <span>Sicher bezahlen</span>
+          <div className="buy-info-list">
+            <span>Kostenloser Versand ab 50 €</span>
+            <span>30 Tage Rückgabe</span>
           </div>
           <div className="buy-actions">
             <AddToCartButton productId={product.id} />
-            <Link href="/checkout" className="secondary-link">Zum Warenkorb</Link>
+            <Link href="/checkout" className="secondary-link">Warenkorb öffnen</Link>
           </div>
           <AuthEntryCard compact />
         </div>

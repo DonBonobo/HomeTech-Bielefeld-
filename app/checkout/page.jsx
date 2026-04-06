@@ -20,14 +20,11 @@ export default function CheckoutPage() {
 
   return (
     <div className="page-stack">
-      <section className="section-block checkout-hero">
-        <div className="section-header">
-          <div>
-            <p className="overline">Checkout</p>
-            <h1>Bezahlen</h1>
-            <p>Warenkorb prüfen und Zahlung abschließen.</p>
-          </div>
-        </div>
+      <section className="checkout-steps">
+        <span className="checkout-step is-active">1. Anmeldung</span>
+        <span className="checkout-step">2. Adresse</span>
+        <span className="checkout-step">3. Zahlung</span>
+        <span className="checkout-step">4. Prüfen</span>
       </section>
 
       {!cartItems.length ? (
@@ -57,7 +54,7 @@ export default function CheckoutPage() {
             <div>
               <p className="overline">Konto</p>
               <h2>Bitte melde dich vor der Bezahlung an.</h2>
-              <p>Dein Warenkorb bleibt erhalten und du kehrst direkt hierher zurück.</p>
+              <p>Dein Warenkorb bleibt erhalten.</p>
             </div>
             <Link href={`/konto?next=${encodeURIComponent(pathname)}`} className="secondary-link">Jetzt anmelden</Link>
           </div>
@@ -83,7 +80,7 @@ export default function CheckoutPage() {
           ))}
         </div>
         <aside className="summary-card summary-card--checkout">
-          <strong>Bestellübersicht</strong>
+          <strong>Ihre Bestellung</strong>
           <div className="summary-line"><span>Zwischensumme</span><span>{formatCurrency(subtotal)}</span></div>
           <div className="summary-line"><span>Versand</span><span>{shipping ? formatCurrency(shipping) : "-"}</span></div>
           <div className="summary-line total"><span>Gesamt</span><span>{formatCurrency(total)}</span></div>

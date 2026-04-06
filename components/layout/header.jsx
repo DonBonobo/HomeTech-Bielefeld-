@@ -17,8 +17,8 @@ export function Header() {
   return (
     <header className="site-header" data-testid="site-header">
       <div className="topline">
-        <span>Smarter Homes? Das gibt&apos;s doch nicht!</span>
-        <span>PayPal · Versand in ganz Europa</span>
+        <span>HomeTech Bielefeld</span>
+        <span>Auch auf eBay</span>
       </div>
       <div className="header-row">
         <Link href="/" className="brand-link">
@@ -35,7 +35,7 @@ export function Header() {
             />
             <span className="brand-mobile-copy">
               <strong>HomeTech Bielefeld</strong>
-              <small>Smarte Technik für dein Zuhause.</small>
+              <small>Auch auf eBay</small>
             </span>
           </span>
         </Link>

@@ -18,10 +18,10 @@ export default function KontaktPage() {
   if (!ready) {
     return (
       <div className="page-stack">
-        <section className="section-block section-block--soft">
+        <section className="section-block section-block--soft support-page">
           <div className="section-header">
             <div>
-              <p className="overline">Kontakt</p>
+              <p className="overline">Startseite / Kontakt</p>
               <h1>Nachrichten werden geladen</h1>
             </div>
           </div>
@@ -33,12 +33,12 @@ export default function KontaktPage() {
   if (!user) {
     return (
       <div className="page-stack">
-        <section className="section-block section-block--soft">
+        <section className="section-block section-block--soft support-page">
           <div className="section-header">
             <div>
-              <p className="overline">Kontakt</p>
+              <p className="overline">Startseite / Kontakt</p>
               <h1>Bitte zuerst anmelden</h1>
-              <p>Damit deine Nachricht und die Antwort an einem Ort bleiben.</p>
+              <p>So bleiben deine Nachricht und die Antwort an einem Ort.</p>
             </div>
             <Link href={`/konto?next=${encodeURIComponent(pathname)}`} className="secondary-link">Anmelden</Link>
           </div>
@@ -65,10 +65,10 @@ export default function KontaktPage() {
 
   return (
     <div className="page-stack">
-      <section className="section-block section-block--soft">
+      <section className="section-block section-block--soft support-page">
         <div className="section-header">
           <div>
-            <p className="overline">Kontakt</p>
+            <p className="overline">Startseite / Kontakt</p>
             <h1>Support</h1>
             <p>Schreibe uns direkt aus deinem Konto.</p>
           </div>

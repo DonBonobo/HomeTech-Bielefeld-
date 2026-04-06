@@ -5,9 +5,9 @@ import Link from "next/link";
 import { formatCurrency } from "@/lib/commerce";
 import { AddToCartButton } from "@/components/shop/add-to-cart-button";
 
-export function ProductCard({ product }) {
+export function ProductCard({ product, variant = "grid" }) {
   return (
-    <article className="product-card">
+    <article className={`product-card product-card--${variant}`}>
       <Link href={`/produkt/${product.slug}`} className="product-card-link">
         <div className="product-image-frame">
           <Image src={product.image} alt={product.title} width={420} height={420} />

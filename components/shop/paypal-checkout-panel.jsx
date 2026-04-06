@@ -116,7 +116,7 @@ export function PayPalCheckoutPanel({ totalCents, disabled }) {
       <p>
         {disabled
           ? "Lege zuerst Produkte in den Warenkorb."
-          : "Mit deinem PayPal-Konto oder PayPal-Guthaben bezahlen."}
+          : "Mit PayPal-Konto oder PayPal-Guthaben bezahlen."}
       </p>
       <button
         type="button"
@@ -127,7 +127,7 @@ export function PayPalCheckoutPanel({ totalCents, disabled }) {
       >
         {status === "redirecting" ? "PayPal öffnet" : status === "capturing" ? "PayPal wird bestätigt" : "Mit PayPal bezahlen"}
       </button>
-      <p className="payment-helper">Du wirst zur sicheren PayPal-Freigabe weitergeleitet und danach zurückgeführt.</p>
+      <p className="payment-helper">Weiterleitung zu PayPal und danach zurück zum Shop.</p>
       {status === "approved" || status === "error" || status === "disabled" || searchParams.get("paypal") === "cancelled" ? (
         <p className="payment-feedback">{message}</p>
       ) : null}

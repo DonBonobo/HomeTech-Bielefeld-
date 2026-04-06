@@ -251,7 +251,7 @@ export function AccountPageClient() {
             <div>
               <p className="overline">Mein Konto</p>
               <h1>Letzte Bestellungen</h1>
-              <p>{profile?.full_name || user.email}</p>
+              <p>{profile?.full_name || "Kontoübersicht"}</p>
             </div>
             <div className="account-status-pill">{role === "admin" ? "Admin" : "Aktiv"}</div>
           </div>
@@ -280,7 +280,7 @@ export function AccountPageClient() {
               <article className="account-order-card account-order-card--empty">
                 <div>
                   <strong>Noch keine Bestellungen</strong>
-                  <span>Dein Bestellverlauf erscheint hier.</span>
+                  <span>Neue Bestellungen erscheinen hier automatisch.</span>
                 </div>
               </article>
             )}
@@ -295,11 +295,11 @@ export function AccountPageClient() {
             </article>
             <article className="account-detail-card">
               <span>Adresse</span>
-              <strong>{profile?.address_line_1 || "Noch offen"}</strong>
+              <strong>{profile?.address_line_1 || "Noch nicht hinterlegt"}</strong>
             </article>
           </div>
           <div className="account-top-actions account-top-actions--stacked">
-            {isAdmin ? <Link href="/admin" className="secondary-link">Admin</Link> : null}
+            {isAdmin ? <Link href="/admin" className="secondary-link">Zum Admin</Link> : null}
             <button type="button" className="secondary-link" onClick={() => signOut()}>
               Abmelden
             </button>
@@ -311,12 +311,12 @@ export function AccountPageClient() {
 
   return (
     <div className="page-stack">
-      <section className="section-block section-block--soft">
+      <section className="section-block section-block--soft auth-shell">
           <div className="section-header">
             <div>
               <p className="overline">Mein Konto</p>
               <h1>{title}</h1>
-              <p>Du kehrst danach direkt an deinen letzten Schritt zurück.</p>
+              <p>Nach dem Login geht es direkt zurück zu deinem letzten Schritt.</p>
             </div>
           </div>
 
@@ -337,7 +337,7 @@ export function AccountPageClient() {
                 <form className="account-email-form" onSubmit={handleEmailSignIn}>
                   <input className="admin-input" type="email" required autoComplete="email" placeholder="E-Mail-Adresse" value={email} onChange={(event) => setEmail(event.target.value)} />
                   <input className="admin-input" type="password" required autoComplete="current-password" placeholder="Passwort" value={password} onChange={(event) => setPassword(event.target.value)} />
-                  <button type="submit" className="secondary-link" disabled={busy}>Mit E-Mail anmelden</button>
+                  <button type="submit" className="secondary-link" disabled={busy}>Anmelden</button>
                 </form>
               ) : null}
 
@@ -346,7 +346,7 @@ export function AccountPageClient() {
                   <input className="admin-input" type="email" required autoComplete="email" placeholder="E-Mail-Adresse" value={email} onChange={(event) => setEmail(event.target.value)} />
                   <input className="admin-input" type="password" required minLength={8} autoComplete="new-password" placeholder="Passwort festlegen" value={password} onChange={(event) => setPassword(event.target.value)} />
                   <input className="admin-input" type="password" required minLength={8} autoComplete="new-password" placeholder="Passwort wiederholen" value={passwordRepeat} onChange={(event) => setPasswordRepeat(event.target.value)} />
-                  <button type="submit" className="secondary-link" disabled={busy}>Konto erstellen</button>
+                  <button type="submit" className="secondary-link" disabled={busy}>Registrieren</button>
                 </form>
               ) : null}
 

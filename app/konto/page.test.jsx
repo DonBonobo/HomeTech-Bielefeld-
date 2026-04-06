@@ -73,21 +73,21 @@ describe("AccountPage", () => {
     render(<AccountPageClient />);
 
     expect(screen.getByRole("button", { name: "Mit Google fortfahren" })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Mit E-Mail anmelden" })).toBeInTheDocument();
+    expect(screen.getAllByRole("button", { name: "Anmelden" }).length).toBeGreaterThan(0);
   });
 
   it("shows a loading state before auth hydration finishes", () => {
     authState.ready = false;
     render(<AccountPageClient />);
     expect(screen.getByText("Sitzung wird geprüft")).toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: "Mit E-Mail anmelden" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Anmelden" })).not.toBeInTheDocument();
   });
 
   it("keeps the account page in a loading state while exchanging an auth code", () => {
     params = "next=%2Fkonto&code=abc123";
     render(<AccountPageClient />);
     expect(screen.getByText("Anmeldung wird abgeschlossen")).toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: "Mit E-Mail anmelden" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Anmelden" })).not.toBeInTheDocument();
   });
 
   it("starts Google sign-in with the current redirect path", async () => {
@@ -105,7 +105,7 @@ describe("AccountPage", () => {
 
     fireEvent.change(screen.getByPlaceholderText("E-Mail-Adresse"), { target: { value: "kunde@example.com" } });
     fireEvent.change(screen.getByPlaceholderText("Passwort"), { target: { value: "passwort-123" } });
-    fireEvent.click(screen.getByRole("button", { name: "Mit E-Mail anmelden" }));
+    fireEvent.click(screen.getAllByRole("button", { name: "Anmelden" })[1]);
 
     await waitFor(() => {
       expect(authState.signInWithPassword).toHaveBeenCalledWith("kunde@example.com", "passwort-123", "/checkout");
@@ -119,7 +119,7 @@ describe("AccountPage", () => {
     fireEvent.change(screen.getByPlaceholderText("E-Mail-Adresse"), { target: { value: "neu@example.com" } });
     fireEvent.change(screen.getByPlaceholderText("Passwort festlegen"), { target: { value: "passwort-123" } });
     fireEvent.change(screen.getByPlaceholderText("Passwort wiederholen"), { target: { value: "passwort-123" } });
-    fireEvent.click(screen.getAllByRole("button", { name: "Konto erstellen" })[1]);
+    fireEvent.click(screen.getByRole("button", { name: "Registrieren" }));
 
     await waitFor(() => {
       expect(authState.signUpWithEmail).toHaveBeenCalledWith("neu@example.com", "passwort-123", "/produkt/philips-hue-white-e14-kerze-470");
@@ -147,7 +147,7 @@ describe("AccountPage", () => {
 
     render(<AccountPageClient />);
 
-    expect(screen.getByRole("link", { name: "Admin" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Zum Admin" })).toBeInTheDocument();
   });
 
   it("shows orders first for signed-in users", async () => {
@@ -183,7 +183,7 @@ describe("AccountPage", () => {
 
     await waitFor(() => {
       expect(screen.getByText("Noch keine Bestellungen")).toBeInTheDocument();
-      expect(screen.getByText("Dein Bestellverlauf erscheint hier.")).toBeInTheDocument();
+      expect(screen.getByText("Neue Bestellungen erscheinen hier automatisch.")).toBeInTheDocument();
     });
   });
 
