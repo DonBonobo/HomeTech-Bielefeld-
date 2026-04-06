@@ -52,7 +52,10 @@ export function Header() {
           ))}
         </nav>
         <div className="header-actions">
-          <Link href="/checkout" className="cart-button">Warenkorb {cartItems.length ? `(${cartItems.length})` : ""}</Link>
+          <Link href="/checkout" className="cart-button">
+            <span>Warenkorb</span>
+            {cartItems.length ? <span className="header-count">{cartItems.length}</span> : null}
+          </Link>
           <button className="menu-toggle" type="button" onClick={() => setOpen((value) => !value)}>
             {open ? "Schliessen" : "Menue"}
           </button>
