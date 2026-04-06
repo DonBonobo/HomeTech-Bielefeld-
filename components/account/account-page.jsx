@@ -271,7 +271,7 @@ export function AccountPageClient() {
               <article className="account-order-card account-order-card--empty">
                 <div>
                   <strong>Noch keine Bestellungen</strong>
-                  <span>Deine letzten Einkäufe erscheinen hier.</span>
+                  <span>Dein Bestellverlauf erscheint hier.</span>
                 </div>
               </article>
             )}
@@ -286,7 +286,7 @@ export function AccountPageClient() {
             </article>
             <article className="account-detail-card">
               <span>Adresse</span>
-              <strong>{profile?.address_line_1 || "Noch nicht hinterlegt"}</strong>
+              <strong>{profile?.address_line_1 || "Noch offen"}</strong>
             </article>
           </div>
           <div className="account-top-actions account-top-actions--stacked">

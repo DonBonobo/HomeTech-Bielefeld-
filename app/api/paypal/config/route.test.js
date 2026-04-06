@@ -26,4 +26,16 @@ describe("paypal config route", () => {
     expect(payload.clientId).toBeUndefined();
     expect(payload.secret).toBeUndefined();
   });
+
+  it("defaults to sandbox when no live env is set", async () => {
+    process.env.PAYPAL_CLIENT_ID = "client-id";
+    process.env.PAYPAL_CLIENT_SECRET = "secret";
+    delete process.env.PAYPAL_ENV;
+
+    const response = await GET();
+    const payload = await response.json();
+
+    expect(payload.environment).toBe("sandbox");
+    expect(payload.flow).toBe("redirect");
+  });
 });

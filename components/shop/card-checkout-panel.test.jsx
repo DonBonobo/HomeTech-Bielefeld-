@@ -19,5 +19,6 @@ describe("CardCheckoutPanel", () => {
     await waitFor(() => {
       expect(screen.getByText("Kartenzahlung wird nach der Freischaltung separat aktiviert.")).toBeInTheDocument();
     });
+    expect(screen.queryByPlaceholderText("Kartennummer")).not.toBeInTheDocument();
   });
 });

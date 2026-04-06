@@ -55,6 +55,7 @@ describe("PayPalCheckoutPanel", () => {
 
     expect(screen.getByText("PayPal")).toBeInTheDocument();
     expect(screen.getByTestId("paypal-redirect-button")).toBeInTheDocument();
+    expect(screen.queryByTestId("paypal-button-host")).not.toBeInTheDocument();
   });
 
   it("starts the redirect checkout flow", async () => {

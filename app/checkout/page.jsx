@@ -24,8 +24,8 @@ export default function CheckoutPage() {
         <div className="section-header">
           <div>
             <p className="overline">Checkout</p>
-            <h1>Sicher und direkt bezahlen</h1>
-            <p>Wenige Produkte, nachvollziehbarer Versand und ein ruhiger letzter Schritt bis zur Bezahlung.</p>
+            <h1>Bezahlen</h1>
+            <p>Warenkorb prüfen und Zahlung abschließen.</p>
           </div>
         </div>
       </section>
@@ -35,8 +35,7 @@ export default function CheckoutPage() {
           <div className="section-header">
             <div>
               <p className="overline">Warenkorb leer</p>
-              <h2>Lege zuerst ein Produkt in den Warenkorb.</h2>
-              <p>Starte mit den aktuellen Hue-Leuchtmitteln und gehe danach direkt weiter zu PayPal.</p>
+              <h2>Dein Warenkorb ist leer.</h2>
             </div>
             <Link href="/kategorie/leuchtmittel" className="primary-link">Zu den Leuchtmitteln</Link>
           </div>
@@ -88,14 +87,14 @@ export default function CheckoutPage() {
           <div className="summary-line"><span>Zwischensumme</span><span>{formatCurrency(subtotal)}</span></div>
           <div className="summary-line"><span>Versand</span><span>{shipping ? formatCurrency(shipping) : "-"}</span></div>
           <div className="summary-line total"><span>Gesamt</span><span>{formatCurrency(total)}</span></div>
-          {user ? (
+          {user && cartItems.length ? (
             <>
               <PayPalCheckoutPanel totalCents={total} disabled={!canPay} />
               <CardCheckoutPanel disabled={!canPay} />
             </>
-          ) : (
+          ) : cartItems.length ? (
             <AuthEntryCard compact title="Anmeldung erforderlich" text="Zum Bezahlen bitte zuerst anmelden." />
-          )}
+          ) : null}
         </aside>
       </section>
     </div>

@@ -58,4 +58,27 @@ describe("CheckoutPage", () => {
     expect(screen.getByText("Karten Panel")).toBeInTheDocument();
     authState.user = null;
   });
+
+  it("keeps payment areas hidden for an empty cart", () => {
+    authState.user = { id: "user-1" };
+    cartState.cartItems = [];
+
+    render(<CheckoutPage />);
+
+    expect(screen.queryByText("PayPal Panel")).not.toBeInTheDocument();
+    expect(screen.queryByText("Karten Panel")).not.toBeInTheDocument();
+    expect(screen.getByText("Dein Warenkorb ist leer.")).toBeInTheDocument();
+
+    cartState.cartItems = [
+      {
+        id: "white-ambiance-e27-1100",
+        image: "/assets/products/philips-hue-white-ambiance-e27-1100.png",
+        title: "Philips Hue White Ambiance E27 1100",
+        priceCents: 2499,
+        spec: "E27 · 1100 lm",
+        quantity: 1,
+      },
+    ];
+    authState.user = null;
+  });
 });

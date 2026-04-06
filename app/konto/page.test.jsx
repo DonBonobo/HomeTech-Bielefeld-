@@ -176,7 +176,7 @@ describe("AccountPage", () => {
 
     await waitFor(() => {
       expect(screen.getByText("Noch keine Bestellungen")).toBeInTheDocument();
-      expect(screen.getByText("Deine letzten Einkäufe erscheinen hier.")).toBeInTheDocument();
+      expect(screen.getByText("Dein Bestellverlauf erscheint hier.")).toBeInTheDocument();
     });
   });
 
