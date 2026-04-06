@@ -44,8 +44,8 @@ export function PayPalCheckoutPanel({ totalCents, disabled }) {
       .then((payload) => {
         if (!active) return;
         setConfig(payload);
-        setStatus(payload.enabled ? "ready" : "disabled");
-        setMessage(payload.enabled ? "" : "PayPal ist noch nicht konfiguriert.");
+        setStatus(payload.enabled && payload.ordersEnabled ? "ready" : "disabled");
+        setMessage(payload.enabled && payload.ordersEnabled ? "" : "PayPal ist noch nicht vollständig konfiguriert.");
       })
       .catch(() => {
         if (!active) return;
@@ -77,21 +77,30 @@ export function PayPalCheckoutPanel({ totalCents, disabled }) {
             label: "paypal",
             color: "gold",
           },
-          createOrder: async (_data, actions) =>
-            actions.order.create({
-              purchase_units: [
-                {
-                  amount: {
-                    currency_code: config.currency,
-                    value: (totalCents / 100).toFixed(2),
-                  },
-                },
-              ],
-            }),
-          onApprove: async (_data, actions) => {
-            const details = await actions.order.capture();
+          createOrder: async () => {
+            const response = await fetch("/api/paypal/order", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ totalCents }),
+            });
+            const payload = await response.json();
+            if (!response.ok || !payload.id) {
+              throw new Error(payload.error || "paypal-order-create-failed");
+            }
+            return payload.id;
+          },
+          onApprove: async (data) => {
+            const response = await fetch("/api/paypal/capture", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ orderId: data.orderID }),
+            });
+            const details = await response.json();
+            if (!response.ok) {
+              throw new Error(details.error || "paypal-order-capture-failed");
+            }
             setStatus("approved");
-            setMessage(`PayPal bestaetigt. Bestellung fuer ${details.payer?.name?.given_name || "deinen Einkauf"} freigegeben.`);
+            setMessage(`PayPal bestätigt. Bestellung für ${details.payerName || "deinen Einkauf"} freigegeben.`);
           },
           onError: () => {
             setStatus("error");

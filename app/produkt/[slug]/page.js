@@ -1,19 +1,21 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
-import { getProduct, products } from "@/lib/catalog";
+import { useParams } from "next/navigation";
 import { formatCurrency } from "@/lib/commerce";
 import { ProductCard } from "@/components/shop/product-card";
 import { AddToCartButton } from "@/components/shop/add-to-cart-button";
+import { AuthEntryCard } from "@/components/shop/auth-entry-card";
+import { useStorefront } from "@/components/providers/storefront-provider";
 
-export default async function ProductPage({ params }) {
-  const { slug } = await params;
-  const product = getProduct(slug);
-  if (!product) {
-    notFound();
-  }
+export default function ProductPage() {
+  const params = useParams();
+  const { getProduct, visibleProducts } = useStorefront();
+  const product = getProduct(params.slug);
+  if (!product) return null;
 
-  const related = products.filter((item) => item.id !== product.id).slice(0, 3);
+  const related = visibleProducts.filter((item) => item.id !== product.id).slice(0, 3);
 
   return (
     <div className="page-stack">
@@ -54,12 +56,13 @@ export default async function ProductPage({ params }) {
           <div className="trust-list">
             <span>PayPal</span>
             <span>Versand in ganz Europa</span>
-            <span>30 Tage Rueckgabe</span>
+            <span>30 Tage Rückgabe</span>
           </div>
           <div className="buy-actions">
             <AddToCartButton productId={product.id} />
             <Link href="/checkout" className="secondary-link">Zum Warenkorb</Link>
           </div>
+          <AuthEntryCard compact />
         </div>
       </section>
       <section className="section-block section-block--soft">
@@ -67,14 +70,14 @@ export default async function ProductPage({ params }) {
           <div>
             <p className="overline">Produktdetails</p>
             <h2>Klar aufgebaut statt ueberladen</h2>
-            <p>Kompatibilitaet, Lieferung und Rueckgabe bleiben sichtbar, ohne die Kaufentscheidung unnoetig aufzublasen.</p>
+            <p>Kompatibilität, Lieferung und Rückgabe bleiben sichtbar, ohne die Kaufentscheidung unnötig aufzublasen.</p>
           </div>
         </div>
         <div className="pdp-details-grid">
           <ul className="detail-bullets">
-            <li>Kompatibel mit gaengigen Hue- und Smart-Home-Setups</li>
+            <li>Kompatibel mit gängigen Hue- und Smart-Home-Setups</li>
             <li>Schnelle Einrichtung per App und alltagstaugliche Steuerung</li>
-            <li>Versand innerhalb Europas und 30 Tage Rueckgabe</li>
+            <li>Versand innerhalb Europas und 30 Tage Rückgabe</li>
           </ul>
           <div className="chip-row">
             {product.compatibility.map((item) => <span key={item}>{item}</span>)}

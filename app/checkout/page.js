@@ -1,12 +1,17 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useAuth } from "@/components/providers/auth-provider";
 import { useCart } from "@/components/providers/cart-provider";
 import { PayPalCheckoutPanel } from "@/components/shop/paypal-checkout-panel";
+import { AuthEntryCard } from "@/components/shop/auth-entry-card";
 import { cartSubtotal, formatCurrency } from "@/lib/commerce";
 
 export default function CheckoutPage() {
   const { cartItems, updateQuantity } = useCart();
+  const { user } = useAuth();
+  const pathname = usePathname();
   const subtotal = cartSubtotal(cartItems);
   const shipping = cartItems.length ? 395 : 0;
   const total = subtotal + shipping;
@@ -36,6 +41,19 @@ export default function CheckoutPage() {
         </section>
       ) : null}
 
+      {!user ? (
+        <section className="section-block section-block--soft">
+          <div className="section-header">
+            <div>
+              <p className="overline">Konto</p>
+              <h2>Auf Wunsch mit Konto fortfahren</h2>
+              <p>Dein Warenkorb bleibt erhalten und du landest nach der Anmeldung direkt wieder im Checkout.</p>
+            </div>
+            <Link href={`/konto?next=${encodeURIComponent(pathname)}`} className="secondary-link">Anmelden</Link>
+          </div>
+        </section>
+      ) : null}
+
       <section className="checkout-layout checkout-layout--redone">
         <div className="checkout-column">
           {cartItems.map((item) => (
@@ -60,6 +78,7 @@ export default function CheckoutPage() {
           <div className="summary-line"><span>Versand</span><span>{shipping ? formatCurrency(shipping) : "-"}</span></div>
           <div className="summary-line total"><span>Gesamt</span><span>{formatCurrency(total)}</span></div>
           <PayPalCheckoutPanel totalCents={total} disabled={!cartItems.length} />
+          <AuthEntryCard compact />
         </aside>
       </section>
     </div>

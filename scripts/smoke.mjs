@@ -2,7 +2,7 @@ const baseUrl = process.env.BASE_URL || "http://localhost:3000";
 
 const checks = [
   { path: "/", marker: "Beliebte Leuchtmittel" },
-  { path: "/kategorie/leuchtmittel", marker: "Leuchtmittel fuer dein Zuhause" },
+  { path: "/kategorie/leuchtmittel", marker: "Leuchtmittel für dein Zuhause" },
   { path: "/produkt/philips-hue-white-ambiance-e27-1100", marker: "Philips Hue White Ambiance E27 1100" },
   { path: "/checkout", marker: "Sicher und direkt bezahlen" },
 ];

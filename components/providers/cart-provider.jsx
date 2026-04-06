@@ -1,29 +1,186 @@
 "use client";
 
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { hydrateCart } from "@/lib/commerce";
+import { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { hydrateCart, mergeCartEntries } from "@/lib/commerce";
+import { useAuth } from "@/components/providers/auth-provider";
+import { useStorefront } from "@/components/providers/storefront-provider";
 
 const CartContext = createContext(null);
-const STORAGE_KEY = "hometech.next.cart.v1";
+const GUEST_STORAGE_KEY = "hometech.next.cart.guest.v2";
+const USER_STORAGE_PREFIX = "hometech.next.cart.user.";
+
+function getUserStorageKey(userId) {
+  return `${USER_STORAGE_PREFIX}${userId}`;
+}
+
+function readStorage(key) {
+  if (typeof window === "undefined") return [];
+  try {
+    return JSON.parse(window.localStorage.getItem(key) || "[]");
+  } catch (_error) {
+    return [];
+  }
+}
+
+function writeStorage(key, items) {
+  if (typeof window === "undefined") return;
+  window.localStorage.setItem(key, JSON.stringify(items));
+}
+
+async function readServerCart(supabase, userId) {
+  if (!supabase || !userId) {
+    return { items: null, supported: false };
+  }
+
+  const { data: cartRow, error: cartError } = await supabase
+    .from("carts")
+    .select("id")
+    .eq("user_id", userId)
+    .maybeSingle();
+
+  if (cartError) {
+    return { items: null, supported: false };
+  }
+
+  if (!cartRow) {
+    return { items: [], supported: true };
+  }
+
+  const { data: itemRows, error: itemError } = await supabase
+    .from("cart_items")
+    .select("product_id, quantity")
+    .eq("cart_id", cartRow.id);
+
+  if (itemError) {
+    return { items: null, supported: false };
+  }
+
+  return {
+    supported: true,
+    items: (itemRows || []).map((item) => ({ id: item.product_id, quantity: item.quantity })),
+  };
+}
+
+async function writeServerCart(supabase, userId, items) {
+  if (!supabase || !userId) {
+    return false;
+  }
+
+  const { data: cartRow, error: cartError } = await supabase
+    .from("carts")
+    .upsert({ user_id: userId }, { onConflict: "user_id" })
+    .select("id")
+    .single();
+
+  if (cartError || !cartRow) {
+    return false;
+  }
+
+  const cartId = cartRow.id;
+
+  const { error: deleteError } = await supabase.from("cart_items").delete().eq("cart_id", cartId);
+  if (deleteError) {
+    return false;
+  }
+
+  if (!items.length) {
+    return true;
+  }
+
+  const payload = items.map((item) => ({
+    cart_id: cartId,
+    product_id: item.id,
+    quantity: item.quantity,
+  }));
+
+  const { error: insertError } = await supabase.from("cart_items").insert(payload);
+  return !insertError;
+}
 
 export function CartProvider({ children }) {
+  const { supabase, user, ready: authReady } = useAuth();
+  const { products } = useStorefront();
   const [items, setItems] = useState([]);
+  const [booted, setBooted] = useState(false);
+  const previousUserId = useRef(undefined);
+  const serverSupported = useRef(false);
 
   useEffect(() => {
-    try {
-      const stored = window.localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        setItems(JSON.parse(stored));
+    let active = true;
+
+    async function loadCartState() {
+      if (!authReady) {
+        return;
       }
-    } catch (_error) {}
-  }, []);
+
+      const currentUserId = user?.id || null;
+      const previous = previousUserId.current;
+      let nextItems = [];
+
+      if (!currentUserId) {
+        nextItems = readStorage(GUEST_STORAGE_KEY);
+      } else {
+        const storedUserItems = readStorage(getUserStorageKey(currentUserId));
+        const serverCart = await readServerCart(supabase, currentUserId);
+        serverSupported.current = serverCart.supported;
+
+        if (previous === undefined) {
+          nextItems = serverCart.supported ? serverCart.items : storedUserItems;
+          if (!nextItems.length) {
+            nextItems = storedUserItems;
+          }
+        } else if (!previous && currentUserId) {
+          const guestItems = readStorage(GUEST_STORAGE_KEY);
+          const merged = serverCart.supported
+            ? mergeCartEntries(serverCart.items || [], guestItems)
+            : mergeCartEntries(storedUserItems, guestItems);
+          nextItems = merged;
+          writeStorage(getUserStorageKey(currentUserId), merged);
+          writeStorage(GUEST_STORAGE_KEY, []);
+          if (serverCart.supported) {
+            await writeServerCart(supabase, currentUserId, merged);
+          }
+        } else if (previous === currentUserId) {
+          nextItems = serverCart.supported ? (serverCart.items || storedUserItems) : storedUserItems;
+        } else {
+          nextItems = serverCart.supported ? (serverCart.items || []) : storedUserItems;
+        }
+      }
+
+      if (!active) {
+        return;
+      }
+
+      previousUserId.current = currentUserId;
+      setItems(nextItems);
+      setBooted(true);
+    }
+
+    loadCartState();
+    return () => {
+      active = false;
+    };
+  }, [authReady, supabase, user?.id]);
 
   useEffect(() => {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-  }, [items]);
+    if (!booted) {
+      return;
+    }
+
+    const currentUserId = user?.id || null;
+    if (!currentUserId) {
+      writeStorage(GUEST_STORAGE_KEY, items);
+      return;
+    }
+
+    writeStorage(getUserStorageKey(currentUserId), items);
+    if (serverSupported.current) {
+      writeServerCart(supabase, currentUserId, items);
+    }
+  }, [booted, items, supabase, user?.id]);
 
   const value = useMemo(() => {
-    const cartItems = hydrateCart(items);
+    const cartItems = hydrateCart(items, products);
 
     return {
       rawItems: items,
@@ -44,8 +201,11 @@ export function CartProvider({ children }) {
             .filter((item) => item.quantity > 0)
         );
       },
+      replaceCart(nextItems) {
+        setItems(nextItems);
+      },
     };
-  }, [items]);
+  }, [items, products]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }

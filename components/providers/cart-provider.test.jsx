@@ -1,6 +1,21 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import { beforeEach, describe, expect, it } from "vitest";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { CartProvider, useCart } from "@/components/providers/cart-provider";
+
+let authState = { supabase: null, user: null, ready: true };
+
+vi.mock("@/components/providers/auth-provider", () => ({
+  useAuth: () => authState,
+}));
+
+vi.mock("@/components/providers/storefront-provider", () => ({
+  useStorefront: () => ({
+    products: [
+      { id: "white-e14-candle-470", title: "White", priceCents: 1699, quantity: 0 },
+      { id: "white-color-e14-candle-470", title: "Color", priceCents: 2999, quantity: 0 },
+    ],
+  }),
+}));
 
 function CartHarness() {
   const { cartItems, addItem, updateQuantity } = useCart();
@@ -18,6 +33,7 @@ function CartHarness() {
 describe("CartProvider", () => {
   beforeEach(() => {
     window.localStorage.clear();
+    authState = { supabase: null, user: null, ready: true };
   });
 
   it("updates cart quantity across multiple products", () => {
@@ -46,5 +62,30 @@ describe("CartProvider", () => {
     fireEvent.click(screen.getByRole("button", { name: "remove-white" }));
 
     expect(screen.getByTestId("count")).toHaveTextContent("0");
+  });
+
+  it("preserves a guest cart when the user signs in", async () => {
+    window.localStorage.setItem("hometech.next.cart.guest.v2", JSON.stringify([{ id: "white-e14-candle-470", quantity: 2 }]));
+
+    const view = render(
+      <CartProvider>
+        <CartHarness />
+      </CartProvider>
+    );
+
+    await waitFor(() => {
+      expect(screen.getByTestId("count")).toHaveTextContent("2");
+    });
+
+    authState = { supabase: null, user: { id: "user-1" }, ready: true };
+    view.rerender(
+      <CartProvider>
+        <CartHarness />
+      </CartProvider>
+    );
+
+    await waitFor(() => {
+      expect(screen.getByTestId("count")).toHaveTextContent("2");
+    });
   });
 });

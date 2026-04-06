@@ -1,9 +1,13 @@
+"use client";
+
 import { HomeHero } from "@/components/shop/home-hero";
 import { ProductCard } from "@/components/shop/product-card";
 import { TrustStrip } from "@/components/shop/trust-strip";
-import { products } from "@/lib/catalog";
+import { useStorefront } from "@/components/providers/storefront-provider";
 
 export default function HomePage() {
+  const { visibleProducts } = useStorefront();
+
   return (
     <div className="page-stack">
       <HomeHero />
@@ -19,7 +23,7 @@ export default function HomePage() {
           </div>
         </div>
         <div className="storefront-grid">
-          {products.slice(0, 4).map((product) => (
+          {visibleProducts.slice(0, 4).map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>

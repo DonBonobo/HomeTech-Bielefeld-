@@ -28,11 +28,16 @@ Env setup:
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
 NEXT_PUBLIC_SUPABASE_PRODUCTS_BUCKET=product-images
+PAYPAL_ENV=sandbox
 PAYPAL_CLIENT_ID=
 PAYPAL_CLIENT_SECRET=
 ```
 
 PayPal notes:
 - `PAYPAL_CLIENT_ID` is read server-side and exposed to the checkout only through `/api/paypal/config` so the PayPal SDK can load.
-- `PAYPAL_CLIENT_SECRET` stays server-side only and is stored for later server-side order flows. It is not used in browser code yet.
+- `PAYPAL_CLIENT_SECRET` stays server-side only and is now used only in the server routes that create and capture PayPal orders.
 - Payment method remains PayPal only.
+
+Supabase notes:
+- apply [supabase/schema.sql](/root/HomeTech-Bielefeld-next/supabase/schema.sql) before expecting categories, carts, orders, or profiles to persist in Supabase
+- Google OAuth still depends on the Google provider and redirect URLs being configured in the Supabase dashboard

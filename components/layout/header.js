@@ -3,12 +3,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { categories } from "@/lib/catalog";
+import { useAuth } from "@/components/providers/auth-provider";
 import { useCart } from "@/components/providers/cart-provider";
+import { useStorefront } from "@/components/providers/storefront-provider";
 
 export function Header() {
   const pathname = usePathname();
   const { cartItems } = useCart();
+  const { user } = useAuth();
+  const { categories } = useStorefront();
+  const activeCategories = categories.filter((category) => category.enabled);
 
   return (
     <header className="site-header">
@@ -36,14 +40,10 @@ export function Header() {
           </span>
         </Link>
         <nav className="desktop-nav">
-          {categories.map((item) => (
-            item.enabled ? (
-              <Link key={item.slug} href={`/kategorie/${item.slug}`} className={pathname === `/kategorie/${item.slug}` ? "is-active" : ""}>
-                {item.label}
-              </Link>
-            ) : (
-              <span key={item.slug} className="desktop-nav-disabled">{item.label}</span>
-            )
+          {activeCategories.map((item) => (
+            <Link key={item.slug} href={`/kategorie/${item.slug}`} className={pathname === `/kategorie/${item.slug}` ? "is-active" : ""}>
+              {item.label}
+            </Link>
           ))}
         </nav>
         <div className="header-actions">
@@ -57,14 +57,10 @@ export function Header() {
         </div>
       </div>
       <div className="mobile-category-row">
-        {categories.map((category) => (
-          category.enabled ? (
-            <Link key={category.slug} href={`/kategorie/${category.slug}`} className={pathname === `/kategorie/${category.slug}` ? "is-active" : ""}>
-              {category.label}
-            </Link>
-          ) : (
-            <span key={category.slug} className="category-pill-disabled">{category.label}</span>
-          )
+        {activeCategories.map((category) => (
+          <Link key={category.slug} href={`/kategorie/${category.slug}`} className={pathname === `/kategorie/${category.slug}` ? "is-active" : ""}>
+            {category.label}
+          </Link>
         ))}
       </div>
     </header>
