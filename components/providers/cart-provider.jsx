@@ -185,6 +185,9 @@ export function CartProvider({ children }) {
     return {
       rawItems: items,
       cartItems,
+      getQuantity(productId) {
+        return currentQuantity(items, productId);
+      },
       addItem(productId) {
         setItems((current) => {
           const existing = current.find((item) => item.id === productId);
@@ -216,4 +219,8 @@ export function useCart() {
     throw new Error("useCart must be used within CartProvider");
   }
   return context;
+}
+
+function currentQuantity(items, productId) {
+  return items.find((item) => item.id === productId)?.quantity || 0;
 }

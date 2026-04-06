@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it } from "vitest";
 import { AuthProvider } from "@/components/providers/auth-provider";
 import { StorefrontProvider, useStorefront } from "@/components/providers/storefront-provider";
@@ -36,5 +36,22 @@ describe("StorefrontProvider", () => {
     expect(screen.getByTestId("hubs-products")).toHaveTextContent("0");
     fireEvent.click(screen.getByRole("button", { name: "rename" }));
     expect(screen.getByTestId("first-label")).toHaveTextContent("Leuchten");
+  });
+
+  it("persists category changes to local state storage when Supabase tables are unavailable", async () => {
+    render(
+      <AuthProvider>
+        <StorefrontProvider>
+          <StorefrontHarness />
+        </StorefrontProvider>
+      </AuthProvider>
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: "rename" }));
+
+    await waitFor(() => {
+      const payload = JSON.parse(window.localStorage.getItem("hometech.storefront.v1"));
+      expect(payload.categories[0].label).toBe("Leuchten");
+    });
   });
 });

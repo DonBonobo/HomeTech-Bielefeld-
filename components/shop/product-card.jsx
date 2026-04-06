@@ -3,11 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { formatCurrency } from "@/lib/commerce";
-import { useCart } from "@/components/providers/cart-provider";
+import { AddToCartButton } from "@/components/shop/add-to-cart-button";
 
 export function ProductCard({ product }) {
-  const { addItem } = useCart();
-
   return (
     <article className="product-card">
       <Link href={`/produkt/${product.slug}`} className="product-card-link">
@@ -28,9 +26,7 @@ export function ProductCard({ product }) {
         <span>{product.spec}</span>
         <span>{product.compatibility[0]}</span>
       </div>
-      <button type="button" className="primary-action" onClick={() => addItem(product.id)}>
-        In den Warenkorb
-      </button>
+      <AddToCartButton productId={product.id} />
     </article>
   );
 }

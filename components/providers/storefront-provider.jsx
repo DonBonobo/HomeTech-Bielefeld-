@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { seedCategories, seedProducts } from "@/lib/storefront-seed";
 import { useAuth } from "@/components/providers/auth-provider";
 
@@ -46,12 +46,87 @@ function normalizeProducts(products, categories) {
   }));
 }
 
+async function readSupabaseStorefront(supabase) {
+  if (!supabase) {
+    return { supported: false };
+  }
+
+  const { data: categoryRows, error: categoryError } = await supabase
+    .from("categories")
+    .select("*")
+    .order("position", { ascending: true });
+
+  if (categoryError) {
+    return { supported: false };
+  }
+
+  const { data: productRows, error: productError } = await supabase
+    .from("products")
+    .select("*")
+    .order("title", { ascending: true });
+
+  if (productError) {
+    return { supported: false };
+  }
+
+  return {
+    supported: true,
+    categories: categoryRows || [],
+    products: (productRows || []).map((product) => ({
+      ...product,
+      categorySlug: product.category_slug,
+      priceCents: product.price_cents,
+      stockCount: product.stock_count,
+      gallery: product.gallery || [],
+      compatibility: product.compatibility || [],
+    })),
+  };
+}
+
+async function writeSupabaseCategories(supabase, categories) {
+  if (!supabase) return false;
+  const payload = categories.map((category, index) => ({
+    id: category.id,
+    slug: category.slug,
+    label: category.label,
+    enabled: category.enabled,
+    position: index,
+  }));
+
+  const { error } = await supabase.from("categories").upsert(payload);
+  return !error;
+}
+
+async function writeSupabaseProducts(supabase, products) {
+  if (!supabase) return false;
+  const payload = products.map((product) => ({
+    id: product.id,
+    slug: product.slug,
+    title: product.title,
+    category_slug: product.categorySlug,
+    line: product.line,
+    spec: product.spec,
+    short: product.short,
+    description: product.description,
+    price_cents: product.priceCents,
+    stock_count: product.stockCount,
+    visible: product.visible,
+    image: product.image,
+    gallery: product.gallery,
+    compatibility: product.compatibility,
+  }));
+
+  const { error } = await supabase.from("products").upsert(payload);
+  return !error;
+}
+
 export function StorefrontProvider({ children }) {
   const { supabase, user } = useAuth();
   const [categories, setCategories] = useState(seedCategories);
   const [products, setProducts] = useState(seedProducts);
   const [source, setSource] = useState("seed");
   const [ready, setReady] = useState(false);
+  const supabaseSupported = useRef(false);
 
   useEffect(() => {
     let active = true;
@@ -76,22 +151,11 @@ export function StorefrontProvider({ children }) {
       }
 
       if (supabase) {
-        const { data: categoryRows, error: categoryError } = await supabase
-          .from("categories")
-          .select("*")
-          .order("position", { ascending: true });
-
-        if (!categoryError && Array.isArray(categoryRows)) {
-          const { data: productRows, error: productError } = await supabase
-            .from("products")
-            .select("*")
-            .order("title", { ascending: true });
-
-          if (!productError && Array.isArray(productRows)) {
-            nextCategories = categoryRows;
-            nextProducts = productRows;
-            nextSource = "supabase";
-          }
+        const result = await readSupabaseStorefront(supabase);
+        if (result.supported) {
+          nextCategories = result.categories;
+          nextProducts = result.products;
+          nextSource = "supabase";
         }
       }
 
@@ -102,6 +166,7 @@ export function StorefrontProvider({ children }) {
       setCategories(normalizedCategories);
       setProducts(normalizedProducts);
       setSource(nextSource);
+      supabaseSupported.current = nextSource === "supabase";
       setReady(true);
     }
 
@@ -117,7 +182,12 @@ export function StorefrontProvider({ children }) {
     }
 
     window.localStorage.setItem(STOREFRONT_STORAGE_KEY, JSON.stringify({ categories, products }));
-  }, [categories, products, ready]);
+
+    if (supabase && user && supabaseSupported.current) {
+      writeSupabaseCategories(supabase, categories);
+      writeSupabaseProducts(supabase, products);
+    }
+  }, [categories, products, ready, supabase, user]);
 
   const value = useMemo(() => ({
     categories,
@@ -150,8 +220,9 @@ export function StorefrontProvider({ children }) {
       });
     },
     deleteCategory(categoryId) {
-      setCategories((current) => normalizeCategories(current.filter((category) => category.id !== categoryId)));
-      setProducts((current) => current.map((product) => product.categorySlug === categoryId ? { ...product, categorySlug: "leuchtmittel", category: "Leuchtmittel" } : product));
+      const category = categories.find((entry) => entry.id === categoryId);
+      setCategories((current) => normalizeCategories(current.filter((entry) => entry.id !== categoryId)));
+      setProducts((current) => current.map((product) => product.categorySlug === category?.slug ? { ...product, categorySlug: "leuchtmittel", category: "Leuchtmittel" } : product));
     },
     reorderCategory(categoryId, direction) {
       setCategories((current) => {
@@ -183,6 +254,7 @@ export function StorefrontProvider({ children }) {
         categories
       ));
     },
+    persistenceMode: supabaseSupported.current ? "supabase" : source,
   }), [categories, products, ready, source]);
 
   return <StorefrontContext.Provider value={value}>{children}</StorefrontContext.Provider>;
