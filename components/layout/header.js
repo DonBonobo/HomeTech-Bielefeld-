@@ -27,7 +27,22 @@ export function Header() {
       </div>
       <div className="header-row">
         <Link href="/" className="brand-link" onClick={() => setOpen(false)}>
-          <Image src="/assets/brand/logo-home-tech.png" alt="HomeTech Bielefeld" width={300} height={72} />
+          <span className="brand-mark-shell">
+            <span className="brand-mark-circle">HT</span>
+          </span>
+          <span className="brand-wordmark">
+            <Image
+              src="/assets/brand/logo-home-tech.png"
+              alt="HomeTech Bielefeld"
+              width={320}
+              height={90}
+              className="brand-wordmark-image"
+            />
+            <span className="brand-mobile-copy">
+              <strong>HomeTech Bielefeld</strong>
+              <small>Smarter Homes? Das gibt&apos;s doch nicht!</small>
+            </span>
+          </span>
         </Link>
         <nav className="desktop-nav">
           {nav.map((item) => (
