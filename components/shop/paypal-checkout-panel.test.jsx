@@ -41,5 +41,6 @@ describe("PayPalCheckoutPanel", () => {
     });
 
     expect(screen.getByText("PayPal")).toBeInTheDocument();
+    expect(screen.getByTestId("paypal-button-host")).toBeInTheDocument();
   });
 });

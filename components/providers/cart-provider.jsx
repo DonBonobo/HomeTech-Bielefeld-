@@ -116,21 +116,26 @@ export function CartProvider({ children }) {
       const currentUserId = user?.id || null;
       const previous = previousUserId.current;
       let nextItems = [];
+      const guestItems = readStorage(GUEST_STORAGE_KEY);
 
       if (!currentUserId) {
-        nextItems = readStorage(GUEST_STORAGE_KEY);
+        nextItems = guestItems;
       } else {
         const storedUserItems = readStorage(getUserStorageKey(currentUserId));
         const serverCart = await readServerCart(supabase, currentUserId);
         serverSupported.current = serverCart.supported;
 
         if (previous === undefined) {
-          nextItems = serverCart.supported ? serverCart.items : storedUserItems;
-          if (!nextItems.length) {
-            nextItems = storedUserItems;
+          const baseItems = serverCart.supported ? (serverCart.items || []) : storedUserItems;
+          nextItems = mergeCartEntries(baseItems, guestItems);
+          writeStorage(getUserStorageKey(currentUserId), nextItems);
+          if (guestItems.length) {
+            writeStorage(GUEST_STORAGE_KEY, []);
+          }
+          if (serverCart.supported) {
+            await writeServerCart(supabase, currentUserId, nextItems);
           }
         } else if (!previous && currentUserId) {
-          const guestItems = readStorage(GUEST_STORAGE_KEY);
           const merged = serverCart.supported
             ? mergeCartEntries(serverCart.items || [], guestItems)
             : mergeCartEntries(storedUserItems, guestItems);

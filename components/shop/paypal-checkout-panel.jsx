@@ -78,6 +78,7 @@ export function PayPalCheckoutPanel({ totalCents, disabled }) {
             shape: "rect",
             label: "paypal",
             color: "gold",
+            height: 44,
           },
           createOrder: async () => {
             const response = await fetch("/api/paypal/order", {
@@ -138,7 +139,7 @@ export function PayPalCheckoutPanel({ totalCents, disabled }) {
           ? "Lege zuerst Produkte in den Warenkorb."
           : "Direkt mit deinem PayPal-Konto oder PayPal-Guthaben bezahlen."}
       </p>
-      <div ref={buttonRef} className="paypal-button-host" />
+      <div ref={buttonRef} className="paypal-button-host" data-testid="paypal-button-host" />
       {status === "approved" || status === "error" || status === "disabled" ? (
         <p className="payment-feedback">{message}</p>
       ) : null}

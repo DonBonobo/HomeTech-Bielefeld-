@@ -79,7 +79,7 @@ describe("AccountPage", () => {
   it("shows a loading state before auth hydration finishes", () => {
     authState.ready = false;
     render(<AccountPageClient />);
-    expect(screen.getByText("Konto wird geladen")).toBeInTheDocument();
+    expect(screen.getByText("Sitzung wird geprüft")).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "Mit E-Mail anmelden" })).not.toBeInTheDocument();
   });
 

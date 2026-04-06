@@ -217,12 +217,17 @@ export function AccountPageClient() {
   if (!ready) {
     return (
       <div className="page-stack">
-        <section className="section-block section-block--soft">
+        <section className="section-block section-block--soft auth-loading-card">
           <div className="section-header">
             <div>
               <p className="overline">Mein Konto</p>
-              <h1>Konto wird geladen</h1>
+              <h1>Sitzung wird geprüft</h1>
             </div>
+          </div>
+          <div className="auth-loading-indicator" aria-hidden="true">
+            <span />
+            <span />
+            <span />
           </div>
         </section>
       </div>

@@ -11,9 +11,7 @@ export default function HomePage() {
   return (
     <div className="page-stack">
       <HomeHero />
-
       <TrustStrip />
-
       <section className="section-block section-block--tight">
         <div className="section-header">
           <div>

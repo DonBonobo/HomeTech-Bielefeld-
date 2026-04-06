@@ -33,13 +33,13 @@ export function CardCheckoutPanel({ disabled }) {
   return (
     <div className="payment-card payment-card--card">
       <strong>Kredit- oder Debitkarte</strong>
-      <p>Eigener Kartenbereich mit deutscher Eingabe, Adressfeldern und Autofill-Unterstützung.</p>
+      <p>Separater Kartenbereich mit deutscher Eingabe und Autofill-Unterstützung.</p>
       <div className="card-fields">
-        <input className="admin-input" type="text" placeholder="Name auf der Karte" autoComplete="cc-name" disabled={!enabled || disabled} />
-        <input className="admin-input" type="text" placeholder="Kartennummer" autoComplete="cc-number" disabled={!enabled || disabled} />
+        <input className="admin-input" type="text" inputMode="text" placeholder="Name auf der Karte" autoComplete="cc-name" disabled={!enabled || disabled} />
+        <input className="admin-input" type="text" inputMode="numeric" placeholder="Kartennummer" autoComplete="cc-number" disabled={!enabled || disabled} />
         <div className="card-fields-row">
-          <input className="admin-input" type="text" placeholder="MM / JJ" autoComplete="cc-exp" disabled={!enabled || disabled} />
-          <input className="admin-input" type="text" placeholder="CVC" autoComplete="cc-csc" disabled={!enabled || disabled} />
+          <input className="admin-input" type="text" inputMode="numeric" placeholder="MM / JJ" autoComplete="cc-exp" disabled={!enabled || disabled} />
+          <input className="admin-input" type="text" inputMode="numeric" placeholder="CVC" autoComplete="cc-csc" disabled={!enabled || disabled} />
         </div>
         <input className="admin-input" type="text" placeholder="Rechnungsadresse" autoComplete="street-address" disabled={!enabled || disabled} />
       </div>

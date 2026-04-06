@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 
 export function HomeHero() {
   return (
@@ -9,9 +8,6 @@ export function HomeHero() {
           <p className="overline">HomeTech Bielefeld</p>
           <h1>Lass dein Zuhause smarter leuchten.</h1>
           <p>Originale Hue Leuchtmittel, klar ausgewählt und direkt bestellbar.</p>
-          <div className="hero-actions">
-            <Link href="/kategorie/leuchtmittel" className="primary-link">Jetzt einkaufen</Link>
-          </div>
         </div>
 
         <div className="hero-banner-frame">
