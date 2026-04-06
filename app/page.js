@@ -21,24 +21,24 @@ export default function HomePage() {
           <div>
             <p className="overline">Top-Produkte</p>
             <h2>Die aktuelle Launch-Auswahl</h2>
-            <p>Wenige gute Produkte, klare Preise und ein sichtbarer Set-Fortschritt fuer den naechsten Schritt.</p>
+            <p>Eine kleine, echte Hue-Auswahl fuer den Start. Klar vergleichbar, ruhig praesentiert und direkt set-faehig.</p>
           </div>
         </div>
-        <div className="product-rail">
-          {products.slice(0, 4).map((product) => (
+        <div className="storefront-grid">
+          {products.slice(0, 6).map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
       </section>
 
-      <section className="section-block section-block--soft">
+      <section className="section-block section-block--soft launch-note">
         <div className="section-header">
           <div>
             <p className="overline">Service</p>
             <h2>Klar kuratiert fuer den Launch</h2>
-            <p>Wir starten mit einer bewusst kleinen Hue-Auswahl. So bleibt der Shop ruhig, vergleichbar und fuer Sets leichter planbar.</p>
+            <p>Wir starten bewusst klein. So bleibt der Shop ruhig, die Auswahl nachvollziehbar und der 4er-Set-Rabatt wirklich hilfreich.</p>
           </div>
-          <a href="/sets" className="secondary-link">Sets & Sparoptionen</a>
+          <a href="/kategorie/leuchtmittel" className="secondary-link">Alle Leuchtmittel</a>
         </div>
       </section>
     </div>

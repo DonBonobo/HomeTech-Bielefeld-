@@ -11,14 +11,14 @@ export function HomeHero() {
       <div className="hero-card hero-card--quiet">
         <div className="hero-copy">
           <p className="overline">HomeTech Bielefeld</p>
-          <h1>Smartes Licht mit Klarheit und schneller Lieferung.</h1>
+          <h1>Smartes Licht fuer den Launch, klar kuratiert.</h1>
           <p>
-            Entdecke die aktuelle Launch-Auswahl aus Hue White, White Ambiance, White & Color und Filament.
-            Klar kuratiert, einfach kombinierbar und direkt fuer dein 4er-Set vorbereitet.
+            White, White Ambiance, White & Color und Filament. Wenige gute Hue-Produkte,
+            sauber praesentiert und direkt fuer dein 4er-Set vorbereitet.
           </p>
           <div className="hero-actions">
-            <Link href="/kategorie/leuchtmittel" className="primary-link">Jetzt entdecken</Link>
-            <Link href="/sets" className="secondary-link">Zum Set-Vorteil</Link>
+            <Link href="/kategorie/leuchtmittel" className="primary-link">Launch-Produkte ansehen</Link>
+            <Link href="/sets" className="secondary-link">20% Set-Rabatt</Link>
           </div>
         </div>
 

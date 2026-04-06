@@ -12,12 +12,12 @@ export default function CheckoutPage() {
 
   return (
     <div className="page-stack">
-      <section className="section-block">
+      <section className="section-block checkout-hero">
         <div className="section-header">
           <div>
             <p className="overline">Checkout</p>
             <h1>PayPal-only zum Launch</h1>
-            <p>Die Checkout-Struktur ist klar und mobil: Produkte, Set-Rabatt, Versand und ein einziger Launch-Payment-Pfad.</p>
+            <p>Wenige Produkte, klarer Rabatt, ein nachvollziehbarer Versandpreis und ein sauberer letzter Schritt.</p>
           </div>
         </div>
       </section>
@@ -35,7 +35,7 @@ export default function CheckoutPage() {
         </section>
       ) : null}
 
-      <section className="checkout-layout">
+      <section className="checkout-layout checkout-layout--redone">
         <div className="checkout-column">
           {cartItems.map((item) => (
             <article key={item.id} className="checkout-item">
@@ -53,7 +53,7 @@ export default function CheckoutPage() {
             </article>
           ))}
         </div>
-        <aside className="summary-card">
+        <aside className="summary-card summary-card--checkout">
           <strong>Bestelluebersicht</strong>
           <div className="summary-line"><span>Zwischensumme</span><span>{formatCurrency(subtotal)}</span></div>
           <div className="summary-line"><span>Set-Rabatt</span><span>{progress.discountCents ? `-${formatCurrency(progress.discountCents)}` : "-"}</span></div>

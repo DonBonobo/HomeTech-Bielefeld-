@@ -31,13 +31,17 @@ export default async function ProductPage({ params }) {
         <div className="media-card media-card--stage">
           <div className="media-stage-glow" />
           <Image src={product.gallery[0]} alt={product.title} width={720} height={720} />
-          <div className="pdp-thumb-row">
-            {product.gallery.slice(0, 3).map((image) => (
-              <div key={image} className="pdp-thumb">
-                <Image src={image} alt="" width={120} height={120} />
-              </div>
-            ))}
-          </div>
+          {product.gallery.length > 1 ? (
+            <div className="pdp-thumb-row">
+              {product.gallery.slice(0, 3).map((image) => (
+                <div key={image} className="pdp-thumb">
+                  <Image src={image} alt="" width={120} height={120} />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="pdp-stage-note">Originale Launch-Verpackung, klar fotografiert und direkt vergleichbar.</div>
+          )}
         </div>
         <div className="buy-card buy-card--refined">
           <p className="overline">{product.category}</p>
@@ -49,8 +53,8 @@ export default async function ProductPage({ params }) {
           </div>
           <p>{product.description}</p>
           <div className="set-inline-card">
-            <span>20% Set-Rabatt ab 4 passenden Produkten</span>
-            <strong>Mix & Match</strong>
+            <span>20% Set-Rabatt ab 4 passenden Hue-Produkten</span>
+            <strong>Einfach kombinieren</strong>
           </div>
           <div className="trust-list">
             <span>PayPal zum Launch</span>
@@ -90,7 +94,7 @@ export default async function ProductPage({ params }) {
             <h2>Ein Produkt mehr bringt dich naeher zum Set</h2>
           </div>
         </div>
-        <div className="product-rail">
+        <div className="storefront-grid storefront-grid--related">
           {related.map((item) => <ProductCard key={item.id} product={item} />)}
         </div>
       </section>

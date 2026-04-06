@@ -52,9 +52,6 @@ export function Header() {
           ))}
         </nav>
         <div className="header-actions">
-          <Link href="/" className="search-chip">
-            Suchen
-          </Link>
           <Link href="/checkout" className="cart-button">
             <span>Warenkorb</span>
             {cartItems.length ? <span className="header-count">{cartItems.length}</span> : null}

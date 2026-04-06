@@ -6,11 +6,15 @@ import { useCart } from "@/components/providers/cart-provider";
 
 export function SetProgress({ compact = false, ctaHref = "/sets", ctaLabel = "Set-Angebote ansehen" }) {
   const { progress } = useCart();
+  const statusLabel = progress.unlocked ? "20% aktiv" : `Noch ${progress.itemsNeeded} bis zum Set`;
 
   return (
     <section className={`set-progress ${compact ? "is-compact" : ""}`}>
-      <div>
+      <div className="set-progress-head">
         <p className="overline">Set-Rabatt</p>
+        <span className="set-progress-pill">{statusLabel}</span>
+      </div>
+      <div>
         <h2>{progress.unlocked ? "20% Set-Rabatt aktiv" : `Noch ${progress.itemsNeeded} Produkt${progress.itemsNeeded === 1 ? "" : "e"} bis zum 20% Rabatt`}</h2>
         <p>{progress.unlocked ? `Du sparst aktuell ${formatCurrency(progress.discountCents)} und kannst direkt weiter kombinieren.` : "Ab 4 passenden Hue-Produkten wird der Rabatt automatisch abgezogen. Mix & Match bleibt durchgehend sichtbar."}</p>
       </div>
@@ -19,7 +23,7 @@ export function SetProgress({ compact = false, ctaHref = "/sets", ctaLabel = "Se
         <span>{progress.quantity} qualifizierende Artikel</span>
         <span>{progress.unlocked ? "Rabatt laeuft" : "Mix & Match"}</span>
       </div>
-      {!progress.unlocked ? <div className="set-progress-note">20% Rabatt ab dem 4. passenden Artikel</div> : null}
+      {!progress.unlocked ? <div className="set-progress-note">20% Rabatt wird automatisch ab dem 4. passenden Artikel abgezogen.</div> : null}
       <Link href={ctaHref} className="primary-link">{ctaLabel}</Link>
     </section>
   );
