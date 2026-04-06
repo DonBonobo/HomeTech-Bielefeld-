@@ -14,7 +14,7 @@ export function Header() {
     <header className="site-header">
       <div className="topline">
         <span>Smarter Homes? Das gibt&apos;s doch nicht!</span>
-        <span>PayPal zum Launch · Versand in ganz Europa</span>
+        <span>PayPal · Versand in ganz Europa</span>
       </div>
       <div className="header-row">
         <Link href="/" className="brand-link">

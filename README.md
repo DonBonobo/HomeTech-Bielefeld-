@@ -3,7 +3,7 @@
 Controlled remake focused on:
 - solid mobile navigation
 - predictable product interactions
-- a small launch assortment
+- a small curated assortment
 - simple checkout with PayPal
 - modular routing and smaller files
 
@@ -35,4 +35,4 @@ PAYPAL_CLIENT_SECRET=
 PayPal notes:
 - `PAYPAL_CLIENT_ID` is read server-side and exposed to the checkout only through `/api/paypal/config` so the PayPal SDK can load.
 - `PAYPAL_CLIENT_SECRET` stays server-side only and is stored for later server-side order flows. It is not used in browser code yet.
-- Launch payment method remains PayPal only.
+- Payment method remains PayPal only.

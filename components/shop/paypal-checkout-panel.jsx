@@ -119,7 +119,7 @@ export function PayPalCheckoutPanel({ totalCents, disabled }) {
       <p>
         {disabled
           ? "Lege zuerst Produkte in den Warenkorb."
-          : "PayPal ist der einzige Live-Zahlweg zum Launch."}
+          : "PayPal ist der verfuegbare Zahlungsweg in diesem Shop."}
       </p>
       <div ref={buttonRef} className="paypal-button-host" />
       {status === "approved" || status === "error" || status === "disabled" ? (

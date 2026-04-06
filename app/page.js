@@ -14,8 +14,8 @@ export default function HomePage() {
         <div className="section-header">
           <div>
             <p className="overline">Unsere Bestseller</p>
-            <h2>Die aktuelle Launch-Auswahl</h2>
-            <p>Wenige Hue-Produkte, direkt kaufbar und sauber inszeniert.</p>
+            <h2>Beliebte Leuchtmittel</h2>
+            <p>Originale Hue Produkte, ruhig praesentiert und direkt bestellbar.</p>
           </div>
         </div>
         <div className="storefront-grid">
@@ -25,12 +25,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section-block section-block--soft launch-note">
+      <section className="section-block section-block--soft service-note">
         <div className="section-header">
           <div>
             <p className="overline">Service</p>
-            <h2>Originale Produkte. Klare Informationen. Schneller Abschluss.</h2>
-            <p>Originale Produktbilder, kompakte Produktseiten und PayPal als klarer Zahlungsweg zum Start.</p>
+            <h2>Originale Produkte. Klare Informationen. Sicher bezahlen.</h2>
+            <p>Originale Produktbilder, kompakte Produktseiten und PayPal als direkter Zahlungsweg.</p>
           </div>
           <a href="/kategorie/leuchtmittel" className="secondary-link">Alle Leuchtmittel</a>
         </div>

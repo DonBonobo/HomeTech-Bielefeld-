@@ -39,7 +39,7 @@ export default async function ProductPage({ params }) {
               ))}
             </div>
           ) : (
-            <div className="pdp-stage-note">Originale Launch-Verpackung, klar fotografiert und direkt vergleichbar.</div>
+            <div className="pdp-stage-note">Originale Verpackung, klar fotografiert und direkt vergleichbar.</div>
           )}
         </div>
         <div className="buy-card buy-card--refined">
@@ -52,7 +52,7 @@ export default async function ProductPage({ params }) {
           </div>
           <p>{product.description}</p>
           <div className="trust-list">
-            <span>PayPal zum Launch</span>
+            <span>PayPal</span>
             <span>Versand in ganz Europa</span>
             <span>30 Tage Rueckgabe</span>
           </div>

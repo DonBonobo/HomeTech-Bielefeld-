@@ -6,7 +6,7 @@ export default function AccountPage() {
           <div>
             <p className="overline">Mein Konto</p>
             <h1>Anmelden oder Konto vorbereiten</h1>
-            <p>Zum Launch bleibt der Einstieg bewusst einfach: Google oder E-Mail, danach Bestellungen und Adressen an einem Ort.</p>
+            <p>Der Einstieg bleibt bewusst einfach: Google oder E-Mail, danach Bestellungen und Adressen an einem Ort.</p>
           </div>
         </div>
         <div className="account-actions">
@@ -19,7 +19,7 @@ export default function AccountPage() {
           <div>
             <p className="overline">Kontoansicht</p>
             <h2>Bestellungen, Adressen und Profil folgen in derselben ruhigen Struktur.</h2>
-            <p>Der Einstieg bleibt klein und klar, damit die Launch-Version nicht mit halbfertigen Kontobereichen ueberladen wird.</p>
+            <p>Der Einstieg bleibt klein und klar, damit der Kontobereich nicht mit halbfertigen Bereichen ueberladen wird.</p>
           </div>
         </div>
       </section>

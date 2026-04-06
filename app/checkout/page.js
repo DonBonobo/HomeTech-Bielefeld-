@@ -17,7 +17,7 @@ export default function CheckoutPage() {
         <div className="section-header">
           <div>
             <p className="overline">Checkout</p>
-            <h1>PayPal-only zum Launch</h1>
+            <h1>Sicher und direkt bezahlen</h1>
             <p>Wenige Produkte, nachvollziehbarer Versand und ein ruhiger letzter Schritt bis zur Bezahlung.</p>
           </div>
         </div>
@@ -28,7 +28,7 @@ export default function CheckoutPage() {
           <div className="section-header">
             <div>
               <p className="overline">Warenkorb leer</p>
-              <h2>Lege zuerst ein Launch-Produkt in den Warenkorb.</h2>
+              <h2>Lege zuerst ein Produkt in den Warenkorb.</h2>
               <p>Starte mit den aktuellen Hue-Leuchtmitteln und gehe danach direkt weiter zu PayPal.</p>
             </div>
             <Link href="/kategorie/leuchtmittel" className="primary-link">Zu den Leuchtmitteln</Link>

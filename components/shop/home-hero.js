@@ -9,7 +9,7 @@ export function HomeHero() {
           <p className="overline">HomeTech Bielefeld</p>
           <h1>Lass dein Zuhause smarter leuchten.</h1>
           <p>
-            Perfekt kuratierte Hue-Produkte fuer deinen Start.
+            Kuratiert fuer dein Zuhause, mit klarer Auswahl und ruhigem Einkaufserlebnis.
           </p>
           <div className="hero-actions">
             <Link href="/kategorie/leuchtmittel" className="primary-link">Jetzt einkaufen</Link>
@@ -18,7 +18,7 @@ export function HomeHero() {
 
         <div className="hero-banner-frame">
           <Image
-            src="/assets/banner-launch-home.png"
+            src="/assets/banner-home.png"
             alt="Philips Hue Leuchtmittel in einer Wohnraumszene"
             width={1440}
             height={900}

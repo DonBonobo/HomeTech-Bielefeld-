@@ -23,18 +23,18 @@ export default async function CategoryPage({ params }) {
         <div className="section-header">
           <div>
             <p className="overline">{category.label}</p>
-            <h1>{category.enabled ? "Leuchtmittel fuer den Launch" : `${category.label} folgen spaeter`}</h1>
+            <h1>{category.enabled ? "Leuchtmittel fuer dein Zuhause" : `${category.label} folgen spaeter`}</h1>
             <p>
               {category.enabled
-                ? "Die aktuelle Auswahl ist bewusst klein: klare Produkte, ruhige Karten und direkte Kaufwege."
-                : "Zum Start konzentriert sich der Shop auf Philips Hue Leuchtmittel. Schalter und Hubs werden danach sauber ergaenzt."}
+                ? "Eine bewusst kleine Auswahl: klare Produkte, ruhige Karten und direkte Kaufwege."
+                : "Aktuell konzentriert sich der Shop auf Philips Hue Leuchtmittel. Schalter und Hubs werden danach sauber ergaenzt."}
             </p>
           </div>
         </div>
       </section>
       <section className="section-block section-block--tight">
         <div className="section-toolbar">
-          <span>{category.enabled ? "Kuratierte Launch-Auswahl" : "Noch keine Produkte verfuegbar"}</span>
+          <span>{category.enabled ? "Kuratierte Auswahl" : "Noch keine Produkte verfuegbar"}</span>
           <span>{items.length} Produkte</span>
         </div>
         {items.length ? (
@@ -48,8 +48,8 @@ export default async function CategoryPage({ params }) {
             <div className="section-header">
               <div>
                 <p className="overline">Bald verfuegbar</p>
-                <h2>Aktuell startet HomeTech mit Leuchtmitteln.</h2>
-                <p>Schalter und Hubs bekommen eine eigene, genauso ruhige Auswahl sobald die ersten Produkte live sind.</p>
+                <h2>Aktuell findest du hier noch keine Produkte.</h2>
+                <p>Schalter und Hubs bekommen eine eigene, genauso ruhige Auswahl, sobald diese Bereiche befuellt sind.</p>
               </div>
               <Link href="/kategorie/leuchtmittel" className="primary-link">Zu den Leuchtmitteln</Link>
             </div>
