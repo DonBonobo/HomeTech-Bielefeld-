@@ -1,13 +1,12 @@
 import { notFound } from "next/navigation";
 import { getCategoryProducts, categories } from "@/lib/catalog";
 import { ProductCard } from "@/components/shop/product-card";
-import { SetProgress } from "@/components/shop/set-progress";
 import Link from "next/link";
 
 export default async function CategoryPage({ params }) {
   const { slug } = await params;
   const category = categories.find((entry) => entry.slug === slug);
-  if (!category || slug === "sets") {
+  if (!category) {
     notFound();
   }
 
@@ -24,26 +23,38 @@ export default async function CategoryPage({ params }) {
         <div className="section-header">
           <div>
             <p className="overline">{category.label}</p>
-            <h1>Launch-Auswahl fuer ruhiges Vergleichen</h1>
-            <p>Nur die aktuellen Hue-Produkte, die wir jetzt wirklich starten. Klar lesbar, schnell vergleichbar und direkt fuer dein Set geeignet.</p>
-          </div>
-          <div className="chip-row">
-            <span>Qualifizierend fuer den Set-Rabatt</span>
-            <span>{items.length} Produkte</span>
+            <h1>{category.enabled ? "Leuchtmittel fuer den Launch" : `${category.label} folgen spaeter`}</h1>
+            <p>
+              {category.enabled
+                ? "Die aktuelle Auswahl ist bewusst klein: klare Produkte, ruhige Karten und direkte Kaufwege."
+                : "Zum Start konzentriert sich der Shop auf Philips Hue Leuchtmittel. Schalter und Hubs werden danach sauber ergaenzt."}
+            </p>
           </div>
         </div>
       </section>
-      <SetProgress compact ctaHref="/checkout" ctaLabel="Warenkorb pruefen" />
       <section className="section-block section-block--tight">
         <div className="section-toolbar">
-          <span>Sortiert nach Launch-Relevanz</span>
-          <span>Alle Produkte sind set-faehig</span>
+          <span>{category.enabled ? "Kuratierte Launch-Auswahl" : "Noch keine Produkte verfuegbar"}</span>
+          <span>{items.length} Produkte</span>
         </div>
-        <div className="storefront-grid">
-          {items.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        {items.length ? (
+          <div className="storefront-grid">
+            {items.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        ) : (
+          <article className="section-block section-block--soft empty-state-card">
+            <div className="section-header">
+              <div>
+                <p className="overline">Bald verfuegbar</p>
+                <h2>Aktuell startet HomeTech mit Leuchtmitteln.</h2>
+                <p>Schalter und Hubs bekommen eine eigene, genauso ruhige Auswahl sobald die ersten Produkte live sind.</p>
+              </div>
+              <Link href="/kategorie/leuchtmittel" className="primary-link">Zu den Leuchtmitteln</Link>
+            </div>
+          </article>
+        )}
       </section>
     </div>
   );

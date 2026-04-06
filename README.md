@@ -3,7 +3,8 @@
 Controlled remake focused on:
 - solid mobile navigation
 - predictable product interactions
-- set-building flow first
+- a small launch assortment
+- simple checkout with PayPal
 - modular routing and smaller files
 
 Run locally:

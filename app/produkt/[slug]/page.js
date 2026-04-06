@@ -3,7 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProduct, products } from "@/lib/catalog";
 import { formatCurrency } from "@/lib/commerce";
-import { SetProgress } from "@/components/shop/set-progress";
 import { ProductCard } from "@/components/shop/product-card";
 import { AddToCartButton } from "@/components/shop/add-to-cart-button";
 
@@ -44,18 +43,14 @@ export default async function ProductPage({ params }) {
           )}
         </div>
         <div className="buy-card buy-card--refined">
-          <p className="overline">{product.category}</p>
+          <p className="overline">{product.line}</p>
           <h1>{product.title}</h1>
           <strong className="big-price">{formatCurrency(product.priceCents)}</strong>
           <div className="chip-row">
-            <span>Set-Rabatt faehig</span>
+            <span>{product.spec}</span>
             <span>{product.stockLabel}</span>
           </div>
           <p>{product.description}</p>
-          <div className="set-inline-card">
-            <span>20% Set-Rabatt ab 4 passenden Hue-Produkten</span>
-            <strong>Einfach kombinieren</strong>
-          </div>
           <div className="trust-list">
             <span>PayPal zum Launch</span>
             <span>Versand in ganz Europa</span>
@@ -63,24 +58,23 @@ export default async function ProductPage({ params }) {
           </div>
           <div className="buy-actions">
             <AddToCartButton productId={product.id} />
-            <Link href="/sets" className="secondary-link">Set-Vorteil nutzen</Link>
+            <Link href="/checkout" className="secondary-link">Zum Warenkorb</Link>
           </div>
         </div>
       </section>
-      <SetProgress compact ctaHref="/checkout" ctaLabel="Set im Warenkorb pruefen" />
       <section className="section-block section-block--soft">
         <div className="section-header">
           <div>
             <p className="overline">Produktdetails</p>
-            <h2>Schnell scanbar statt versteckt</h2>
-            <p>Klare Kompatibilitaet, planbare Lieferung und ein ruhiger Weg zur passenden Kombination.</p>
+            <h2>Klar aufgebaut statt ueberladen</h2>
+            <p>Kompatibilitaet, Lieferung und Rueckgabe bleiben sichtbar, ohne die Kaufentscheidung unnoetig aufzublasen.</p>
           </div>
         </div>
         <div className="pdp-details-grid">
           <ul className="detail-bullets">
-            <li>Fuer Hue Bridge, Matter und gaengige Smart-Home-Setups</li>
-            <li>Schnelle Einrichtung und klare Alltagstauglichkeit</li>
-            <li>Versand in ganz Europa</li>
+            <li>Kompatibel mit gaengigen Hue- und Smart-Home-Setups</li>
+            <li>Schnelle Einrichtung per App und alltagstaugliche Steuerung</li>
+            <li>Versand innerhalb Europas und 30 Tage Rueckgabe</li>
           </ul>
           <div className="chip-row">
             {product.compatibility.map((item) => <span key={item}>{item}</span>)}
@@ -91,7 +85,7 @@ export default async function ProductPage({ params }) {
         <div className="section-header">
           <div>
             <p className="overline">Passend dazu</p>
-            <h2>Ein Produkt mehr bringt dich naeher zum Set</h2>
+            <h2>Weitere passende Produkte</h2>
           </div>
         </div>
         <div className="storefront-grid storefront-grid--related">

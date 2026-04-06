@@ -1,32 +1,30 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export function HomeHero() {
   return (
     <section className="hero-shell">
-      <div className="hero-search" aria-hidden="true">
-        <span className="hero-search-icon">⌕</span>
-        <span>Hue Leuchtmittel suchen...</span>
-      </div>
-
       <div className="hero-card hero-card--quiet">
         <div className="hero-copy">
           <p className="overline">HomeTech Bielefeld</p>
-          <h1>Smartes Licht fuer den Launch, klar kuratiert.</h1>
+          <h1>Lass dein Zuhause smarter leuchten.</h1>
           <p>
-            White, White Ambiance, White & Color und Filament. Wenige gute Hue-Produkte,
-            sauber praesentiert und direkt fuer dein 4er-Set vorbereitet.
+            Perfekt kuratierte Hue-Produkte fuer deinen Start.
           </p>
           <div className="hero-actions">
-            <Link href="/kategorie/leuchtmittel" className="primary-link">Launch-Produkte ansehen</Link>
-            <Link href="/sets" className="secondary-link">20% Set-Rabatt</Link>
+            <Link href="/kategorie/leuchtmittel" className="primary-link">Jetzt einkaufen</Link>
           </div>
         </div>
 
-        <div className="hero-stage" aria-hidden="true">
-          <div className="hero-stage-glow" />
-          <img className="hero-stage-main" src="/assets/products/philips-hue-white-color-e27-1100.png" alt="" />
-          <img className="hero-stage-side" src="/assets/products/philips-hue-white-e14-candle-470.png" alt="" />
-          <img className="hero-stage-tall" src="/assets/products/philips-hue-white-ambiance-e27-1100.png" alt="" />
+        <div className="hero-banner-frame">
+          <Image
+            src="/assets/banner-launch-home.png"
+            alt="Philips Hue Leuchtmittel in einer Wohnraumszene"
+            width={1440}
+            height={900}
+            className="hero-banner-image"
+            priority
+          />
         </div>
       </div>
     </section>

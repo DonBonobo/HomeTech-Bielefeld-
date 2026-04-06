@@ -3,21 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
 import { categories } from "@/lib/catalog";
 import { useCart } from "@/components/providers/cart-provider";
 
 export function Header() {
   const pathname = usePathname();
-  const { cartItems, progress } = useCart();
-  const [open, setOpen] = useState(false);
-
-  const nav = [
-    { href: "/", label: "Startseite" },
-    { href: "/kategorie/leuchtmittel", label: "Leuchtmittel" },
-    { href: "/kategorie/white-ambiance", label: "White Ambiance" },
-    { href: "/sets", label: "Sets" },
-  ];
+  const { cartItems } = useCart();
 
   return (
     <header className="site-header">
@@ -26,7 +17,7 @@ export function Header() {
         <span>PayPal zum Launch · Versand in ganz Europa</span>
       </div>
       <div className="header-row">
-        <Link href="/" className="brand-link" onClick={() => setOpen(false)}>
+        <Link href="/" className="brand-link">
           <span className="brand-mark-shell">
             <span className="brand-mark-circle">HT</span>
           </span>
@@ -45,10 +36,14 @@ export function Header() {
           </span>
         </Link>
         <nav className="desktop-nav">
-          {nav.map((item) => (
-            <Link key={item.href} href={item.href} className={pathname === item.href ? "is-active" : ""}>
-              {item.label}
-            </Link>
+          {categories.map((item) => (
+            item.enabled ? (
+              <Link key={item.slug} href={`/kategorie/${item.slug}`} className={pathname === `/kategorie/${item.slug}` ? "is-active" : ""}>
+                {item.label}
+              </Link>
+            ) : (
+              <span key={item.slug} className="desktop-nav-disabled">{item.label}</span>
+            )
           ))}
         </nav>
         <div className="header-actions">
@@ -56,39 +51,20 @@ export function Header() {
             <span>Warenkorb</span>
             {cartItems.length ? <span className="header-count">{cartItems.length}</span> : null}
           </Link>
-          <button className="menu-toggle" type="button" onClick={() => setOpen((value) => !value)}>
-            {open ? "Schliessen" : "Menue"}
-          </button>
+          <Link href="/konto" className="account-button" aria-label="Konto">
+            <span className="account-avatar" />
+          </Link>
         </div>
       </div>
-      {open ? (
-        <>
-          <button className="sheet-backdrop" type="button" aria-label="Menue schliessen" onClick={() => setOpen(false)} />
-          <aside className="mobile-sheet">
-            <div className="mobile-sheet-header">
-              <strong>Shop-Menue</strong>
-              <button type="button" onClick={() => setOpen(false)}>X</button>
-            </div>
-            <div className="mobile-sheet-links">
-              {nav.concat([{ href: "/konto", label: "Mein Konto" }, { href: "/admin", label: "Admin" }]).map((item) => (
-                <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-            <div className="sheet-progress">
-              <strong>{progress.unlocked ? "20% Set-Rabatt aktiv" : `Noch ${progress.itemsNeeded} Produkt${progress.itemsNeeded === 1 ? "" : "e"} bis zum Set`}</strong>
-              <div className="progress-bar"><span style={{ width: `${progress.progressPercent}%` }} /></div>
-              <Link href="/sets" className="primary-link" onClick={() => setOpen(false)}>Set-Vorteil ansehen</Link>
-            </div>
-          </aside>
-        </>
-      ) : null}
       <div className="mobile-category-row">
-        {categories.slice(0, 4).map((category) => (
-          <Link key={category.slug} href={category.slug === "sets" ? "/sets" : `/kategorie/${category.slug}`}>
-            {category.label}
-          </Link>
+        {categories.map((category) => (
+          category.enabled ? (
+            <Link key={category.slug} href={`/kategorie/${category.slug}`} className={pathname === `/kategorie/${category.slug}` ? "is-active" : ""}>
+              {category.label}
+            </Link>
+          ) : (
+            <span key={category.slug} className="category-pill-disabled">{category.label}</span>
+          )
         ))}
       </div>
     </header>
