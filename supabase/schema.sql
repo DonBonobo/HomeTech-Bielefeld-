@@ -37,6 +37,16 @@ create table if not exists public.products (
   created_at timestamptz not null default now()
 );
 
+create table if not exists public.product_images (
+  id uuid primary key default gen_random_uuid(),
+  product_id text not null references public.products(id) on delete cascade,
+  image_url text not null,
+  alt_text text,
+  position integer not null default 0,
+  created_at timestamptz not null default now(),
+  unique(product_id, image_url)
+);
+
 create table if not exists public.carts (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references auth.users(id) on delete cascade unique,
@@ -76,9 +86,11 @@ alter table public.cart_items enable row level security;
 alter table public.orders enable row level security;
 alter table public.order_items enable row level security;
 alter table public.profiles enable row level security;
+alter table public.product_images enable row level security;
 
 create policy if not exists "public read categories" on public.categories for select using (true);
 create policy if not exists "public read visible products" on public.products for select using (visible = true);
+create policy if not exists "public read product images" on public.product_images for select using (true);
 
 create policy if not exists "user manage own profile" on public.profiles for all using (auth.uid() = id) with check (auth.uid() = id);
 create policy if not exists "admin manage categories" on public.categories for all using (
@@ -87,6 +99,11 @@ create policy if not exists "admin manage categories" on public.categories for a
   exists (select 1 from public.profiles where public.profiles.id = auth.uid() and public.profiles.role = 'admin')
 );
 create policy if not exists "admin manage products" on public.products for all using (
+  exists (select 1 from public.profiles where public.profiles.id = auth.uid() and public.profiles.role = 'admin')
+) with check (
+  exists (select 1 from public.profiles where public.profiles.id = auth.uid() and public.profiles.role = 'admin')
+);
+create policy if not exists "admin manage product images" on public.product_images for all using (
   exists (select 1 from public.profiles where public.profiles.id = auth.uid() and public.profiles.role = 'admin')
 ) with check (
   exists (select 1 from public.profiles where public.profiles.id = auth.uid() and public.profiles.role = 'admin')
@@ -102,3 +119,5 @@ create policy if not exists "user read own orders" on public.orders for select u
 create policy if not exists "user read own order items" on public.order_items for select using (
   exists (select 1 from public.orders where public.orders.id = order_items.order_id and public.orders.user_id = auth.uid())
 );
+
+create index if not exists product_images_product_id_position_idx on public.product_images(product_id, position);

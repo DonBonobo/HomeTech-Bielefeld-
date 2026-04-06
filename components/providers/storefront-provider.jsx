@@ -69,6 +69,23 @@ async function readSupabaseStorefront(supabase) {
     return { supported: false };
   }
 
+  const { data: imageRows, error: imageError } = await supabase
+    .from("product_images")
+    .select("product_id, image_url, alt_text, position")
+    .order("position", { ascending: true });
+
+  const imageMap = new Map();
+  if (!imageError) {
+    for (const row of imageRows || []) {
+      const current = imageMap.get(row.product_id) || [];
+      current.push({
+        src: row.image_url,
+        alt: row.alt_text || null,
+      });
+      imageMap.set(row.product_id, current);
+    }
+  }
+
   return {
     supported: true,
     categories: categoryRows || [],
@@ -77,7 +94,7 @@ async function readSupabaseStorefront(supabase) {
       categorySlug: product.category_slug,
       priceCents: product.price_cents,
       stockCount: product.stock_count,
-      gallery: product.gallery || [],
+      gallery: imageMap.get(product.id) || product.gallery || [],
       compatibility: product.compatibility || [],
     })),
   };
@@ -117,6 +134,32 @@ async function writeSupabaseProducts(supabase, products) {
   }));
 
   const { error } = await supabase.from("products").upsert(payload);
+  return !error;
+}
+
+async function writeSupabaseProductImages(supabase, products) {
+  if (!supabase) return false;
+
+  const productIds = products.map((product) => product.id);
+  const { error: deleteError } = await supabase.from("product_images").delete().in("product_id", productIds);
+  if (deleteError) {
+    return false;
+  }
+
+  const payload = products.flatMap((product) =>
+    (product.gallery || []).map((image, index) => ({
+      product_id: product.id,
+      image_url: typeof image === "string" ? image : image.src,
+      alt_text: typeof image === "string" ? null : (image.alt || null),
+      position: index,
+    }))
+  );
+
+  if (!payload.length) {
+    return true;
+  }
+
+  const { error } = await supabase.from("product_images").insert(payload);
   return !error;
 }
 
@@ -186,6 +229,7 @@ export function StorefrontProvider({ children }) {
     if (supabase && user && supabaseSupported.current) {
       writeSupabaseCategories(supabase, categories);
       writeSupabaseProducts(supabase, products);
+      writeSupabaseProductImages(supabase, products);
     }
   }, [categories, products, ready, supabase, user]);
 

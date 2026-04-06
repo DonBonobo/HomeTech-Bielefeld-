@@ -8,6 +8,13 @@ vi.mock("@/lib/paypal", () => ({
   })),
 }));
 
+vi.mock("@/lib/order-persistence", () => ({
+  persistCapturedOrder: vi.fn(async () => ({
+    persisted: true,
+    orderId: "db-order-1",
+  })),
+}));
+
 const { getAuthenticatedUserFromRequest } = vi.hoisted(() => ({
   getAuthenticatedUserFromRequest: vi.fn(async () => ({ id: "user-1" })),
 }));
@@ -30,6 +37,8 @@ describe("paypal capture route", () => {
 
     expect(payload.status).toBe("COMPLETED");
     expect(payload.payerName).toBe("Max");
+    expect(payload.persisted).toBe(true);
+    expect(payload.persistedOrderId).toBe("db-order-1");
   });
 
   it("rejects unauthenticated capture requests", async () => {

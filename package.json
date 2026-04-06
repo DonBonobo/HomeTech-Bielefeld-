@@ -13,7 +13,9 @@
     "test": "vitest run",
     "test:smoke": "node scripts/smoke.mjs",
     "test:visual": "node scripts/run-visual-tests.mjs",
-    "test:visual:ci": "node scripts/run-visual-tests.mjs --ci"
+    "test:visual:ci": "node scripts/run-visual-tests.mjs --ci",
+    "db:verify": "node scripts/verify-db.mjs",
+    "secrets:verify": "node scripts/verify-secret-boundaries.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.101.1",

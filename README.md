@@ -28,6 +28,8 @@ Env setup:
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
 NEXT_PUBLIC_SUPABASE_PRODUCTS_BUCKET=product-images
+SUPABASE_SERVICE_ROLE_KEY=
+DATABASE_URL=
 PAYPAL_ENV=sandbox
 PAYPAL_CLIENT_ID=
 PAYPAL_CLIENT_SECRET=
@@ -52,6 +54,8 @@ Visual checks:
 
 Supabase notes:
 - apply [supabase/schema.sql](/root/HomeTech-Bielefeld-next/supabase/schema.sql) before expecting categories, carts, orders, or profiles to persist in Supabase
+- `npm run db:verify` checks the live Supabase REST schema cache for `profiles`, `categories`, `products`, `product_images`, `carts`, `cart_items`, `orders`, and `order_items`
+- `npm run secrets:verify` scans `.next/static` and fails if server-only secrets appear in client build output
 - enable Google in Supabase Auth and paste `GOOGLE_CLIENT_ID` plus `GOOGLE_CLIENT_SECRET` there
 - allowed app redirects should include `http://localhost:3000/konto` and your production `/konto` URL
 - Google Cloud must include the Supabase callback URL `https://kzpdsndpxqbqsyekfvsi.supabase.co/auth/v1/callback`
