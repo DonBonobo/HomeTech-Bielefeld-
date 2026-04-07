@@ -14,12 +14,14 @@
     "test:smoke": "node scripts/smoke.mjs",
     "test:visual": "node scripts/run-visual-tests.mjs",
     "test:visual:ci": "node scripts/run-visual-tests.mjs --ci",
+    "db:seed": "node scripts/bootstrap-storefront.mjs",
     "db:verify": "node scripts/verify-db.mjs",
     "secrets:verify": "node scripts/verify-secret-boundaries.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.101.1",
     "next": "^15.5.14",
+    "pg": "^8.20.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
   },

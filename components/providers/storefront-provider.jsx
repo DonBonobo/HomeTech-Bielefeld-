@@ -5,7 +5,6 @@ import { seedCategories, seedProducts } from "@/lib/storefront-seed";
 import { useAuth } from "@/components/providers/auth-provider";
 
 const StorefrontContext = createContext(null);
-const STOREFRONT_STORAGE_KEY = "hometech.storefront.v1";
 
 function slugify(value) {
   return value
@@ -17,6 +16,13 @@ function slugify(value) {
     .replace(/[ß]/g, "ss")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
+}
+
+function createCategoryId() {
+  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+    return crypto.randomUUID();
+  }
+  return `00000000-0000-4000-8000-${Math.random().toString(16).slice(2, 14).padEnd(12, "0")}`;
 }
 
 function normalizeCategories(categories) {
@@ -164,7 +170,7 @@ async function writeSupabaseProductImages(supabase, products) {
 }
 
 export function StorefrontProvider({ children }) {
-  const { supabase, user } = useAuth();
+  const { supabase, isAdmin } = useAuth();
   const [categories, setCategories] = useState(seedCategories);
   const [products, setProducts] = useState(seedProducts);
   const [source, setSource] = useState("seed");
@@ -178,20 +184,6 @@ export function StorefrontProvider({ children }) {
       let nextCategories = seedCategories;
       let nextProducts = seedProducts;
       let nextSource = "seed";
-
-      if (typeof window !== "undefined") {
-        const stored = window.localStorage.getItem(STOREFRONT_STORAGE_KEY);
-        if (stored) {
-          try {
-            const payload = JSON.parse(stored);
-            if (Array.isArray(payload.categories) && Array.isArray(payload.products)) {
-              nextCategories = payload.categories;
-              nextProducts = payload.products;
-              nextSource = "state";
-            }
-          } catch (_error) {}
-        }
-      }
 
       if (supabase) {
         const result = await readSupabaseStorefront(supabase);
@@ -217,21 +209,19 @@ export function StorefrontProvider({ children }) {
     return () => {
       active = false;
     };
-  }, [supabase, user?.id]);
+  }, [supabase]);
 
   useEffect(() => {
-    if (!ready || typeof window === "undefined") {
+    if (!ready) {
       return;
     }
 
-    window.localStorage.setItem(STOREFRONT_STORAGE_KEY, JSON.stringify({ categories, products }));
-
-    if (supabase && user && supabaseSupported.current) {
+    if (supabase && supabaseSupported.current && isAdmin) {
       writeSupabaseCategories(supabase, categories);
       writeSupabaseProducts(supabase, products);
       writeSupabaseProductImages(supabase, products);
     }
-  }, [categories, products, ready, supabase, user]);
+  }, [categories, products, ready, supabase, isAdmin]);
 
   const value = useMemo(() => ({
     categories,
@@ -254,7 +244,7 @@ export function StorefrontProvider({ children }) {
         const next = exists
           ? current.map((category) => category.id === input.id ? { ...category, ...input, slug: slugify(input.label || category.label) } : category)
           : [...current, {
-              id: input.id || `category-${Date.now()}`,
+              id: input.id || createCategoryId(),
               label: input.label || "Neue Kategorie",
               slug: slugify(input.label || "neue-kategorie"),
               enabled: input.enabled !== false,

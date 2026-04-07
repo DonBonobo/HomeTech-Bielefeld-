@@ -91,7 +91,6 @@ describe("CartProvider", () => {
 
   it("merges a guest cart on initial signed-in hydration", async () => {
     window.localStorage.setItem("hometech.next.cart.guest.v2", JSON.stringify([{ id: "white-e14-candle-470", quantity: 2 }]));
-    window.localStorage.setItem("hometech.next.cart.user.user-1", JSON.stringify([{ id: "white-color-e14-candle-470", quantity: 1 }]));
     authState = { supabase: null, user: { id: "user-1" }, ready: true };
 
     render(
@@ -101,7 +100,7 @@ describe("CartProvider", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByTestId("count")).toHaveTextContent("3");
+      expect(screen.getByTestId("count")).toHaveTextContent("2");
     });
   });
 });

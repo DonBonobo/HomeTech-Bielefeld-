@@ -8,11 +8,6 @@ import { getVisualPreview } from "@/lib/visual-preview";
 
 const CartContext = createContext(null);
 const GUEST_STORAGE_KEY = "hometech.next.cart.guest.v2";
-const USER_STORAGE_PREFIX = "hometech.next.cart.user.";
-
-function getUserStorageKey(userId) {
-  return `${USER_STORAGE_PREFIX}${userId}`;
-}
 
 function readStorage(key) {
   if (typeof window === "undefined") return [];
@@ -105,6 +100,11 @@ export function CartProvider({ children }) {
   const [booted, setBooted] = useState(false);
   const previousUserId = useRef(undefined);
   const serverSupported = useRef(false);
+  const itemsRef = useRef([]);
+
+  useEffect(() => {
+    itemsRef.current = items;
+  }, [items]);
 
   useEffect(() => {
     let active = true;
@@ -130,14 +130,12 @@ export function CartProvider({ children }) {
       if (!currentUserId) {
         nextItems = guestItems;
       } else {
-        const storedUserItems = readStorage(getUserStorageKey(currentUserId));
         const serverCart = await readServerCart(supabase, currentUserId);
         serverSupported.current = serverCart.supported;
 
         if (previous === undefined) {
-          const baseItems = serverCart.supported ? (serverCart.items || []) : storedUserItems;
+          const baseItems = serverCart.supported ? (serverCart.items || []) : [];
           nextItems = mergeCartEntries(baseItems, guestItems);
-          writeStorage(getUserStorageKey(currentUserId), nextItems);
           if (guestItems.length) {
             writeStorage(GUEST_STORAGE_KEY, []);
           }
@@ -147,17 +145,16 @@ export function CartProvider({ children }) {
         } else if (!previous && currentUserId) {
           const merged = serverCart.supported
             ? mergeCartEntries(serverCart.items || [], guestItems)
-            : mergeCartEntries(storedUserItems, guestItems);
+            : mergeCartEntries(itemsRef.current, guestItems);
           nextItems = merged;
-          writeStorage(getUserStorageKey(currentUserId), merged);
           writeStorage(GUEST_STORAGE_KEY, []);
           if (serverCart.supported) {
             await writeServerCart(supabase, currentUserId, merged);
           }
         } else if (previous === currentUserId) {
-          nextItems = serverCart.supported ? (serverCart.items || storedUserItems) : storedUserItems;
+          nextItems = serverCart.supported ? (serverCart.items || []) : itemsRef.current;
         } else {
-          nextItems = serverCart.supported ? (serverCart.items || []) : storedUserItems;
+          nextItems = serverCart.supported ? (serverCart.items || []) : [];
         }
       }
 
@@ -187,7 +184,6 @@ export function CartProvider({ children }) {
       return;
     }
 
-    writeStorage(getUserStorageKey(currentUserId), items);
     if (serverSupported.current) {
       writeServerCart(supabase, currentUserId, items);
     }
