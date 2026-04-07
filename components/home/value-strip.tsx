@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styles from "@/components/home/homepage.module.css";
-import { reassuranceItems } from "@/lib/catalog/get-homepage-data";
+import { reassuranceItems } from "@/lib/catalog/catalog-store";
 
 export function ValueStrip() {
   return (

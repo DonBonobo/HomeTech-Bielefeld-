@@ -67,3 +67,30 @@ export type HomepageData = {
   activeCategory: string;
   hasSearch: boolean;
 };
+
+export type ListingMode = "search" | "category";
+
+export type ListingCategoryLink = {
+  slug: string;
+  label: string;
+  count: number;
+  href: string;
+  active: boolean;
+};
+
+export type ListingData = {
+  mode: ListingMode;
+  heading: string;
+  subheading: string;
+  breadcrumbs: Array<{ label: string; href: string }>;
+  products: ProductCardModel[];
+  total: number;
+  activeQuery: string;
+  activeCategory: string;
+  activeCategoryLabel: string;
+  sort: "default" | "price-asc" | "price-desc";
+  categoryLinks: ListingCategoryLink[];
+  hasSearch: boolean;
+  hasCategoryFilter: boolean;
+  emptyState: string;
+};

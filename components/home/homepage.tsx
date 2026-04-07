@@ -41,10 +41,8 @@ function ProductSection({
 }
 
 export function Homepage({ data }: { data: HomepageData }) {
-  const sectionTitle = data.hasSearch ? `Treffer für ${data.activeQuery || data.activeCategory}` : "Top-Seller";
-  const sectionBody = data.hasSearch
-    ? "Gefiltert aus dem gleichen kanonischen Lagerbestand wie Kategorien, Preis und Bilder."
-    : "Häufig gekaufte Essentials aus lokalem Bestand, direkt lieferbar.";
+  const sectionTitle = "Top-Seller";
+  const sectionBody = "Häufig gekaufte Essentials aus lokalem Bestand, direkt lieferbar.";
 
   return (
     <main className={styles.page}>
@@ -72,7 +70,7 @@ export function Homepage({ data }: { data: HomepageData }) {
               </p>
             </div>
 
-            <form className={styles.searchForm} action="/" method="get">
+            <form className={styles.searchForm} action="/search" method="get">
               <div className={styles.searchControls}>
                 <input
                   className={styles.searchInput}
@@ -82,7 +80,6 @@ export function Homepage({ data }: { data: HomepageData }) {
                   placeholder="Suche nach Schrauben, Dübeln, PTFE-Band, Klemmenleisten ..."
                   aria-label="Produkte durchsuchen"
                 />
-                {data.activeCategory ? <input type="hidden" name="category" value={data.activeCategory} /> : null}
                 <div className={styles.searchActions}>
                   <button className={styles.searchButton} type="submit">
                     Suchen
@@ -115,7 +112,7 @@ export function Homepage({ data }: { data: HomepageData }) {
 
         <CategoryShortcuts categories={data.categories} />
         <ValueStrip />
-        <ProductSection title={sectionTitle} body={sectionBody} products={data.hasSearch ? data.searchResults : data.featuredProducts} />
+        <ProductSection title={sectionTitle} body={sectionBody} products={data.featuredProducts} />
       </div>
     </main>
   );

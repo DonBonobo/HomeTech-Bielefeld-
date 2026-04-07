@@ -17,6 +17,8 @@ test("homepage renders the canonical homepage slice", async ({ page }, testInfo)
   await expect(page.getByRole("heading", { level: 1, name: "Finden, prüfen, bestellen." })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Schnell zum passenden Regal" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Top-Seller" })).toBeVisible();
+  await expect(page.locator("form[action='/search']")).toHaveCount(1);
+  await expect(page.getByRole("link", { name: /Dübel/i })).toHaveAttribute("href", "/k/duebel");
 
   const categorySection = page.locator("section").filter({
     has: page.getByRole("heading", { name: "Schnell zum passenden Regal" })
