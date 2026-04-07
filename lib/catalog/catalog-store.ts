@@ -1,6 +1,6 @@
 import { cache } from "react";
 import { createSupabaseServerClient } from "@/lib/supabase/client";
-import type { CategoryRow, ProductCardModel, ProductImageRow, ProductRow } from "@/lib/catalog/types";
+import type { CategoryRow, ProductCardModel, ProductDetailModel, ProductImageRow, ProductRow } from "@/lib/catalog/types";
 
 export const reassuranceItems = [
   {
@@ -73,6 +73,32 @@ export function buildProductCards(
       imageUrl: firstImage?.image_url ?? product.image,
       imageAlt: firstImage?.alt_text ?? product.title,
       tags: product.compatibility ?? []
+    };
+  });
+}
+
+export function buildProductDetails(
+  products: ProductRow[],
+  categories: CategoryRow[],
+  productImages: ProductImageRow[]
+): ProductDetailModel[] {
+  const cards = buildProductCards(products, categories, productImages);
+  const productsById = new Map(products.map((product) => [product.id, product]));
+  const imageUrlsByProductId = new Map<string, string[]>();
+
+  for (const image of productImages) {
+    const list = imageUrlsByProductId.get(image.product_id) ?? [];
+    list.push(image.image_url);
+    imageUrlsByProductId.set(image.product_id, list);
+  }
+
+  return cards.map((card) => {
+    const product = productsById.get(card.id);
+
+    return {
+      ...card,
+      description: product?.description ?? card.short,
+      gallery: imageUrlsByProductId.get(card.id) ?? [card.imageUrl]
     };
   });
 }

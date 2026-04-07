@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+import { AddToCartButton } from "@/components/shop/add-to-cart-button";
 import styles from "@/components/home/product-card.module.css";
 import { formatEuro } from "@/lib/format";
 import type { ProductCardModel } from "@/lib/catalog/types";
@@ -14,7 +16,7 @@ export function ProductCard({ product }: { product: ProductCardModel }) {
 
   return (
     <article className={styles.card}>
-      <div className={styles.media}>
+      <Link href={`/p/${product.slug}`} className={styles.media}>
         {isTopSeller ? <span className={styles.badge}>Top-Seller</span> : null}
         <Image
           src={product.imageUrl}
@@ -23,12 +25,14 @@ export function ProductCard({ product }: { product: ProductCardModel }) {
           sizes="(min-width: 780px) 260px, 50vw"
           style={{ objectFit: "contain", padding: "12px" }}
         />
-      </div>
+      </Link>
       <div className={styles.meta}>
         <p className={styles.eyebrow}>
           {product.categoryLabel} · {product.line}
         </p>
-        <h3 className={styles.title}>{product.title}</h3>
+        <h3 className={styles.title}>
+          <Link href={`/p/${product.slug}`}>{product.title}</Link>
+        </h3>
         <p className={styles.spec}>{product.spec}</p>
         <p className={styles.spec}>{product.short}</p>
       </div>
@@ -42,10 +46,19 @@ export function ProductCard({ product }: { product: ProductCardModel }) {
         <span>Kostenlose Same-Day-Lieferung in Bielefeld</span>
       </div>
       <div className={styles.cta}>
-        <button type="button" className={styles.button}>
-          In den Warenkorb nach Login
-        </button>
-        <span className={styles.note}>Kauf-Einstieg vorhanden, Checkout/Auth folgt in eigener Slice.</span>
+        <AddToCartButton
+          className={styles.button}
+          product={{
+            productId: product.id,
+            slug: product.slug,
+            title: product.title,
+            categoryLabel: product.categoryLabel,
+            spec: product.spec,
+            priceCents: product.priceCents,
+            imageUrl: product.imageUrl
+          }}
+        />
+        <span className={styles.note}>Warenkorb ist lokal aktiv. Bestellung endet ehrlich als Anfrage zur Bestätigung.</span>
       </div>
     </article>
   );

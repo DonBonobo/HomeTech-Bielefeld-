@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SiteHeader } from "@/components/home/site-header";
+import { AddToCartButton } from "@/components/shop/add-to-cart-button";
 import styles from "@/components/listing/listing-page.module.css";
 import { formatEuro } from "@/lib/format";
 import type { ListingData } from "@/lib/catalog/types";
@@ -62,7 +63,7 @@ export function ListingPage({ data }: { data: ListingData }) {
             <span>{data.total} sichtbare Produkte</span>
             <span>inkl. 19% MwSt.</span>
             <span>Same-Day in Bielefeld</span>
-            <span>Login vor Kauf</span>
+            <span>Bestellung als ehrliche Anfrage</span>
           </div>
         </section>
 
@@ -104,7 +105,7 @@ export function ListingPage({ data }: { data: ListingData }) {
             {data.products.length ? (
               data.products.map((product) => (
                 <article key={product.id} className={styles.resultCard}>
-                  <div className={styles.resultMedia}>
+                  <Link href={`/p/${product.slug}`} className={styles.resultMedia}>
                     <Image
                       src={product.imageUrl}
                       alt={product.imageAlt}
@@ -112,14 +113,16 @@ export function ListingPage({ data }: { data: ListingData }) {
                       sizes="(min-width: 780px) 220px, 100vw"
                       style={{ objectFit: "contain", padding: "14px" }}
                     />
-                  </div>
+                  </Link>
 
                   <div className={styles.resultBody}>
                     <div>
                       <div className={styles.eyebrow}>
                         {product.categoryLabel} · {product.line}
                       </div>
-                      <h2 className={styles.resultTitle}>{product.title}</h2>
+                      <h2 className={styles.resultTitle}>
+                        <Link href={`/p/${product.slug}`}>{product.title}</Link>
+                      </h2>
                       <p className={styles.resultText}>{product.spec}</p>
                       <p className={styles.resultText}>{product.short}</p>
                     </div>
@@ -136,10 +139,19 @@ export function ListingPage({ data }: { data: ListingData }) {
                     </div>
 
                     <div className={styles.ctaRow}>
-                      <button type="button" className={styles.ctaButton}>
-                        In den Warenkorb nach Login
-                      </button>
-                      <span className={styles.ctaNote}>Kein Fake-Cart: Kauf startet erst nach Anmeldung.</span>
+                      <AddToCartButton
+                        className={styles.ctaButton}
+                        product={{
+                          productId: product.id,
+                          slug: product.slug,
+                          title: product.title,
+                          categoryLabel: product.categoryLabel,
+                          spec: product.spec,
+                          priceCents: product.priceCents,
+                          imageUrl: product.imageUrl
+                        }}
+                      />
+                      <span className={styles.ctaNote}>Checkout endet ehrlich als Bestellanfrage ohne falsche Zahlungsbehauptung.</span>
                     </div>
                   </div>
                 </article>

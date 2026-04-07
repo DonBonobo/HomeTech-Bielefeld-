@@ -50,6 +50,11 @@ export type ProductCardModel = {
   tags: string[];
 };
 
+export type ProductDetailModel = ProductCardModel & {
+  description: string;
+  gallery: string[];
+};
+
 export type CategoryShortcutModel = {
   slug: string;
   label: string;
@@ -93,4 +98,15 @@ export type ListingData = {
   hasSearch: boolean;
   hasCategoryFilter: boolean;
   emptyState: string;
+};
+
+export type CartItem = {
+  productId: string;
+  slug: string;
+  title: string;
+  categoryLabel: string;
+  spec: string;
+  priceCents: number;
+  imageUrl: string;
+  quantity: number;
 };

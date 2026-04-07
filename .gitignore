@@ -6,3 +6,6 @@ artifacts
 playwright-report
 test-results
 tsconfig.tsbuildinfo
+runtime/logs
+runtime/*.pid
+runtime/public-url.txt
