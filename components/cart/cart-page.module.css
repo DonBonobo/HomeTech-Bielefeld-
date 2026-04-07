@@ -74,6 +74,10 @@
   background: #fff;
 }
 
+.qty button:disabled {
+  opacity: 0.45;
+}
+
 .primary,
 .secondary {
   min-height: 48px;

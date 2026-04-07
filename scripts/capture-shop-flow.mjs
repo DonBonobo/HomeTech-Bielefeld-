@@ -158,7 +158,7 @@ try {
 
   await page.goto(`${baseUrl}/checkout`, { waitUntil: "domcontentloaded", timeout: 60_000 });
   await page.waitForLoadState("networkidle", { timeout: 15_000 }).catch(() => undefined);
-  await expect(page.getByRole("heading", { level: 1, name: "Bestellanfrage" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "Checkout & Zahlung" })).toBeVisible();
   await assertNoBannedLanguage(page);
   await addBanner(page, `${prefix} checkout`, `${baseUrl}/checkout`);
   await page.screenshot({ path: path.join(outputDir, `${prefix}-checkout.png`), fullPage: true });
@@ -174,7 +174,7 @@ try {
 
   await Promise.all([
     page.waitForURL(confirmationRegex, { timeout: 60_000 }),
-    page.getByRole("button", { name: "Bestellanfrage senden" }).click()
+    page.getByRole("button", { name: "Ohne PayPal als Bestellanfrage senden" }).click()
   ]);
 
   await page.waitForLoadState("networkidle", { timeout: 15_000 }).catch(() => undefined);

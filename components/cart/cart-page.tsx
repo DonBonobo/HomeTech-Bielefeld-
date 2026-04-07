@@ -17,7 +17,7 @@ export function CartPage() {
       <section className={styles.layout}>
         <div className={styles.panel}>
           <h1 style={{ marginTop: 0 }}>Warenkorb</h1>
-          <p className={styles.muted}>Artikel bleiben lokal im Browser erhalten, bis du die Bestellanfrage absendest.</p>
+          <p className={styles.muted}>Artikel bleiben lokal im Browser erhalten. Bezahlt wird erst nach bestätigter PayPal Freigabe.</p>
 
           {items.length ? (
             <div className={styles.itemList}>
@@ -40,7 +40,11 @@ export function CartPage() {
                           -
                         </button>
                         <span>{item.quantity}</span>
-                        <button type="button" onClick={() => updateQuantity(item.productId, item.quantity + 1)}>
+                        <button
+                          type="button"
+                          disabled={item.quantity >= item.stockCount}
+                          onClick={() => updateQuantity(item.productId, item.quantity + 1)}
+                        >
                           +
                         </button>
                       </div>
@@ -78,9 +82,9 @@ export function CartPage() {
               <strong>{formatEuro(subtotalCents)}</strong>
             </div>
           </div>
-          <p className={styles.muted}>Zahlung wird noch nicht behauptet oder simuliert. Du gehst als Nächstes in eine ehrliche Bestellanfrage.</p>
+          <p className={styles.muted}>Weiter im Checkout mit PayPal oder als manuelle Bestellanfrage. Bezahlt gilt erst nach Capture-Erfolg.</p>
           <Link href="/checkout" className={styles.primary}>
-            Zur Bestellanfrage
+            Zum Checkout
           </Link>
         </aside>
       </section>

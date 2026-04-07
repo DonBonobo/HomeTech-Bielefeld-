@@ -6,7 +6,12 @@ function getEnv(name: string) {
   return value;
 }
 
+function getOptionalEnv(name: string) {
+  return process.env[name]?.trim() ?? "";
+}
+
 export const env = {
   supabaseUrl: getEnv("NEXT_PUBLIC_SUPABASE_URL"),
-  supabaseAnonKey: getEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY")
+  supabaseAnonKey: getEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY"),
+  appBaseUrl: getOptionalEnv("APP_BASE_URL")
 };

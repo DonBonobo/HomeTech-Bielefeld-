@@ -104,7 +104,7 @@ export function Homepage({ data }: { data: HomepageData }) {
                 <strong>Same-Day</strong> in Bielefeld
               </span>
               <span>
-                <strong>Login vor Kauf</strong>, bewusst schlank gehalten
+                <strong>PayPal zuerst</strong>, alternativ als Anfrage
               </span>
             </div>
           </div>

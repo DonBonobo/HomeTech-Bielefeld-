@@ -52,10 +52,15 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           const existing = current.find((entry) => entry.productId === item.productId);
           if (existing) {
             return current.map((entry) =>
-              entry.productId === item.productId ? { ...entry, quantity: entry.quantity + 1 } : entry
+              entry.productId === item.productId
+                ? {
+                    ...entry,
+                    quantity: Math.min(entry.stockCount, entry.quantity + 1)
+                  }
+                : entry
             );
           }
-          return [...current, { ...item, quantity: 1 }];
+          return item.stockCount > 0 ? [...current, { ...item, quantity: 1 }] : current;
         });
       },
       removeItem(productId) {
@@ -64,7 +69,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       updateQuantity(productId, quantity) {
         setItems((current) =>
           current
-            .map((entry) => (entry.productId === productId ? { ...entry, quantity } : entry))
+            .map((entry) =>
+              entry.productId === productId
+                ? {
+                    ...entry,
+                    quantity: Math.max(0, Math.min(entry.stockCount, quantity))
+                  }
+                : entry
+            )
             .filter((entry) => entry.quantity > 0)
         );
       },

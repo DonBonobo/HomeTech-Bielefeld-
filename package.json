@@ -20,7 +20,8 @@
     "assets:prepare": "node scripts/prepare-local-assets.mjs",
     "db:seed-homepage": "node scripts/seed-homepage-catalog.mjs",
     "qa:screenshots": "playwright test",
-    "qa:screenshots:update": "playwright test --update-snapshots"
+    "qa:screenshots:update": "playwright test --update-snapshots",
+    "qa:paypal": "node scripts/qa-paypal-flow.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4",

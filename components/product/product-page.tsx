@@ -62,7 +62,7 @@ export function ProductPage({
             <span className={styles.stock}>{stockLabel(product.stockCount)}</span>
             <span>Bestand: {product.stockCount}</span>
             <span>Kostenlose Same-Day-Lieferung in Bielefeld</span>
-            <span>Finaler Abschluss als ehrliche Bestellanfrage, solange Zahlung noch nicht live ist.</span>
+            <span>PayPal Checkout bevorzugt, alternativ manuelle Bestellanfrage.</span>
           </div>
 
           <div className={styles.actions}>
@@ -75,7 +75,8 @@ export function ProductPage({
                 categoryLabel: product.categoryLabel,
                 spec: product.spec,
                 priceCents: product.priceCents,
-                imageUrl: product.imageUrl
+                imageUrl: product.imageUrl,
+                stockCount: product.stockCount
               }}
             />
             <Link href="/cart" className={styles.secondaryLink}>

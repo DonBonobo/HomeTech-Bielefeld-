@@ -55,10 +55,11 @@ export function ProductCard({ product }: { product: ProductCardModel }) {
             categoryLabel: product.categoryLabel,
             spec: product.spec,
             priceCents: product.priceCents,
-            imageUrl: product.imageUrl
+            imageUrl: product.imageUrl,
+            stockCount: product.stockCount
           }}
         />
-        <span className={styles.note}>Warenkorb ist lokal aktiv. Bestellung endet ehrlich als Anfrage zur Bestätigung.</span>
+        <span className={styles.note}>Warenkorb lokal speichern, dann PayPal Checkout oder manuelle Anfrage wählen.</span>
       </div>
     </article>
   );

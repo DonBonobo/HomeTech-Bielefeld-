@@ -108,5 +108,6 @@ export type CartItem = {
   spec: string;
   priceCents: number;
   imageUrl: string;
+  stockCount: number;
   quantity: number;
 };

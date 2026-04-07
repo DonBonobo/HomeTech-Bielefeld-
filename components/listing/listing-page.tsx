@@ -63,7 +63,7 @@ export function ListingPage({ data }: { data: ListingData }) {
             <span>{data.total} sichtbare Produkte</span>
             <span>inkl. 19% MwSt.</span>
             <span>Same-Day in Bielefeld</span>
-            <span>Bestellung als ehrliche Anfrage</span>
+            <span>PayPal Checkout oder Bestellanfrage</span>
           </div>
         </section>
 
@@ -148,10 +148,11 @@ export function ListingPage({ data }: { data: ListingData }) {
                           categoryLabel: product.categoryLabel,
                           spec: product.spec,
                           priceCents: product.priceCents,
-                          imageUrl: product.imageUrl
+                          imageUrl: product.imageUrl,
+                          stockCount: product.stockCount
                         }}
                       />
-                      <span className={styles.ctaNote}>Checkout endet ehrlich als Bestellanfrage ohne falsche Zahlungsbehauptung.</span>
+                      <span className={styles.ctaNote}>Bezahlen mit PayPal oder als Anfrage abschließen, ohne falschen Paid-Status.</span>
                     </div>
                   </div>
                 </article>

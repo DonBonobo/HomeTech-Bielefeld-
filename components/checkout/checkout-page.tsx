@@ -3,22 +3,14 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { PayPalCheckoutPanel } from "@/components/checkout/paypal-checkout-panel";
 import { SiteHeader } from "@/components/home/site-header";
 import { useCart } from "@/components/providers/cart-provider";
+import type { CheckoutCustomer, PayPalClientConfig } from "@/lib/checkout-types";
 import { formatEuro } from "@/lib/format";
 import styles from "@/components/checkout/checkout-page.module.css";
 
-type FormState = {
-  fullName: string;
-  email: string;
-  phone: string;
-  street: string;
-  postalCode: string;
-  city: string;
-  notes: string;
-};
-
-const initialState: FormState = {
+const initialState: CheckoutCustomer = {
   fullName: "",
   email: "",
   phone: "",
@@ -28,12 +20,20 @@ const initialState: FormState = {
   notes: ""
 };
 
-export function CheckoutPage() {
+export function CheckoutPage({ paypalConfig }: { paypalConfig: PayPalClientConfig }) {
   const router = useRouter();
   const { items, subtotalCents, clear } = useCart();
-  const [form, setForm] = useState<FormState>(initialState);
+  const [form, setForm] = useState<CheckoutCustomer>(initialState);
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const formIsComplete = [
+    form.fullName,
+    form.email,
+    form.phone,
+    form.street,
+    form.postalCode,
+    form.city
+  ].every((field) => field.trim().length > 0);
 
   async function submit() {
     setSubmitting(true);
@@ -60,15 +60,31 @@ export function CheckoutPage() {
     router.push(`/order-request/${payload.orderId}`);
   }
 
+  async function handlePaid(orderId: string) {
+    clear();
+    router.push(`/checkout/success/${orderId}`);
+  }
+
+  async function handleCancelled(orderId?: string) {
+    const target = orderId ? `/checkout/cancel?orderId=${encodeURIComponent(orderId)}` : "/checkout/cancel";
+    router.push(target);
+  }
+
+  async function handleFailed(orderId?: string) {
+    const target = orderId ? `/checkout/failure?orderId=${encodeURIComponent(orderId)}` : "/checkout/failure";
+    router.push(target);
+  }
+
   return (
     <main className={styles.page}>
       <SiteHeader />
 
       <section className={styles.layout}>
         <div className={styles.panel}>
-          <h1 style={{ marginTop: 0 }}>Bestellanfrage</h1>
+          <h1 style={{ marginTop: 0 }}>Checkout & Zahlung</h1>
           <p className={styles.notice}>
-            Zahlung wird hier bewusst nicht simuliert. Du sendest eine echte Bestellanfrage, die anschließend manuell bestätigt wird.
+            PayPal ist der bevorzugte Abschluss. Ohne erfolgreiche PayPal Bestätigung oder manuelle
+            Bestellanfrage wird nichts als bezahlt markiert.
           </p>
 
           {items.length ? (
@@ -104,16 +120,25 @@ export function CheckoutPage() {
                 </label>
               </div>
 
+              <div className={styles.infoCard}>
+                <strong>So läuft der Kauf</strong>
+                <div className={styles.infoList}>
+                  <span>1. Du prüfst Lieferadresse und Warenkorb.</span>
+                  <span>2. PayPal berechnet den Betrag serverseitig aus den echten Produktdaten.</span>
+                  <span>3. Erst nach bestätigtem Capture wird die Bestellung als bezahlt geführt.</span>
+                </div>
+              </div>
+
               {error ? <p className={styles.error}>{error}</p> : null}
 
               <div className={styles.actions}>
                 <button
                   type="button"
                   className={styles.primary}
-                  disabled={submitting}
+                  disabled={submitting || !formIsComplete}
                   onClick={submit}
                 >
-                  {submitting ? "Bestellanfrage wird gespeichert ..." : "Bestellanfrage senden"}
+                  {submitting ? "Bestellanfrage wird gespeichert ..." : "Ohne PayPal als Bestellanfrage senden"}
                 </button>
                 <Link href="/cart" className={styles.secondary}>
                   Zurück zum Warenkorb
@@ -144,20 +169,38 @@ export function CheckoutPage() {
               </div>
             ))}
           </div>
-          <div style={{ display: "grid", gap: "10px", marginTop: "16px" }}>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <span>Zwischensumme</span>
+            <div style={{ display: "grid", gap: "10px", marginTop: "16px" }}>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <span>Zwischensumme</span>
               <span>{formatEuro(subtotalCents)}</span>
             </div>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <span>Lieferung Bielefeld</span>
               <span>Kostenlos</span>
             </div>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <strong>Gesamt</strong>
-              <strong>{formatEuro(subtotalCents)}</strong>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <strong>Gesamt</strong>
+                <strong>{formatEuro(subtotalCents)}</strong>
+              </div>
             </div>
-          </div>
+
+            <PayPalCheckoutPanel
+              config={paypalConfig}
+              customer={form}
+              items={items.map((item) => ({
+                productId: item.productId,
+                quantity: item.quantity
+              }))}
+              totalCents={subtotalCents}
+              disabled={!items.length || !formIsComplete}
+              onPaid={handlePaid}
+              onCancelled={handleCancelled}
+              onFailed={handleFailed}
+            />
+            <p className={styles.supportCopy}>
+              Wenn PayPal gerade nicht verfügbar ist, kannst du dieselben Artikeldaten als manuelle
+              Bestellanfrage speichern.
+            </p>
         </aside>
       </section>
     </main>
