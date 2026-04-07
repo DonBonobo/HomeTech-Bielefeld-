@@ -1,0 +1,105 @@
+.card {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: 0 10px 28px rgba(28, 40, 32, 0.05);
+}
+
+.media {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 14px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #fbfcfa 0%, #eff3ee 100%);
+}
+
+.badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+  background: #f1e4a9;
+  color: #4d4112;
+  border-radius: 999px;
+  padding: 5px 9px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.meta {
+  display: grid;
+  gap: 6px;
+}
+
+.meta p,
+.meta h3 {
+  margin: 0;
+}
+
+.eyebrow {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.title {
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.spec {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.priceRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+.vat {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.facts {
+  display: grid;
+  gap: 4px;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.stock {
+  color: var(--accent-strong);
+  font-weight: 600;
+}
+
+.cta {
+  display: grid;
+  gap: 6px;
+}
+
+.button {
+  min-height: 44px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  cursor: default;
+}
+
+.note {
+  color: var(--muted);
+  font-size: 0.78rem;
+}

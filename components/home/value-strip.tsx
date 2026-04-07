@@ -1,0 +1,31 @@
+import Image from "next/image";
+import styles from "@/components/home/homepage.module.css";
+import { reassuranceItems } from "@/lib/catalog/get-homepage-data";
+
+export function ValueStrip() {
+  return (
+    <section className={styles.section} aria-labelledby="value-strip-title">
+      <div className={styles.sectionHead}>
+        <div>
+          <h2 id="value-strip-title" className={styles.sectionTitle}>
+            Ruhige Fakten statt Werbetext
+          </h2>
+          <p className={styles.sectionBody}>Lieferung, Preis und Ablauf direkt sichtbar.</p>
+        </div>
+      </div>
+      <div className={styles.valueGrid}>
+        {reassuranceItems.map((item) => (
+          <article key={item.title} className={styles.valueCard}>
+            <div className={styles.valueImage}>
+              <Image src={item.imageUrl} alt="" width={160} height={160} />
+            </div>
+            <div>
+              <h3>{item.title}</h3>
+              <p className={styles.sectionBody}>{item.body}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}

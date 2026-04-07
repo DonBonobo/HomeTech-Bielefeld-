@@ -1,0 +1,424 @@
+{
+  "categories": [
+    {
+      "slug": "schrauben",
+      "label": "Schrauben",
+      "position": 0
+    },
+    {
+      "slug": "duebel",
+      "label": "Dübel",
+      "position": 1
+    },
+    {
+      "slug": "bolzen-muttern",
+      "label": "Bolzen & Muttern",
+      "position": 2
+    },
+    {
+      "slug": "kleben-dichten",
+      "label": "Kleben & Dichten",
+      "position": 3
+    },
+    {
+      "slug": "elektro",
+      "label": "Elektro",
+      "position": 4
+    },
+    {
+      "slug": "sanitaer",
+      "label": "Sanitär",
+      "position": 5
+    }
+  ],
+  "products": [
+    {
+      "id": "fischer-duopower-8x40-50",
+      "slug": "fischer-duopower-8x40-50",
+      "title": "Fischer DuoPower 8x40 mm",
+      "category_slug": "duebel",
+      "line": "Nylon-Dübel",
+      "spec": "50 Stück",
+      "short": "Universaldübel für Voll- und Hohlbaustoffe.",
+      "description": "Vielseitiger Universaldübel für schnelle Reparaturen und Montagearbeiten. Lokal auf Lager in Bielefeld.",
+      "price_cents": 795,
+      "stock_count": 24,
+      "visible": true,
+      "image": "/assets/products/fischer-duopower-8x40-50.png",
+      "gallery": [
+        "/assets/products/fischer-duopower-8x40-50.png"
+      ],
+      "compatibility": [
+        "topseller",
+        "sameday",
+        "local-stock"
+      ]
+    },
+    {
+      "id": "fischer-universal-ux-6x35-100",
+      "slug": "fischer-universal-ux-6x35-100",
+      "title": "Fischer Universal UX 6x35 mm",
+      "category_slug": "duebel",
+      "line": "Universal-Dübel",
+      "spec": "100 Stück",
+      "short": "Solider Standarddübel für Holz- und Wandschrauben.",
+      "description": "Klassischer Universaldübel für Alltagsmontage. Preisstark, lagernd und same-day lieferbar in Bielefeld.",
+      "price_cents": 1295,
+      "stock_count": 18,
+      "visible": true,
+      "image": "/assets/products/fischer-universal-ux-6x35-100.png",
+      "gallery": [
+        "/assets/products/fischer-universal-ux-6x35-100.png"
+      ],
+      "compatibility": [
+        "sameday",
+        "local-stock"
+      ]
+    },
+    {
+      "id": "ph2-drywall-screws-100",
+      "slug": "trockenbauschrauben-ph2-35mm-100",
+      "title": "Trockenbauschrauben PH2 3,5x35 mm",
+      "category_slug": "schrauben",
+      "line": "Grobgewinde",
+      "spec": "100 Stück",
+      "short": "Schwarz phosphatierte Schrauben für schnelle Innenausbauarbeiten.",
+      "description": "Handliches Schraubenpaket für Reparaturen und Ausbau. Direkt aus lokalem Lager in Bielefeld.",
+      "price_cents": 699,
+      "stock_count": 33,
+      "visible": true,
+      "image": "/assets/products/ph2-drywall-screws-100.png",
+      "gallery": [
+        "/assets/products/ph2-drywall-screws-100.png"
+      ],
+      "compatibility": [
+        "topseller",
+        "sameday",
+        "local-stock"
+      ]
+    },
+    {
+      "id": "brass-wood-screws-5x60-50",
+      "slug": "holzschrauben-messing-5x60-50",
+      "title": "Holzschrauben Messing 5x60 mm",
+      "category_slug": "schrauben",
+      "line": "Senkkopf",
+      "spec": "50 Stück",
+      "short": "Dekorative Senkkopfschrauben für Holz und Beschläge.",
+      "description": "Messingfarbene Holzschrauben für sichtbare Befestigungen mit sauberem Finish.",
+      "price_cents": 999,
+      "stock_count": 16,
+      "visible": true,
+      "image": "/assets/products/brass-wood-screws-5x60-50.png",
+      "gallery": [
+        "/assets/products/brass-wood-screws-5x60-50.png"
+      ],
+      "compatibility": [
+        "sameday",
+        "local-stock"
+      ]
+    },
+    {
+      "id": "tox-metal-fixings-m5x32-50",
+      "slug": "tox-metallbefestigung-m5x32-50",
+      "title": "TOX Metallbefestigung M5x32",
+      "category_slug": "bolzen-muttern",
+      "line": "Metall-Hohlraumbefestigung",
+      "spec": "50 Stück",
+      "short": "Belastbare Metallbefestigung für Hohlräume und Platten.",
+      "description": "Kompaktes Set für sichere Hohlraumbefestigungen. Praktisch für schnelle Mitnahme und direkte Lieferung.",
+      "price_cents": 1895,
+      "stock_count": 11,
+      "visible": true,
+      "image": "/assets/products/tox-metal-fixings-m5x32-50.png",
+      "gallery": [
+        "/assets/products/tox-metal-fixings-m5x32-50.png"
+      ],
+      "compatibility": [
+        "topseller",
+        "sameday",
+        "local-stock"
+      ]
+    },
+    {
+      "id": "assorted-nuts-washers-set",
+      "slug": "muttern-unterlegscheiben-sortiment",
+      "title": "Muttern & Unterlegscheiben Sortiment",
+      "category_slug": "bolzen-muttern",
+      "line": "Sortimentsbox",
+      "spec": "6 Fächer",
+      "short": "Handliches Set mit gängigen Größen für Werkstatt und Haushalt.",
+      "description": "Sortimentsbox mit gemischten Muttern, Unterlegscheiben und Messing-Einsätzen für spontane Reparaturen.",
+      "price_cents": 1495,
+      "stock_count": 9,
+      "visible": true,
+      "image": "/assets/products/assorted-nuts-washers-set.png",
+      "gallery": [
+        "/assets/products/assorted-nuts-washers-set.png"
+      ],
+      "compatibility": [
+        "sameday",
+        "local-stock"
+      ]
+    },
+    {
+      "id": "pattex-power-glue-3g",
+      "slug": "pattex-power-glue-3g",
+      "title": "Pattex Power Glue 3 g",
+      "category_slug": "kleben-dichten",
+      "line": "Sofortkleber",
+      "spec": "3 g",
+      "short": "Sekundenkleber für schnelle Reparaturen im Haushalt.",
+      "description": "Kompakter Sofortkleber für Keramik, Kunststoff und kleine Reparaturen. Same-day aus Bielefeld.",
+      "price_cents": 495,
+      "stock_count": 28,
+      "visible": true,
+      "image": "/assets/products/pattex-power-glue-3g.png",
+      "gallery": [
+        "/assets/products/pattex-power-glue-3g.png"
+      ],
+      "compatibility": [
+        "topseller",
+        "sameday",
+        "local-stock"
+      ]
+    },
+    {
+      "id": "x-tack-montagekleber-290ml",
+      "slug": "x-tack-montagekleber-290ml",
+      "title": "X-Tack Montagekleber 290 ml",
+      "category_slug": "kleben-dichten",
+      "line": "Montagekleber",
+      "spec": "290 ml",
+      "short": "Universeller Kleber für feste Innenmontagen.",
+      "description": "Montagekleber für Leisten, Halterungen und kleine Befestigungen ohne unnötigen Schnickschnack.",
+      "price_cents": 1095,
+      "stock_count": 14,
+      "visible": true,
+      "image": "/assets/products/x-tack-montagekleber-290ml.png",
+      "gallery": [
+        "/assets/products/x-tack-montagekleber-290ml.png"
+      ],
+      "compatibility": [
+        "sameday",
+        "local-stock"
+      ]
+    },
+    {
+      "id": "terminal-block-set-12-polig",
+      "slug": "klemmenleiste-12-polig-sortiment",
+      "title": "Klemmenleisten Sortiment 12-polig",
+      "category_slug": "elektro",
+      "line": "Anschlussklemmen",
+      "spec": "2 Boxen",
+      "short": "Kompaktes Elektro-Sortiment für saubere Schraubverbindungen.",
+      "description": "Praktische Auswahl an Anschlussklemmen für kleine Elektroarbeiten und Reparaturen im Haushalt.",
+      "price_cents": 895,
+      "stock_count": 17,
+      "visible": true,
+      "image": "/assets/products/terminal-block-set-12-polig.png",
+      "gallery": [
+        "/assets/products/terminal-block-set-12-polig.png"
+      ],
+      "compatibility": [
+        "topseller",
+        "sameday",
+        "local-stock"
+      ]
+    },
+    {
+      "id": "cable-gland-grommet-set",
+      "slug": "kabeldurchfuehrung-gummitullen-set",
+      "title": "Kabeldurchführung & Gummitüllen Set",
+      "category_slug": "elektro",
+      "line": "Schutzset",
+      "spec": "3 Boxen",
+      "short": "Sortiment für sichere Kabeldurchgänge und Zugentlastung.",
+      "description": "Kleine Boxen mit Kabeldurchführungen und Tüllen für Nachrüstungen und ordentliche Kabeleinführungen.",
+      "price_cents": 1295,
+      "stock_count": 13,
+      "visible": true,
+      "image": "/assets/products/cable-gland-grommet-set.png",
+      "gallery": [
+        "/assets/products/cable-gland-grommet-set.png"
+      ],
+      "compatibility": [
+        "sameday",
+        "local-stock"
+      ]
+    },
+    {
+      "id": "ptfe-gewindedichtband-12m",
+      "slug": "ptfe-gewindedichtband-12m",
+      "title": "PTFE Gewindedichtband 12 m",
+      "category_slug": "sanitaer",
+      "line": "Dichtband",
+      "spec": "2 Rollen",
+      "short": "Sauberes Abdichten von Gewinden bei Wasser- und Luftanschlüssen.",
+      "description": "Handliches PTFE-Band für schnelle Sanitärreparaturen und kleine Installationen.",
+      "price_cents": 399,
+      "stock_count": 41,
+      "visible": true,
+      "image": "/assets/products/ptfe-gewindedichtband-12m.png",
+      "gallery": [
+        "/assets/products/ptfe-gewindedichtband-12m.png"
+      ],
+      "compatibility": [
+        "topseller",
+        "sameday",
+        "local-stock"
+      ]
+    },
+    {
+      "id": "pipe-gasket-repair-kit",
+      "slug": "rohrdichtung-reparaturset",
+      "title": "Rohrdichtung Reparaturset",
+      "category_slug": "sanitaer",
+      "line": "Dichtungssatz",
+      "spec": "Kleinset",
+      "short": "Gängige Dichtungen für Siphon, Ablauf und Armatur.",
+      "description": "Sinnvolles Set für spontane Reparaturen an kleinen Sanitäranschlüssen und Ablaufverbindungen.",
+      "price_cents": 799,
+      "stock_count": 22,
+      "visible": true,
+      "image": "/assets/products/pipe-gasket-repair-kit.png",
+      "gallery": [
+        "/assets/products/pipe-gasket-repair-kit.png"
+      ],
+      "compatibility": [
+        "topseller",
+        "sameday",
+        "local-stock"
+      ]
+    },
+    {
+      "id": "sanitary-silicone-white-280ml",
+      "slug": "sanitaer-silikon-weiss-280ml",
+      "title": "Sanitär-Silikon Weiß 280 ml",
+      "category_slug": "kleben-dichten",
+      "line": "Fugendichtung",
+      "spec": "280 ml",
+      "short": "Für Bad, Küche und saubere Anschlussfugen.",
+      "description": "Weiße Sanitärfuge für Bad und Küche mit klassischem Kartuschenformat.",
+      "price_cents": 899,
+      "stock_count": 19,
+      "visible": true,
+      "image": "/assets/products/sanitary-silicone-white-280ml.png",
+      "gallery": [
+        "/assets/products/sanitary-silicone-white-280ml.png"
+      ],
+      "compatibility": [
+        "sameday",
+        "local-stock"
+      ]
+    },
+    {
+      "id": "tec7-construction-sealant-300ml",
+      "slug": "tec7-konstruktionsdichtstoff-300ml",
+      "title": "TEC7 Konstruktionsdichtstoff 300 ml",
+      "category_slug": "kleben-dichten",
+      "line": "Dichtstoff",
+      "spec": "300 ml",
+      "short": "Starker Allround-Dichtstoff für Montage und Reparatur.",
+      "description": "Robuster Dichtstoff für schnelle Montageeinsätze und Reparaturen im Innen- und Außenbereich.",
+      "price_cents": 1295,
+      "stock_count": 12,
+      "visible": true,
+      "image": "/assets/products/tec7-construction-sealant-300ml.png",
+      "gallery": [
+        "/assets/products/tec7-construction-sealant-300ml.png"
+      ],
+      "compatibility": [
+        "topseller",
+        "sameday",
+        "local-stock"
+      ]
+    }
+  ],
+  "productImages": [
+    {
+      "product_id": "fischer-duopower-8x40-50",
+      "image_url": "/assets/products/fischer-duopower-8x40-50.png",
+      "alt_text": "Fischer DuoPower 8x40 mm 50 Stück",
+      "position": 0
+    },
+    {
+      "product_id": "fischer-universal-ux-6x35-100",
+      "image_url": "/assets/products/fischer-universal-ux-6x35-100.png",
+      "alt_text": "Fischer Universal UX 6x35 mm 100 Stück",
+      "position": 0
+    },
+    {
+      "product_id": "ph2-drywall-screws-100",
+      "image_url": "/assets/products/ph2-drywall-screws-100.png",
+      "alt_text": "Trockenbauschrauben PH2 3,5x35 mm",
+      "position": 0
+    },
+    {
+      "product_id": "brass-wood-screws-5x60-50",
+      "image_url": "/assets/products/brass-wood-screws-5x60-50.png",
+      "alt_text": "Holzschrauben Messing 5x60 mm",
+      "position": 0
+    },
+    {
+      "product_id": "tox-metal-fixings-m5x32-50",
+      "image_url": "/assets/products/tox-metal-fixings-m5x32-50.png",
+      "alt_text": "TOX Metallbefestigung M5x32",
+      "position": 0
+    },
+    {
+      "product_id": "assorted-nuts-washers-set",
+      "image_url": "/assets/products/assorted-nuts-washers-set.png",
+      "alt_text": "Muttern und Unterlegscheiben Sortiment",
+      "position": 0
+    },
+    {
+      "product_id": "pattex-power-glue-3g",
+      "image_url": "/assets/products/pattex-power-glue-3g.png",
+      "alt_text": "Pattex Power Glue 3 g",
+      "position": 0
+    },
+    {
+      "product_id": "x-tack-montagekleber-290ml",
+      "image_url": "/assets/products/x-tack-montagekleber-290ml.png",
+      "alt_text": "X-Tack Montagekleber 290 ml",
+      "position": 0
+    },
+    {
+      "product_id": "terminal-block-set-12-polig",
+      "image_url": "/assets/products/terminal-block-set-12-polig.png",
+      "alt_text": "Klemmenleisten Sortiment 12-polig",
+      "position": 0
+    },
+    {
+      "product_id": "cable-gland-grommet-set",
+      "image_url": "/assets/products/cable-gland-grommet-set.png",
+      "alt_text": "Kabeldurchführung und Gummitüllen Set",
+      "position": 0
+    },
+    {
+      "product_id": "ptfe-gewindedichtband-12m",
+      "image_url": "/assets/products/ptfe-gewindedichtband-12m.png",
+      "alt_text": "PTFE Gewindedichtband 12 m",
+      "position": 0
+    },
+    {
+      "product_id": "pipe-gasket-repair-kit",
+      "image_url": "/assets/products/pipe-gasket-repair-kit.png",
+      "alt_text": "Rohrdichtung Reparaturset",
+      "position": 0
+    },
+    {
+      "product_id": "sanitary-silicone-white-280ml",
+      "image_url": "/assets/products/sanitary-silicone-white-280ml.png",
+      "alt_text": "Sanitär-Silikon Weiß 280 ml",
+      "position": 0
+    },
+    {
+      "product_id": "tec7-construction-sealant-300ml",
+      "image_url": "/assets/products/tec7-construction-sealant-300ml.png",
+      "alt_text": "TEC7 Konstruktionsdichtstoff 300 ml",
+      "position": 0
+    }
+  ]
+}
