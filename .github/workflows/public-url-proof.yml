@@ -1,0 +1,47 @@
+name: Public URL Proof
+
+on:
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: Public base URL to verify
+        required: true
+        type: string
+      prefix:
+        description: Screenshot file prefix
+        required: false
+        default: public-proof
+        type: string
+
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Capture public proof
+        run: |
+          mkdir -p artifacts/public-proof
+          node scripts/capture-shop-flow.mjs "${{ inputs.base_url }}" artifacts/public-proof "${{ inputs.prefix }}" | tee artifacts/public-proof/summary.json
+
+      - name: Upload public proof artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: public-url-proof
+          path: artifacts/public-proof
+          retention-days: 14
