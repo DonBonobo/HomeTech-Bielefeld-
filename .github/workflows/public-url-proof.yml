@@ -35,11 +35,14 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Capture public proof
+        shell: bash
         run: |
+          set -euo pipefail
           mkdir -p artifacts/public-proof
           node scripts/capture-shop-flow.mjs "${{ inputs.base_url }}" artifacts/public-proof "${{ inputs.prefix }}" | tee artifacts/public-proof/summary.json
 
       - name: Upload public proof artifact
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: public-url-proof
