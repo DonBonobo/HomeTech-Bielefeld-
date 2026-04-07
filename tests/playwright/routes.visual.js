@@ -6,6 +6,7 @@ const ARTIFACT_ROOT = path.join(process.cwd(), "artifacts", "playwright");
 const SCREENSHOT_ROOT = path.join(ARTIFACT_ROOT, "screenshots");
 const manifestEntries = [];
 const expectedOrigin = new URL(process.env.PLAYWRIGHT_BASE_URL || "http://127.0.0.1:3100").origin;
+const useExternalBaseUrl = Boolean(process.env.PLAYWRIGHT_BASE_URL);
 
 const cartSeed = [
   { id: "white-ambiance-e27-1100", quantity: 1 },
@@ -20,8 +21,8 @@ const previewUser = {
 
 const previewAdmin = {
   session: { access_token: "visual-preview-token" },
-  user: { id: "visual-admin-1", email: "admin@hometech-bielefeld.de" },
-  profile: { id: "visual-admin-1", email: "admin@hometech-bielefeld.de", full_name: "Admin", role: "admin" },
+  user: { id: "visual-admin-1", email: "hometech.bielefeld@gmail.com" },
+  profile: { id: "visual-admin-1", email: "hometech.bielefeld@gmail.com", full_name: "Admin", role: "admin" },
 };
 
 const previewOrders = [
@@ -124,7 +125,10 @@ async function seedPreview(page, options = {}) {
 async function captureCase(page, bucket, viewport, entry) {
   await page.setViewportSize(viewport);
   await seedPreview(page, entry);
-  await page.goto(entry.route, { waitUntil: "networkidle" });
+  await page.goto(entry.route, { waitUntil: useExternalBaseUrl ? "domcontentloaded" : "networkidle" });
+  if (useExternalBaseUrl) {
+    await page.waitForTimeout(800);
+  }
   if (entry.expectPathname) {
     await expect(page).toHaveURL(new RegExp(`${entry.expectPathname.replace("/", "\\/")}(\\?|$)`));
   }

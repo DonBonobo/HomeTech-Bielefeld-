@@ -153,7 +153,7 @@ describe("AccountPage", () => {
   });
 
   it("shows admin entry only for admin users", () => {
-    authState.user = { id: "user-1", email: "admin@example.com" };
+    authState.user = { id: "user-1", email: "hometech.bielefeld@gmail.com" };
     authState.profile = { full_name: "Admin" };
     authState.role = "admin";
     authState.isAdmin = true;

@@ -7,7 +7,6 @@ import { getVisualPreview } from "@/lib/visual-preview";
 
 const AuthContext = createContext(null);
 const AUTH_REDIRECT_KEY = "hometech.auth.next";
-const ALLOWED_ADMIN_ROLE = "admin";
 const ADMIN_EMAIL_ALLOWLIST = new Set(["hometech.bielefeld@gmail.com"]);
 
 async function upsertAndReadProfile(supabase, user) {
@@ -151,7 +150,7 @@ export function AuthProvider({ children }) {
 
   const role = profile?.role || user?.app_metadata?.role || user?.user_metadata?.role || "customer";
   const email = (profile?.email || user?.email || "").toLowerCase();
-  const isAdmin = role === ALLOWED_ADMIN_ROLE || ADMIN_EMAIL_ALLOWLIST.has(email);
+  const isAdmin = ADMIN_EMAIL_ALLOWLIST.has(email);
 
   const value = useMemo(() => ({
     supabase,
