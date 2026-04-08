@@ -110,6 +110,9 @@ export async function getListingData(mode: ListingMode, input: ListingInput): Pr
         : sortDefault(mode, query.q, filteredCards);
 
   const activeCategoryRow = query.category ? categories.find((category) => category.slug === query.category) : undefined;
+  const extraProducts = allCards
+    .filter((card) => !sortedCards.some((entry) => entry.id === card.id))
+    .slice(0, sortedCards.length >= 4 ? 0 : 4 - sortedCards.length);
   const categoryLinks = buildCategoryLinks(
     categories,
     mode === "search" && query.q ? baseCards : allCards,
@@ -149,6 +152,7 @@ export async function getListingData(mode: ListingMode, input: ListingInput): Pr
     subheading,
     breadcrumbs,
     products: sortedCards,
+    extraProducts,
     total: sortedCards.length,
     activeQuery: query.q,
     activeCategory: query.category,

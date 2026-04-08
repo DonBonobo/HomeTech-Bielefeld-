@@ -13,13 +13,14 @@ export function CartLink() {
         display: "inline-flex",
         alignItems: "center",
         gap: "8px",
-        padding: "10px 14px",
+        minHeight: "36px",
+        padding: "0 12px",
         borderRadius: "999px",
         border: "1px solid var(--line)",
-        background: "rgba(255,255,255,0.85)",
+        background: "var(--surface)",
         color: "var(--text)",
-        fontSize: "0.92rem",
-        fontWeight: 600
+        fontSize: "0.82rem",
+        fontWeight: 700
       }}
     >
       Warenkorb
@@ -30,9 +31,9 @@ export function CartLink() {
           display: "inline-grid",
           placeItems: "center",
           borderRadius: "999px",
-          background: "var(--accent-soft)",
+          background: "#eef3ff",
           color: "var(--accent-strong)",
-          fontSize: "0.82rem"
+          fontSize: "0.76rem"
         }}
       >
         {itemCount}

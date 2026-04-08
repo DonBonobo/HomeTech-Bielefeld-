@@ -1,0 +1,65 @@
+{
+  "batchId": "2026-04-08_current-assortment-demo",
+  "items": [
+    {
+      "sku": "fischer-duopower-8x40-50",
+      "slug": "fischer-duopower-8x40-50",
+      "brand": "fischer",
+      "sourceType": "user-provided",
+      "rightsConfirmed": true,
+      "rightsNote": "User-provided lawful source image kept in the HomeTech external media workspace.",
+      "processingMode": "enhance",
+      "sourcePaths": [
+        "/storage/emulated/0/DCIM/🤖 HomeTech🤘Bielefeld🌆/Pics/product-images/prepared/fischer-duopower-8x40-50.png"
+      ]
+    },
+    {
+      "sku": "fischer-universal-ux-6x35-100",
+      "slug": "fischer-universal-ux-6x35-100",
+      "brand": "fischer",
+      "sourceType": "user-provided",
+      "rightsConfirmed": true,
+      "rightsNote": "User-provided lawful source image kept in the HomeTech external media workspace.",
+      "processingMode": "enhance",
+      "sourcePaths": [
+        "/storage/emulated/0/DCIM/🤖 HomeTech🤘Bielefeld🌆/Pics/product-images/prepared/fischer-universal-ux-6x35-100.png"
+      ]
+    },
+    {
+      "sku": "pattex-power-glue-3g",
+      "slug": "pattex-power-glue-3g",
+      "brand": "Pattex",
+      "sourceType": "user-provided",
+      "rightsConfirmed": true,
+      "rightsNote": "User-provided lawful source image kept in the HomeTech external media workspace.",
+      "processingMode": "enhance",
+      "sourcePaths": [
+        "/storage/emulated/0/DCIM/🤖 HomeTech🤘Bielefeld🌆/Pics/product-images/prepared/pattex-power-glue-3g.png"
+      ]
+    },
+    {
+      "sku": "ptfe-gewindedichtband-12m",
+      "slug": "ptfe-gewindedichtband-12m",
+      "brand": "HomeTech",
+      "sourceType": "user-provided",
+      "rightsConfirmed": true,
+      "rightsNote": "User-provided lawful source image kept in the HomeTech external media workspace.",
+      "processingMode": "enhance",
+      "sourcePaths": [
+        "/storage/emulated/0/DCIM/🤖 HomeTech🤘Bielefeld🌆/Pics/product-images/prepared/ptfe-gewindedichtband-12m.png"
+      ]
+    },
+    {
+      "sku": "terminal-block-set-12-polig",
+      "slug": "terminal-block-set-12-polig",
+      "brand": "HomeTech",
+      "sourceType": "user-provided",
+      "rightsConfirmed": true,
+      "rightsNote": "User-provided lawful source image kept in the HomeTech external media workspace.",
+      "processingMode": "enhance",
+      "sourcePaths": [
+        "/storage/emulated/0/DCIM/🤖 HomeTech🤘Bielefeld🌆/Pics/product-images/prepared/terminal-block-set-12-polig.png"
+      ]
+    }
+  ]
+}

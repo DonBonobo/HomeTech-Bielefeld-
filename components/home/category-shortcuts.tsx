@@ -9,9 +9,9 @@ export function CategoryShortcuts({ categories }: { categories: CategoryShortcut
       <div className={styles.sectionHead}>
         <div>
           <h2 id="category-shortcuts-title" className={styles.sectionTitle}>
-            Schnell zum passenden Regal
+            Sortiment
           </h2>
-          <p className={styles.sectionBody}>Kompakte Sortimente aus lokal verfügbarem Lagerbestand.</p>
+          <p className={styles.sectionBody}>Direkte Wege in die wichtigsten Lagerbereiche.</p>
         </div>
       </div>
       <div className={styles.categoryGrid}>

@@ -18,9 +18,12 @@
     "public:status": "sh scripts/public-status.sh",
     "typecheck": "tsc --noEmit",
     "assets:prepare": "node scripts/prepare-local-assets.mjs",
+    "images:process": "node scripts/product-images/run-pipeline.mjs",
+    "images:demo-batch": "node scripts/product-images/run-pipeline.mjs scripts/product-images/batches/current-assortment-demo.json",
     "db:seed-homepage": "node scripts/seed-homepage-catalog.mjs",
     "qa:screenshots": "playwright test",
     "qa:screenshots:update": "playwright test --update-snapshots",
+    "qa:storefront": "node scripts/capture-storefront-flow.mjs",
     "qa:paypal": "node scripts/qa-paypal-flow.mjs"
   },
   "dependencies": {

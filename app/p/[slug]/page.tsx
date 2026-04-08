@@ -8,11 +8,11 @@ type ProductRouteProps = {
 
 export default async function ProductRoute({ params }: ProductRouteProps) {
   const { slug } = await params;
-  const { product, relatedProducts } = await getProductData(slug);
+  const { product, relatedProducts, categoryLinks } = await getProductData(slug);
 
   if (!product) {
     notFound();
   }
 
-  return <ProductPage product={product} relatedProducts={relatedProducts} />;
+  return <ProductPage product={product} relatedProducts={relatedProducts} categoryLinks={categoryLinks} />;
 }

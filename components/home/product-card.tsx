@@ -19,11 +19,12 @@ export function ProductCard({ product }: { product: ProductCardModel }) {
       <Link href={`/p/${product.slug}`} className={styles.media}>
         {isTopSeller ? <span className={styles.badge}>Top-Seller</span> : null}
         <Image
+          className={styles.mediaImage}
           src={product.imageUrl}
           alt={product.imageAlt}
           fill
           sizes="(min-width: 780px) 260px, 50vw"
-          style={{ objectFit: "contain", padding: "12px" }}
+          style={{ objectFit: "contain" }}
         />
       </Link>
       <div className={styles.meta}>
@@ -34,7 +35,7 @@ export function ProductCard({ product }: { product: ProductCardModel }) {
           <Link href={`/p/${product.slug}`}>{product.title}</Link>
         </h3>
         <p className={styles.spec}>{product.spec}</p>
-        <p className={styles.spec}>{product.short}</p>
+        <p className={styles.copy}>{product.short}</p>
       </div>
       <div className={styles.priceRow}>
         <span className={styles.price}>{formatEuro(product.priceCents)}</span>
@@ -43,7 +44,7 @@ export function ProductCard({ product }: { product: ProductCardModel }) {
       <div className={styles.facts}>
         <span className={styles.stock}>{stockLabel(product.stockCount)}</span>
         <span>Bestand: {product.stockCount}</span>
-        <span>Kostenlose Same-Day-Lieferung in Bielefeld</span>
+        <span>Lieferung heute in Bielefeld</span>
       </div>
       <div className={styles.cta}>
         <AddToCartButton
@@ -59,7 +60,6 @@ export function ProductCard({ product }: { product: ProductCardModel }) {
             stockCount: product.stockCount
           }}
         />
-        <span className={styles.note}>Warenkorb lokal speichern, dann PayPal Checkout oder manuelle Anfrage wählen.</span>
       </div>
     </article>
   );

@@ -1,10 +1,10 @@
 .panel {
   display: grid;
-  gap: 12px;
-  padding: 14px;
-  border-radius: 18px;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 6px;
   border: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(250, 251, 248, 0.96), rgba(240, 244, 238, 0.92));
+  background: var(--surface);
 }
 
 .header {
@@ -14,7 +14,7 @@
 
 .eyebrow {
   margin: 0;
-  font-size: 0.82rem;
+  font-size: 0.72rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--muted);
@@ -22,14 +22,14 @@
 
 .title {
   margin: 0;
-  font-size: 1rem;
+  font-size: 0.96rem;
 }
 
 .body {
   margin: 0;
   color: var(--muted);
-  font-size: 0.94rem;
-  line-height: 1.5;
+  font-size: 0.76rem;
+  line-height: 1.4;
 }
 
 .totals {
@@ -40,20 +40,20 @@
 }
 
 .buttonHost {
-  min-height: 48px;
+  min-height: 42px;
 }
 
 .hint,
 .feedback {
   margin: 0;
-  padding: 10px 12px;
-  border-radius: 14px;
-  font-size: 0.92rem;
+  padding: 9px 10px;
+  border-radius: 6px;
+  font-size: 0.78rem;
   line-height: 1.45;
 }
 
 .hint {
-  background: rgba(220, 233, 223, 0.56);
+  background: var(--surface);
   color: var(--text);
 }
 

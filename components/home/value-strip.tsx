@@ -8,9 +8,9 @@ export function ValueStrip() {
       <div className={styles.sectionHead}>
         <div>
           <h2 id="value-strip-title" className={styles.sectionTitle}>
-            Ruhige Fakten statt Werbetext
+            Fakten für den Abschluss
           </h2>
-          <p className={styles.sectionBody}>Lieferung, Preis und Ablauf direkt sichtbar.</p>
+          <p className={styles.sectionBody}>Lieferung, Mengenpreise und Bestellweg ohne Marketington.</p>
         </div>
       </div>
       <div className={styles.valueGrid}>

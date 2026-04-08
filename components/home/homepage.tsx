@@ -42,77 +42,69 @@ function ProductSection({
 
 export function Homepage({ data }: { data: HomepageData }) {
   const sectionTitle = "Top-Seller";
-  const sectionBody = "Häufig gekaufte Essentials aus lokalem Bestand, direkt lieferbar.";
+  const sectionBody = "Kompakte Lagerartikel mit klaren Preisen, sichtbarem Bestand und schneller Lieferung in Bielefeld.";
 
   return (
     <main className={styles.page}>
       <div className={styles.stack}>
         <SiteHeader />
 
-        <section className={styles.hero}>
-          <div className={styles.heroHeader}>
-            <div className={styles.crumbs}>
-              <span>Home</span>
-              <span>·</span>
-              <span>Hardware Essentials</span>
-              {data.activeCategory ? (
-                <>
-                  <span>·</span>
-                  <span>{data.activeCategory}</span>
-                </>
-              ) : null}
-            </div>
-            <div>
-              <h1 className={styles.title}>Finden, prüfen, bestellen.</h1>
-              <p className={styles.lead}>
-                Handliche Heimwerkerartikel aus lokalem Bielefelder Lagerbestand. Preis, Bestand und Same-Day-Lieferung
-                sofort sichtbar.
-              </p>
-            </div>
-
-            <form className={styles.searchForm} action="/search" method="get">
-              <div className={styles.searchControls}>
-                <input
-                  className={styles.searchInput}
-                  type="search"
-                  name="q"
-                  defaultValue={data.activeQuery}
-                  placeholder="Suche nach Schrauben, Dübeln, PTFE-Band, Klemmenleisten ..."
-                  aria-label="Produkte durchsuchen"
-                />
-                <div className={styles.searchActions}>
-                  <button className={styles.searchButton} type="submit">
-                    Suchen
-                  </button>
-                  {data.hasSearch ? (
-                    <Link className={styles.clearButton} href="/">
-                      Zurücksetzen
-                    </Link>
-                  ) : null}
-                </div>
+        <section className={styles.searchShell}>
+          <div className={styles.searchLead}>Lagerbestand lokal durchsuchen</div>
+          <form className={styles.searchForm} action="/search" method="get">
+            <div className={styles.searchControls}>
+              <input
+                className={styles.searchInput}
+                type="search"
+                name="q"
+                defaultValue={data.activeQuery}
+                placeholder="Search for screws, anchors, adhesives, etc..."
+                aria-label="Produkte durchsuchen"
+              />
+              <div className={styles.searchActions}>
+                <button className={styles.searchButton} type="submit">
+                  Search
+                </button>
+                {data.hasSearch ? (
+                  <Link className={styles.clearButton} href="/">
+                    Zurücksetzen
+                  </Link>
+                ) : null}
               </div>
-            </form>
-
-            <div className={styles.summary}>
-              <span>
-                <strong>6 Kategorien</strong> für den Sofortzugriff
-              </span>
-              <span>
-                <strong>Klare Preise</strong> inkl. MwSt.
-              </span>
-              <span>
-                <strong>Same-Day</strong> in Bielefeld
-              </span>
-              <span>
-                <strong>PayPal zuerst</strong>, alternativ als Anfrage
-              </span>
             </div>
+          </form>
+        </section>
+
+        <div className={styles.infoRail}>
+          <span>✓ Vollsortiment für kompakte Baustellenartikel</span>
+          <span>✓ Lokaler Bestand mit Same-Day-Lieferung in Bielefeld</span>
+          <Link href="/search" className={styles.railLink}>
+            Alle Produkte ansehen
+          </Link>
+        </div>
+
+        <section className={styles.introSection}>
+          <div>
+            <h1 className={styles.title}>Bielefelder Heimwerkerbedarf zu klaren Preisen</h1>
+            <p className={styles.lead}>
+              Handliche Lagerartikel mit sichtbarem Bestand, klaren Preisen und lokalem Versand. Der Fokus liegt auf
+              klarer Auswahl statt Deko.
+            </p>
+          </div>
+          <div className={styles.introList}>
+            <span>✓ Kostenlose Same-Day-Lieferung in Bielefeld</span>
+            <span>✓ Große Rabatte auf sinnvolle Mehrmengen</span>
           </div>
         </section>
 
         <CategoryShortcuts categories={data.categories} />
-        <ValueStrip />
         <ProductSection title={sectionTitle} body={sectionBody} products={data.featuredProducts} />
+        <div className={styles.browseRow}>
+          <Link href="/search" className={styles.browseLink}>
+            Alle Produkte durchsuchen
+          </Link>
+        </div>
+        <ValueStrip />
       </div>
     </main>
   );

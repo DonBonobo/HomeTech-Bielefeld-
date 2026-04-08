@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -81,15 +82,39 @@ export function CheckoutPage({ paypalConfig }: { paypalConfig: PayPalClientConfi
 
       <section className={styles.layout}>
         <div className={styles.panel}>
-          <h1 style={{ marginTop: 0 }}>Checkout & Zahlung</h1>
+          <div className={styles.progress} aria-label="Checkout Fortschritt">
+            <span className={styles.progressActive}>1 Kontakt & Lieferung</span>
+            <span>2 Zahlung</span>
+            <span>3 Bestätigung</span>
+          </div>
+
+          <h1 className={styles.heading}>Checkout</h1>
           <p className={styles.notice}>
-            PayPal ist der bevorzugte Abschluss. Ohne erfolgreiche PayPal Bestätigung oder manuelle
-            Bestellanfrage wird nichts als bezahlt markiert.
+            Adresse und Warenkorb zuerst prüfen. Als bezahlt gilt eine Bestellung erst nach bestätigter PayPal
+            Freigabe, sonst bleibt sie eine ehrliche Bestellanfrage.
           </p>
 
           {items.length ? (
             <>
-              <div className={styles.grid} style={{ marginTop: "16px" }}>
+              <div className={styles.orderCard}>
+                {items.map((item) => (
+                  <div key={item.productId} className={styles.orderLine}>
+                    <div className={styles.orderMedia}>
+                      <Image src={item.imageUrl} alt={item.title} fill sizes="72px" style={{ objectFit: "contain" }} />
+                    </div>
+                    <div>
+                      <strong>{item.title}</strong>
+                      <div>{item.spec}</div>
+                      <div>
+                        {item.quantity} × {formatEuro(item.priceCents)}
+                      </div>
+                    </div>
+                    <strong>{formatEuro(item.priceCents * item.quantity)}</strong>
+                  </div>
+                ))}
+              </div>
+
+              <div className={styles.grid}>
                 <label className={styles.field}>
                   <span>Name</span>
                   <input value={form.fullName} onChange={(event) => setForm((current) => ({ ...current, fullName: event.target.value }))} />
@@ -120,13 +145,10 @@ export function CheckoutPage({ paypalConfig }: { paypalConfig: PayPalClientConfi
                 </label>
               </div>
 
-              <div className={styles.infoCard}>
-                <strong>So läuft der Kauf</strong>
-                <div className={styles.infoList}>
-                  <span>1. Du prüfst Lieferadresse und Warenkorb.</span>
-                  <span>2. PayPal berechnet den Betrag serverseitig aus den echten Produktdaten.</span>
-                  <span>3. Erst nach bestätigtem Capture wird die Bestellung als bezahlt geführt.</span>
-                </div>
+              <div className={styles.infoList}>
+                <span>1. Lieferadresse prüfen</span>
+                <span>2. PayPal berechnet serverseitig aus echten Produktdaten</span>
+                <span>3. Bezahlt erst nach bestätigtem Capture</span>
               </div>
 
               {error ? <p className={styles.error}>{error}</p> : null}
@@ -156,7 +178,7 @@ export function CheckoutPage({ paypalConfig }: { paypalConfig: PayPalClientConfi
         </div>
 
         <aside className={styles.summary}>
-          <h2 style={{ marginTop: 0 }}>Zusammenfassung</h2>
+          <h2 className={styles.summaryHeading}>Zusammenfassung</h2>
           <div className={styles.itemList}>
             {items.map((item) => (
               <div key={item.productId} className={styles.item}>
@@ -169,16 +191,16 @@ export function CheckoutPage({ paypalConfig }: { paypalConfig: PayPalClientConfi
               </div>
             ))}
           </div>
-            <div style={{ display: "grid", gap: "10px", marginTop: "16px" }}>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div className={styles.totalBlock}>
+              <div className={styles.totalLine}>
                 <span>Zwischensumme</span>
               <span>{formatEuro(subtotalCents)}</span>
             </div>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div className={styles.totalLine}>
               <span>Lieferung Bielefeld</span>
               <span>Kostenlos</span>
             </div>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div className={styles.totalLine}>
                 <strong>Gesamt</strong>
                 <strong>{formatEuro(subtotalCents)}</strong>
               </div>

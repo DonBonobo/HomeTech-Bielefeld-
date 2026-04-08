@@ -89,6 +89,7 @@ export type ListingData = {
   subheading: string;
   breadcrumbs: Array<{ label: string; href: string }>;
   products: ProductCardModel[];
+  extraProducts: ProductCardModel[];
   total: number;
   activeQuery: string;
   activeCategory: string;

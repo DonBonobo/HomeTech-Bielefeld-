@@ -1,37 +1,42 @@
 .card {
   display: grid;
-  gap: 10px;
-  padding: 12px;
-  background: rgba(255, 255, 255, 0.94);
+  gap: 6px;
+  padding: 10px 10px 12px;
+  background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: 18px;
-  box-shadow: 0 10px 28px rgba(28, 40, 32, 0.05);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
 }
 
 .media {
   position: relative;
   aspect-ratio: 1 / 1;
-  border-radius: 14px;
+  border-radius: 6px;
   overflow: hidden;
-  background: linear-gradient(180deg, #fbfcfa 0%, #eff3ee 100%);
+  background: #fff;
+  border: 1px solid var(--line);
+}
+
+.mediaImage {
+  transform: scale(1.24);
 }
 
 .badge {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 6px;
+  left: 6px;
   z-index: 1;
-  background: #f1e4a9;
-  color: #4d4112;
+  background: #f7dfa0;
+  color: #5f4c1f;
   border-radius: 999px;
-  padding: 5px 9px;
-  font-size: 0.72rem;
+  padding: 3px 7px;
+  font-size: 0.68rem;
   font-weight: 700;
 }
 
 .meta {
   display: grid;
-  gap: 6px;
+  gap: 3px;
 }
 
 .meta p,
@@ -41,42 +46,48 @@
 
 .eyebrow {
   color: var(--muted);
-  font-size: 0.82rem;
+  font-size: 0.68rem;
 }
 
 .title {
-  font-size: 1rem;
-  line-height: 1.2;
+  font-size: 0.92rem;
+  line-height: 1.22;
 }
 
 .spec {
+  color: var(--text);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.copy {
   color: var(--muted);
-  font-size: 0.92rem;
+  font-size: 0.74rem;
+  line-height: 1.3;
+  min-height: 1.95em;
 }
 
 .priceRow {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
+  display: grid;
+  gap: 1px;
 }
 
 .price {
-  font-size: 1.5rem;
+  font-size: 1.56rem;
   font-weight: 700;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.03em;
 }
 
 .vat {
   color: var(--muted);
-  font-size: 0.8rem;
+  font-size: 0.72rem;
 }
 
 .facts {
   display: grid;
-  gap: 4px;
+  gap: 2px;
   color: var(--muted);
-  font-size: 0.82rem;
+  font-size: 0.71rem;
 }
 
 .stock {
@@ -85,21 +96,17 @@
 }
 
 .cta {
-  display: grid;
-  gap: 6px;
+  margin-top: 1px;
 }
 
 .button {
-  min-height: 44px;
+  width: 100%;
+  min-height: 34px;
   border: 0;
-  border-radius: 12px;
+  border-radius: 6px;
   background: var(--accent);
   color: #fff;
-  font-weight: 600;
-  cursor: default;
-}
-
-.note {
-  color: var(--muted);
+  font-weight: 700;
   font-size: 0.78rem;
+  cursor: default;
 }
